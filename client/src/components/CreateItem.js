@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from 'axios';
 
 class CreateItem extends Component {
   constructor(props) {
@@ -18,7 +19,7 @@ class CreateItem extends Component {
       category: "",
       quality: "",
       date: "",
-      price: 0,
+      price: "",
       description: "",
       selectedPic: "",
     };
@@ -80,6 +81,10 @@ class CreateItem extends Component {
     };
 
     console.log(item);
+
+    axios.post('http://localhost:5000/items/add', item)
+    .then(res => console.log(res.data));
+
   }
   render() {
     return (

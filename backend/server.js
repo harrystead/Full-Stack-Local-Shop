@@ -16,10 +16,10 @@ connection.once('open', () => {
     console.log(` 🚀 ==> MongoDB connection established successfully.`)
 });
 
-// const exercisesRouter = require('./routes/exercises');
+const itemsRouter = require('./routes/items-route');
 // const usersRouter = require('./routes/users');
 
-// app.use('/exercises', exercisesRouter);
+app.use('/items', itemsRouter);
 // app.use('/users', usersRouter);
 
 app.listen(PORT, () => {

@@ -7,11 +7,13 @@ const itemSchema = new Schema({
   category: { type: String, required: true },
   quality: { type: String, required: true },
   date: { type: String, required: true },
+  price: {type: String, required: true},
   description: { type: String, required: true },
+  selectedPic: {type: String, required: true},
 }, {
   timestamps: true,
 });
 
-const Item = mongoose.model('Item', exerciseSchema);
+const Item = mongoose.model('Item', itemSchema);
 
 module.exports = Item;

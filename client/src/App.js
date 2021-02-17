@@ -6,6 +6,7 @@ import ShopItemList from "./components/ShopItems";
 import EditItem from "./components/EditItem";
 import CreateItem from "./components/CreateItem";
 import CreateUser from "./components/User";
+import "./app.css";
 
 function App() {
   return (
