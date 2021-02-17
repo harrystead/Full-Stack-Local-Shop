@@ -10,6 +10,7 @@ const itemSchema = new Schema({
   price: {type: String, required: true},
   description: { type: String, required: true },
   selectedPic: {type: String, required: true},
+  author: { type: String, ref: 'User' },
 }, {
   timestamps: true,
 });

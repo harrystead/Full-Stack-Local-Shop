@@ -6,6 +6,7 @@ import ShopItemList from "./components/ShopItems";
 import EditItem from "./components/EditItem";
 import CreateItem from "./components/CreateItem";
 import CreateUser from "./components/User";
+import Profile from "./components/Profile";
 import "./app.css";
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
       <Route path="/edit/:id" component={EditItem} />
       <Route path="/user" component={CreateUser} />
       <Route path="/create" component={CreateItem} />
+      <Route path="/profile" component={Profile} />
     </Router>
   );
 }
