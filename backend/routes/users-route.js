@@ -6,3 +6,30 @@ router.route("/").get((req, res) => {
     .then((user) => res.json(user))
     .catch((err) => res.status(400).json("Error: " + err));
 });
+
+router.route("/add").post((req, res) => {
+    const fullname = req.body.fullname;
+    const username = req.body.username;
+    const email = req.body.email;
+    const city = req.body.city;
+    const county = req.body.county;
+    const postcode = req.body.postcode;
+    const number = req.body.number;
+  
+    const newUser = new User({
+      fullname,
+      username,
+      email,
+      city,
+      county,
+      postcode,
+      number,
+    });
+  
+    newUser
+      .save()
+      .then(() => res.json("User added!"))
+      .catch((err) => res.status(400).json("Error: " + err));
+  });
+
+  module.exports = router;

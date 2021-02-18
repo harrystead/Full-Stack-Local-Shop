@@ -5,3 +5,47 @@
     margin: auto;
     margin-top: 5px;
   }
+
+  body {
+    padding-bottom: 50px;
+}
+
+ .heading-item {
+   text-align: center;
+ }
+
+.navbar-float-right {
+  position: absolute;
+  right: 50px;
+}
+
+.navbar-nav {
+  font-size: 14px;
+}
+
+ul.navbar-nav li a{
+  padding: 4px;
+  color: black;
+}
+
+ul.navbar-nav a:hover { 
+  border-bottom: 1px black solid !important; 
+}
+
+ul.navbar-nav  {
+  align-content: center;
+  justify-content: center;
+  margin: auto;
+}
+
+.form-check{
+  width: 40%;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  margin-top: 5px;
+}
+
+.form-button{
+  text-align: center;
+}

@@ -17,10 +17,10 @@ connection.once('open', () => {
 });
 
 const itemsRouter = require('./routes/items-route');
-// const usersRouter = require('./routes/users');
+const usersRouter = require('./routes/users-route');
 
 app.use('/items', itemsRouter);
-// app.use('/users', usersRouter);
+app.use('/users', usersRouter);
 
 app.listen(PORT, () => {
     console.log(` 🚀 ==> Server is running on Port: ${PORT}`)

@@ -89,6 +89,7 @@ class CreateItem extends Component {
   render() {
     return (
       <form onSubmit={this.onSubmit}>
+        <h2 className="heading-item">Create an Item</h2>
         <div className="form-group">
           <label htmlFor="exampleFormControlInput1">Item Name</label>
           <input
@@ -200,6 +201,8 @@ class CreateItem extends Component {
             rows="3"
           ></textarea>
         </div>
+        <div className="form-group">
+        <label htmlFor="exampleFormControlInput1">Upload Image: </label>
         <div className="input-group mb-3">
           <div className="input-group-prepend">
             <span className="input-group-text">Upload</span>
@@ -216,7 +219,8 @@ class CreateItem extends Component {
             </label>
           </div>
         </div>
-        <div className="form-group row">
+        </div>
+        <div className="form-group row form-button">
           <div className="col-sm-10">
             <button type="submit" className="btn btn-primary">
               Submit

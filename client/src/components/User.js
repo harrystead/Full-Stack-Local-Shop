@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from 'axios';
 
 class CreateUser extends Component {
     constructor(props) {
@@ -80,13 +81,17 @@ class CreateUser extends Component {
         }
 
         console.log(user)
+
+        axios.post("http://localhost:5000/users/add", user)
+        .then((res) => console.log(res.data));
+
     }
     
   render() {
     return (
       <form onSubmit={this.onSubmit}>
-        <h2>Create A User</h2>
-        <div className="form-row align-items-center">
+        <h2 className="heading-item">Create A User</h2>
+        <div className="form-row align-items-center form-check">
           <div className="col-auto">
             <label htmlFor="inlineFormInput">Full Name</label>
             <input
@@ -97,7 +102,7 @@ class CreateUser extends Component {
               placeholder="Jane Doe"
             />
           </div>
-          <div className="col-auto">
+          <div className="col-auto ">
             <label htmlFor="inlineFormInputGroup">Username</label>
             <div className="input-group mb-2">
               <div className="input-group-prepend">
@@ -113,7 +118,7 @@ class CreateUser extends Component {
             </div>
           </div>
         </div>
-        <div className="col-md-6 mb-3">
+        <div className="col-md-6 mb-3 form-check">
             <label htmlFor="validationDefault03">Email</label>
             <input
               type="text"
@@ -124,7 +129,7 @@ class CreateUser extends Component {
               required
             />
           </div>
-        <div className="form-row">
+        <div className="form-row form-check">
           <div className="col-md-6 mb-3">
             <label htmlFor="validationDefault03">City/Town</label>
             <input
@@ -159,7 +164,7 @@ class CreateUser extends Component {
             />
           </div>
         </div>
-        <div className="col-md-6 mb-3">
+        <div className="col-md-6 mb-3 form-check">
             <label htmlFor="validationDefault03">Phone Number</label>
             <input
               type="text"
@@ -170,7 +175,7 @@ class CreateUser extends Component {
               required
             />
           </div>
-          <div className="form-group row">
+          <div className="form-group row form-button">
           <div className="col-sm-10">
             <button type="submit" className="btn btn-primary">
               Submit
