@@ -175,7 +175,7 @@ class CreateUser extends Component {
               required
             />
           </div>
-          <div className="form-group row form-button">
+          <div className="form-group row form-button-two">
           <div className="col-sm-10">
             <button type="submit" className="btn btn-primary">
               Submit

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import axios from 'axios';
+import axios from "axios";
+import ImageUploader from 'react-images-upload';
 
 class CreateItem extends Component {
   constructor(props) {
@@ -12,7 +13,10 @@ class CreateItem extends Component {
     this.onChangePrice = this.onChangePrice.bind(this);
     this.onChangeDescription = this.onChangeDescription.bind(this);
     this.onChangePicture = this.onChangePicture.bind(this);
+    this.onChangeAuthor = this.onChangeAuthor.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+
+    this.onDrop = this.onDrop.bind(this);
 
     this.state = {
       name: "",
@@ -21,8 +25,28 @@ class CreateItem extends Component {
       date: "",
       price: "",
       description: "",
-      selectedPic: "",
+      selectedPic: [],
+      users: [],
+      username: '',
+      author: '',
     };
+  }
+
+  componentDidMount() {
+    axios
+      .get("http://localhost:5000/users/")
+      .then((response) => {
+        if (response.data.length > 0) {
+          this.setState({
+            users: response.data.map((user) => user.username),
+            username: response.data[0].username,
+          });
+          console.log(response.data);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   onChangeName(e) {
@@ -55,15 +79,27 @@ class CreateItem extends Component {
     });
   }
 
-  onChangePrice(e){
+  onChangePrice(e) {
     this.setState({
       price: e.target.value,
-    })
+    });
   }
 
-  onChangePicture(e){
+  onChangePicture(e) {
     this.setState({
       selectedPic: e.target.files[0].name,
+    });
+  }
+
+  onDrop(pictureFiles, pictureDataURLs) {
+    this.setState({
+        selectedPic: this.state.selectedPic.concat(pictureFiles)
+    });
+}
+
+  onChangeAuthor(e) {
+    this.setState({
+      author: e.target.value,
     });
   }
 
@@ -77,14 +113,15 @@ class CreateItem extends Component {
       date: this.state.date,
       price: this.state.price,
       description: this.state.description,
-      selectedPic: this.state.selectedPic
+      selectedPic: this.state.selectedPic,
+      author: this.state.author,
     };
 
     console.log(item);
 
-    axios.post('http://localhost:5000/items/add', item)
-    .then(res => console.log(res.data));
-
+    axios
+      .post("http://localhost:5000/items/add", item)
+      .then((res) => console.log(res.data));
   }
   render() {
     return (
@@ -202,23 +239,49 @@ class CreateItem extends Component {
           ></textarea>
         </div>
         <div className="form-group">
-        <label htmlFor="exampleFormControlInput1">Upload Image: </label>
-        <div className="input-group mb-3">
-          <div className="input-group-prepend">
-            <span className="input-group-text">Upload</span>
-          </div>
-          <div className="custom-file">
-            <input
-              type="file"
-              onChange={this.onChangePicture}
-              className="custom-file-input"
-              id="inputGroupFile01"
-            />
-            <label className="custom-file-label" htmlFor="inputGroupFile01">
-            {this.state.selectedPic}
-            </label>
+          <label htmlFor="exampleFormControlInput1">Upload Image: </label>
+          {/* <ImageUploader
+                withIcon={true}
+                withPreview={true}
+                buttonText='Choose images'
+                onChange={this.onDrop}
+                imgExtension={['.jpg', '.gif', '.png', '.gif']}
+                maxFileSize={5242880}
+                fileSizeError=" file size is too big"
+            /> */}
+          <div className="input-group mb-3">
+            <div className="input-group-prepend">
+              <span className="input-group-text">Upload</span>
+            </div>
+            <div className="custom-file">
+              <input
+                type="file"
+                onChange={this.onChangePicture}
+                className="custom-file-input"
+                id="inputGroupFile01"
+              />
+              <label className="custom-file-label" htmlFor="inputGroupFile01">
+                {this.state.selectedPic}
+              </label>
+            </div>
           </div>
         </div>
+        <div className="seller-div">
+          <h3 className="heading-item">Select a Seller</h3>
+          <select
+            className="form-select-profile"
+            aria-label="Default select example"
+            onChange={this.onChangeAuthor}
+          >
+            <option defaultValue>select from menu</option>
+            {this.state.users.map(function (user) {
+              return (
+                <option key={user} value={user}>
+                  {user}
+                </option>
+              );
+            })}
+          </select>
         </div>
         <div className="form-group row form-button">
           <div className="col-sm-10">

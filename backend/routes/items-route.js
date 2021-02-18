@@ -15,6 +15,7 @@ router.route("/add").post((req, res) => {
     const price = req.body.price;
     const description = req.body.description;
     const selectedPic = req.body.selectedPic;
+    const author = req.body.author;
   
     const newItem = new Item({
       name,
@@ -24,6 +25,7 @@ router.route("/add").post((req, res) => {
       price,
       description,
       selectedPic,
+      author
     });
   
     newItem

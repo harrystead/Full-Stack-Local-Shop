@@ -29,11 +29,10 @@ class Profile extends Component {
 
   render() {
     return (
-      <div>
-        <div>
-            <h3>Select a Seller</h3>
-          <select className="form-select" aria-label="Default select example">
-            <option defaultValue>Open this menu</option>
+      <div className="seller-div">
+        <h3 className="heading-item">Select a Seller</h3>
+          <select className="form-select-profile" aria-label="Default select example">
+            <option defaultValue>select from menu</option>
             {
                 this.state.users.map(function(user) {
                   return <option 
@@ -43,7 +42,6 @@ class Profile extends Component {
                 })
               }
           </select>
-        </div>
         <div>
           <button>
             <Link to="/user" className="nav-link">

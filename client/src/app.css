@@ -48,4 +48,24 @@ ul.navbar-nav  {
 
 .form-button{
   text-align: center;
+  margin-top: 70px;
 }
+
+.form-button-twp{
+  text-align: center;
+  margin: auto;
+}
+
+.seller-div {
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+.form-select-profile {
+  width: 15%;
+  position: absolute;
+  right: 42.5%;
+  margin-top: 20px;
+}
+

@@ -24,11 +24,24 @@ class ShopItems extends Component {
     return (
       <div>
         <h2>shop items</h2>
-        <div>
+        <div className="card-group">
           {this.state.displayItems.map((item, index) => (
-            <p>
-                {item.name} {item.category}
-            </p>
+            <div class="col-sm-4">
+              <div className="card">
+                <img className="card-img-top" src={item.selectedPic} alt="error" />
+                <div className="card-body">
+                  <h5 className="card-title">{item.name}</h5>
+                  <p className="card-text">
+                    {item.description}
+                  </p>
+                  <p className="card-text">
+                    <small className="text-muted">
+                      Last updated 3 mins ago
+                    </small>
+                  </p>
+                </div>
+              </div>
+            </div>
           ))}
         </div>
       </div>
