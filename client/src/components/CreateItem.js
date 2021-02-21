@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import axios from "axios";
-import ImageUploader from 'react-images-upload';
 
 class CreateItem extends Component {
   constructor(props) {
@@ -16,8 +15,6 @@ class CreateItem extends Component {
     this.onChangeAuthor = this.onChangeAuthor.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
 
-    this.onDrop = this.onDrop.bind(this);
-
     this.state = {
       name: "",
       category: "",
@@ -25,10 +22,10 @@ class CreateItem extends Component {
       date: "",
       price: "",
       description: "",
-      selectedPic: [],
+      selectedPic: null,
       users: [],
-      username: '',
-      author: '',
+      username: "",
+      author: "",
     };
   }
 
@@ -87,15 +84,9 @@ class CreateItem extends Component {
 
   onChangePicture(e) {
     this.setState({
-      selectedPic: e.target.files[0].name,
+      selectedPic: e.target.files[0],
     });
   }
-
-  onDrop(pictureFiles, pictureDataURLs) {
-    this.setState({
-        selectedPic: this.state.selectedPic.concat(pictureFiles)
-    });
-}
 
   onChangeAuthor(e) {
     this.setState({
@@ -106,26 +97,32 @@ class CreateItem extends Component {
   onSubmit(e) {
     e.preventDefault();
 
-    const item = {
-      name: this.state.name,
-      category: this.state.category,
-      quality: this.state.quality,
-      date: this.state.date,
-      price: this.state.price,
-      description: this.state.description,
-      selectedPic: this.state.selectedPic,
-      author: this.state.author,
-    };
+    const formData = new FormData();
+    formData.append('selectedPic', this.state.selectedPic);
+    formData.append('name', this.state.name);
+    formData.append('cateogry', this.state.category);
 
-    console.log(item);
+    // const item = {
+    //   name: this.state.name,
+    //   category: this.state.category,
+    //   quality: this.state.quality,
+    //   date: this.state.date,
+    //   price: this.state.price,
+    //   selectedPic: this.state.selectedPic,
+    //   description: this.state.description,
+    //   author: this.state.author,
+    // };
 
+    // console.log(item);
+
+    //post to monogdb;
     axios
-      .post("http://localhost:5000/items/add", item)
+      .post("http://localhost:5000/items/add", formData)
       .then((res) => console.log(res.data));
   }
   render() {
     return (
-      <form onSubmit={this.onSubmit}>
+      <form onSubmit={this.onSubmit} encType="multipart/form-data">
         <h2 className="heading-item">Create an Item</h2>
         <div className="form-group">
           <label htmlFor="exampleFormControlInput1">Item Name</label>
@@ -240,15 +237,6 @@ class CreateItem extends Component {
         </div>
         <div className="form-group">
           <label htmlFor="exampleFormControlInput1">Upload Image: </label>
-          {/* <ImageUploader
-                withIcon={true}
-                withPreview={true}
-                buttonText='Choose images'
-                onChange={this.onDrop}
-                imgExtension={['.jpg', '.gif', '.png', '.gif']}
-                maxFileSize={5242880}
-                fileSizeError=" file size is too big"
-            /> */}
           <div className="input-group mb-3">
             <div className="input-group-prepend">
               <span className="input-group-text">Upload</span>
@@ -256,13 +244,16 @@ class CreateItem extends Component {
             <div className="custom-file">
               <input
                 type="file"
+                accept=".png, .jpg, .jpeg"
+                name="photo"
                 onChange={this.onChangePicture}
                 className="custom-file-input"
                 id="inputGroupFile01"
               />
               <label className="custom-file-label" htmlFor="inputGroupFile01">
-                {this.state.selectedPic}
+                Picture
               </label>
+              <img src={this.state.selectedPic} alt="dkd"></img>
             </div>
           </div>
         </div>

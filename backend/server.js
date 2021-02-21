@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const multer = require('multer');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -20,6 +21,7 @@ connection.once('open', () => {
 const itemsRouter = require('./routes/items-route');
 const usersRouter = require('./routes/users-route');
 
+app.use('/uploads', express.static('uploads'));
 app.use('/items', itemsRouter);
 app.use('/users', usersRouter);
 app.listen(PORT, () => {

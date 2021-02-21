@@ -3,13 +3,13 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const itemSchema = new Schema({
-  name: { type: String, required: true },
-  category: { type: String, required: true },
-  quality: { type: String, required: true },
-  date: { type: String, required: true },
-  price: {type: String, required: true},
-  description: { type: String, required: true },
-  selectedPic: {type: String },
+  name: { type: String },
+  category: { type: String },
+  quality: { type: String },
+  date: { type: String },
+  price: {type: String},
+  description: { type: String },
+  selectedPic: { type: String},
   author: { type: String, ref: 'User' },
 }, {
   timestamps: true,

@@ -52,8 +52,12 @@ ul.navbar-nav  {
 }
 
 .form-button-twp{
-  text-align: center;
-  margin: auto;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  border: 2px solid rgb(65, 65, 65);
+  transition: all 0.3s ease;
 }
 
 .seller-div {
@@ -68,4 +72,3 @@ ul.navbar-nav  {
   right: 42.5%;
   margin-top: 20px;
 }
-
