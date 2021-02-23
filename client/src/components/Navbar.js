@@ -16,6 +16,9 @@ const Navbar = () => {
           <li className="navbar-item navbar-float-right">
           <Link to="/create" className="nav-link navbar-float-right">Add Item</Link>
           </li>
+          <li className="navbar-item navbar-float-right">
+          <Link to="/user" className="nav-link navbar-float-right-right">Create Profile</Link>
+          </li>
         </ul>
         </div>
       </nav>

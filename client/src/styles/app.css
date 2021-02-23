@@ -19,7 +19,13 @@
 
 .navbar-float-right {
   position: absolute;
-  right: 50px;
+  right: 20px;
+  white-space: nowrap;
+}
+
+.navbar-float-right-right {
+  position: absolute;
+  right: 100px;
   white-space: nowrap;
 }
 
