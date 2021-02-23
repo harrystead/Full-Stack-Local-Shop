@@ -23,6 +23,11 @@
   white-space: nowrap;
 }
 
+.centre-nav {
+  position: relative;
+  right: 35%;
+}
+
 .navbar-nav {
   font-size: 14px;
 }
@@ -88,6 +93,10 @@ ul.navbar-nav  {
 
 .card-img-top {
   height: 200px;
+}
+
+.card {
+  border-radius: 30px;
 }
 
 .card-body p{
