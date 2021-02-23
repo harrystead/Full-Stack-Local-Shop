@@ -100,25 +100,20 @@ class CreateItem extends Component {
     const formData = new FormData();
     formData.append('selectedPic', this.state.selectedPic);
     formData.append('name', this.state.name);
-    formData.append('cateogry', this.state.category);
+    formData.append('category', this.state.category);
+    formData.append('quality', this.state.quality);
+    formData.append('date', this.state.date);
+    formData.append('price', this.state.price);
+    formData.append('description', this.state.description);
+    formData.append('author', this.state.author);
 
-    // const item = {
-    //   name: this.state.name,
-    //   category: this.state.category,
-    //   quality: this.state.quality,
-    //   date: this.state.date,
-    //   price: this.state.price,
-    //   selectedPic: this.state.selectedPic,
-    //   description: this.state.description,
-    //   author: this.state.author,
-    // };
-
-    // console.log(item);
-
+    console.log(this.state.category);
     //post to monogdb;
     axios
       .post("http://localhost:5000/items/add", formData)
       .then((res) => console.log(res.data));
+
+      window.location.reload();
   }
   render() {
     return (
@@ -251,9 +246,8 @@ class CreateItem extends Component {
                 id="inputGroupFile01"
               />
               <label className="custom-file-label" htmlFor="inputGroupFile01">
-                Picture
+
               </label>
-              <img src={this.state.selectedPic} alt="dkd"></img>
             </div>
           </div>
         </div>

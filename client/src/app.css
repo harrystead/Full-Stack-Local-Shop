@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@700&display=swap');
+
 .form-group {
     width: 40%;
     justify-content: center;
@@ -8,6 +10,7 @@
 
   body {
     padding-bottom: 50px;
+    font-family: "Poppins", sans-serif;;
 }
 
  .heading-item {
@@ -17,6 +20,7 @@
 .navbar-float-right {
   position: absolute;
   right: 50px;
+  white-space: nowrap;
 }
 
 .navbar-nav {
@@ -72,3 +76,26 @@ ul.navbar-nav  {
   right: 42.5%;
   margin-top: 20px;
 }
+
+.heading-allitems {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.card-group {
+  margin: 20px 50px;
+}
+
+.card-img-top {
+  height: 200px;
+}
+
+.card-body p{
+  margin-top: -10px;
+}
+
+.card-text-price {
+  font-weight: bold;
+}
+
+

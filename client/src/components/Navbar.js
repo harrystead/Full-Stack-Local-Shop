@@ -11,7 +11,7 @@ const Navbar = () => {
           <Link to="/" className="nav-link">Home</Link>
           </li>
           <li className="navbar-item">
-          <Link to="/profile" className="nav-link">Profile</Link>
+          <Link to="/profile" className="nav-link">Profiles</Link>
           </li>
           <li className="navbar-item navbar-float-right">
           <Link to="/create" className="nav-link navbar-float-right">Add Item</Link>

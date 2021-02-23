@@ -21,25 +21,31 @@ class ShopItems extends Component {
       });
   }
 
-
-
   render() {
     return (
       <div>
-        <h2>shop items</h2>
+        <h2 class="heading-allitems">All Items</h2>
         <div className="card-group">
           {this.state.displayItems.map((item, index) => (
-            <div className="col-sm-4">
+            <div className="col-sm-3">
               <div className="card">
                 <img className="card-img-top"src={"http://localhost:5000/" + item.selectedPic} alt="error" />
                 <div className="card-body">
                   <h5 className="card-title">{item.name}</h5>
                   <p className="card-text">
-                    {item.description}
+                    <small className="text-muted">
+                    Ad by {item.author}
+                    </small>
+                  </p>
+                  <p className="card-text-three">
+                    {item.category  + " | " + item.date + " | " + item.quality}
+                  </p>
+                  <p className="card-text-price">
+                    {"£" + item.price}
                   </p>
                   <p className="card-text">
                     <small className="text-muted">
-                      Last updated 3 mins ago
+                    Date Posted: {item.createdAt.slice(0, 10)}
                     </small>
                   </p>
                 </div>
