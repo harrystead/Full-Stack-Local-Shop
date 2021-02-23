@@ -8,7 +8,7 @@ import EditItem from "./components/EditItem";
 import CreateItem from "./components/CreateItem";
 import CreateUser from "./components/User";
 import Profile from "./components/Profile";
-import "./app.css";
+import "./styles/app.css";
 
 function App() {
   return (

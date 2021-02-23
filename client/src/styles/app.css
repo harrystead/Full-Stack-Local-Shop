@@ -57,7 +57,7 @@ ul.navbar-nav  {
 
 .form-button{
   text-align: center;
-  margin-top: 70px;
+  margin-top: 55px;
 }
 
 .form-button-twp{
@@ -79,7 +79,7 @@ ul.navbar-nav  {
   width: 15%;
   position: absolute;
   right: 42.5%;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .heading-allitems {
@@ -96,7 +96,7 @@ ul.navbar-nav  {
 }
 
 .card {
-  border-radius: 30px;
+  border-radius: 10px;
 }
 
 .card-body p{

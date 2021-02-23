@@ -98,14 +98,14 @@ class CreateItem extends Component {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append('selectedPic', this.state.selectedPic);
-    formData.append('name', this.state.name);
-    formData.append('category', this.state.category);
-    formData.append('quality', this.state.quality);
-    formData.append('date', this.state.date);
-    formData.append('price', this.state.price);
-    formData.append('description', this.state.description);
-    formData.append('author', this.state.author);
+    formData.append("selectedPic", this.state.selectedPic);
+    formData.append("name", this.state.name);
+    formData.append("category", this.state.category);
+    formData.append("quality", this.state.quality);
+    formData.append("date", this.state.date);
+    formData.append("price", this.state.price);
+    formData.append("description", this.state.description);
+    formData.append("author", this.state.author);
 
     console.log(this.state.category);
     //post to monogdb;
@@ -113,7 +113,7 @@ class CreateItem extends Component {
       .post("http://localhost:5000/items/add", formData)
       .then((res) => console.log(res.data));
 
-      window.location.reload();
+    window.location.reload();
   }
   render() {
     return (
@@ -245,9 +245,10 @@ class CreateItem extends Component {
                 className="custom-file-input"
                 id="inputGroupFile01"
               />
-              <label className="custom-file-label" htmlFor="inputGroupFile01">
-
-              </label>
+              <label
+                className="custom-file-label"
+                htmlFor="inputGroupFile01"
+              ></label>
             </div>
           </div>
         </div>
