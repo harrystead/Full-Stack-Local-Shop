@@ -11,6 +11,7 @@ class Profile extends Component {
       users: [],
       username: "",
       selectedProfile: "",
+      profileData: [],
     };
   }
 
@@ -21,7 +22,6 @@ class Profile extends Component {
         if (response.data.length > 0) {
           this.setState({
             users: response.data.map((user) => user.username),
-            username: response.data[0].username,
           });
           console.log(response.data);
         }
@@ -34,8 +34,18 @@ class Profile extends Component {
   onChangeSelectedProfile(e) {
     this.setState({
       selectedProfile: e.target.value,
+    }, () => {
+      axios
+        .get("http://localhost:5000/items/" + this.state.selectedProfile)
+        .then(response => {
+          console.log(response);
+          console.log(response.data);
+        })
+        .catch(error => {
+          console.log(error);
+        });
     })
-  }
+}
 
   render() {
     return (
@@ -55,9 +65,34 @@ class Profile extends Component {
             );
           })}
         </select>
-        <div>
-          <h2>{this.state.selectedProfile}</h2>
-        </div>
+        {/* <div className="card-group"> */}
+        {/* {this.state.profileData.map((item, index) => (
+            <div className="col-sm-3">
+              <div className="card">
+                <img
+                  className="card-img-top"
+                  src={"http://localhost:5000/" + item.selectedPic}
+                  alt="error"
+                />
+                <div className="card-body">
+                  <h5 className="card-title">{item.name}</h5>
+                  <p className="card-text">
+                    <small className="text-muted">Ad by {item.author}</small>
+                  </p>
+                  <p className="card-text-three">
+                    {item.category + " | " + item.date + " | " + item.quality}
+                  </p>
+                  <p className="card-text-price">{"£" + item.price}</p>
+                  <p className="card-text">
+                    <small className="text-muted">
+                      Date Posted: {item.createdAt.slice(0, 10)}
+                    </small>
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div> */}
       </div>
     );
   }

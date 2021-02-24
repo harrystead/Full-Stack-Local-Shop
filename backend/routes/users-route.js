@@ -1,4 +1,7 @@
 const router = require("express").Router();
+const express = require('express');
+const app = express();
+const { response } = require("express");
 let User = require("../models/user");
 
 router.route("/").get((req, res) => {
@@ -31,5 +34,15 @@ router.route("/add").post((req, res) => {
       .then(() => res.json("User added!"))
       .catch((err) => res.status(400).json("Error: " + err));
   });
+
+  
+  app.get("/:id", (req, res) => {
+    User.find({
+      where:
+      {
+        _id: req.params.id
+      }
+    }).catch(error=> console.log(error))
+  })
 
   module.exports = router;
