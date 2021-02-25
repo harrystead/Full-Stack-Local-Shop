@@ -114,7 +114,12 @@ ul.navbar-nav  {
 }
 
 .details-div {
+  text-align: center;
   position: relative;
-  right: -150px;
+  top: 50px;
 }
 
+.card-group-profile {
+  position: relative;
+  top: 60px;
+}

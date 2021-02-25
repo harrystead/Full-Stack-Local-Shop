@@ -88,7 +88,7 @@ class Profile extends Component {
             <h6>{this.state.profileData.postcode}</h6>
             <h6>{this.state.profileData.email}</h6>
         </div>
-        <div className="card-group">
+        <div className="card-group card-group-profile">
           {this.state.profileShop.map((item, index) => (
             <div className="col-sm-3">
               <div className="card">
