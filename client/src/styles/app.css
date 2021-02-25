@@ -113,4 +113,8 @@ ul.navbar-nav  {
   font-weight: bold;
 }
 
+.details-div {
+  position: relative;
+  right: -150px;
+}
 

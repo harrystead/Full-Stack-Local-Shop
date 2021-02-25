@@ -11,6 +11,7 @@ class Profile extends Component {
       users: [],
       username: "",
       selectedProfile: "",
+      profileShop: [],
       profileData: [],
     };
   }
@@ -32,20 +33,36 @@ class Profile extends Component {
   }
 
   onChangeSelectedProfile(e) {
-    this.setState({
-      selectedProfile: e.target.value,
-    }, () => {
-      axios
-        .get("http://localhost:5000/items/" + this.state.selectedProfile)
-        .then(response => {
-          console.log(response);
-          console.log(response.data);
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    })
-}
+    this.setState(
+      {
+        selectedProfile: e.target.value,
+      },
+      () => {
+        axios
+          .get("http://localhost:5000/users/" + this.state.selectedProfile)
+          .then((response) => {
+            console.log(response.data[0]);
+            this.setState({
+              profileData: response.data[0],
+            });
+            axios
+            .get("http://localhost:5000/items/" + this.state.selectedProfile)
+            .then((response) => {
+              console.log(response.data);
+              this.setState({
+                profileShop: response.data,
+              });
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      },
+    );
+  }
 
   render() {
     return (
@@ -65,8 +82,14 @@ class Profile extends Component {
             );
           })}
         </select>
-        {/* <div className="card-group"> */}
-        {/* {this.state.profileData.map((item, index) => (
+        <div class="details-div">
+          <h2>{this.state.profileData.fullname}</h2>
+            <h6>{this.state.profileData.city}, {this.state.profileData.county}</h6>
+            <h6>{this.state.profileData.postcode}</h6>
+            <h6>{this.state.profileData.email}</h6>
+        </div>
+        <div className="card-group">
+          {this.state.profileShop.map((item, index) => (
             <div className="col-sm-3">
               <div className="card">
                 <img
@@ -92,7 +115,7 @@ class Profile extends Component {
               </div>
             </div>
           ))}
-        </div> */}
+        </div>
       </div>
     );
   }
