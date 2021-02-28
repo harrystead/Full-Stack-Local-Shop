@@ -21,7 +21,7 @@ class CreateUser extends Component {
             city: "",
             county: "",
             postcode: "",
-            number: null
+            phoneNumber: "",
         }
     }
 
@@ -63,7 +63,7 @@ class CreateUser extends Component {
 
     onChangePhone(e){
         this.setState({
-            number: e.target.value,
+            phoneNumber: e.target.value,
         });
     }
 
@@ -77,12 +77,12 @@ class CreateUser extends Component {
             city: this.state.city,
             county: this.state.county,
             postcode: this.state.postcode,
-            number: this.state.number
+            phoneNumber: this.state.phoneNumber
         }
 
         console.log(user)
 
-        axios.post("http://localhost:5000/users/add", user)
+        axios.post("/users/add", user)
         .then((res) => console.log(res.data));
 
     }

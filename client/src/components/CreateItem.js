@@ -31,7 +31,7 @@ class CreateItem extends Component {
 
   componentDidMount() {
     axios
-      .get("http://localhost:5000/users/")
+      .get("/users/")
       .then((response) => {
         if (response.data.length > 0) {
           this.setState({
@@ -110,7 +110,7 @@ class CreateItem extends Component {
     console.log(this.state.category);
     //post to monogdb;
     axios
-      .post("http://localhost:5000/items/add", formData)
+      .post("/items/add", formData)
       .then((res) => console.log(res.data));
 
     window.location.reload();

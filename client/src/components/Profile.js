@@ -18,7 +18,7 @@ class Profile extends Component {
 
   componentDidMount() {
     axios
-      .get("http://localhost:5000/users/")
+      .get("/users/")
       .then((response) => {
         if (response.data.length > 0) {
           this.setState({
@@ -39,14 +39,14 @@ class Profile extends Component {
       },
       () => {
         axios
-          .get("http://localhost:5000/users/" + this.state.selectedProfile)
+          .get("/users/" + this.state.selectedProfile)
           .then((response) => {
             console.log(response.data[0]);
             this.setState({
               profileData: response.data[0],
             });
             axios
-            .get("http://localhost:5000/items/" + this.state.selectedProfile)
+            .get("/items/" + this.state.selectedProfile)
             .then((response) => {
               console.log(response.data);
               this.setState({
@@ -94,7 +94,7 @@ class Profile extends Component {
               <div className="card">
                 <img
                   className="card-img-top"
-                  src={"http://localhost:5000/" + item.selectedPic}
+                  src={"/" + item.selectedPic}
                   alt="error"
                 />
                 <div className="card-body">

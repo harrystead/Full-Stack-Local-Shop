@@ -1,7 +1,6 @@
 const router = require("express").Router();
 const express = require('express');
 const app = express();
-const { response } = require("express");
 let User = require("../models/user");
 
 router.route("/").get((req, res) => {
@@ -17,7 +16,7 @@ router.route("/add").post((req, res) => {
     const city = req.body.city;
     const county = req.body.county;
     const postcode = req.body.postcode;
-    const number = req.body.number;
+    const phoneNumber = req.body.phoneNumber;
   
     const newUser = new User({
       fullname,
@@ -26,7 +25,7 @@ router.route("/add").post((req, res) => {
       city,
       county,
       postcode,
-      number,
+      phoneNumber,
     });
   
     newUser

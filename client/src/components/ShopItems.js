@@ -11,7 +11,7 @@ class ShopItems extends Component {
   }
   componentDidMount() {
     axios
-      .get("http://localhost:5000/items")
+      .get("/items/")
       .then((response) => {
         this.setState({ displayItems: response.data });
         console.log(response.data)
@@ -29,7 +29,7 @@ class ShopItems extends Component {
           {this.state.displayItems.map((item, index) => (
             <div className="col-sm-3">
               <div className="card">
-                <img className="card-img-top"src={"http://localhost:5000/" + item.selectedPic} alt="error" />
+                <img className="card-img-top"src={"/" + item.selectedPic} alt="error" />
                 <div className="card-body">
                   <h5 className="card-title">{item.name}</h5>
                   <p className="card-text">
