@@ -7,9 +7,8 @@ import axios from 'axios';
 export default function ProfileDashboard() {
   const [error, setError] = useState("");
   const { currentUser, logout } = useAuth();
-
+  const [loading, setLoading] = useState(true)
   const history = useHistory();
-  console.log(currentUser.uid);
 
   //get items data for user.
   let [responseData, setResponseData] = useState('');
@@ -17,6 +16,7 @@ export default function ProfileDashboard() {
     axios.get(`/items/${currentUser.uid}`)
     .then((response) => {
       setResponseData(response.data)
+      setLoading(false)
     })
     .catch((error) => {
       console.log(error)
@@ -25,6 +25,7 @@ export default function ProfileDashboard() {
 
   React.useEffect(() => {
     fetchData()
+    setLoading(false)
   }, [fetchData])
 
   console.log(responseData)
@@ -41,6 +42,7 @@ export default function ProfileDashboard() {
 
   return (
     <>
+    {console.log(responseData)}
       <Card>
         <Card.Body>
           <h2 className="text-center mb-4">Profile</h2>
@@ -56,6 +58,34 @@ export default function ProfileDashboard() {
           Log Out
         </Button>
       </div>
+      <div className="card-group">
+        {responseData && responseData.map((item, index) => (
+            <div className="col-sm-3">
+              <div className="card">
+                <img className="card-img-top"src={"/" + item.selectedPic} alt="error" />
+                <div className="card-body">
+                  <h5 className="card-title">{item.name}</h5>
+                  <p className="card-text">
+                    <small className="text-muted">
+                    Ad by {item.author}
+                    </small>
+                  </p>
+                  <p className="card-text-three">
+                    {item.category  + " | " + item.date + " | " + item.quality}
+                  </p>
+                  <p className="card-text-price">
+                    {"£" + item.price}
+                  </p>
+                  <p className="card-text">
+                    <small className="text-muted">
+                    Date Posted: {item.createdAt.slice(0, 10)}
+                    </small>
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))} 
+        </div> 
     </>
   );
 }
