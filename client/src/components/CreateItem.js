@@ -29,22 +29,22 @@ class CreateItem extends Component {
     };
   }
 
-  componentDidMount() {
-    axios
-      .get("/users/")
-      .then((response) => {
-        if (response.data.length > 0) {
-          this.setState({
-            users: response.data.map((user) => user.username),
-            username: response.data[0].username,
-          });
-          console.log(response.data);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
+  // componentDidMount() {
+  //   axios
+  //     .get("/users/")
+  //     .then((response) => {
+  //       if (response.data.length > 0) {
+  //         this.setState({
+  //           users: response.data.map((user) => user.username),
+  //           username: response.data[0].username,
+  //         });
+  //         console.log(response.data);
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }
 
   onChangeName(e) {
     this.setState({

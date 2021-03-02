@@ -1,45 +1,36 @@
 const router = require("express").Router();
-const express = require('express');
-const app = express();
 let User = require("../models/user");
+const bcrypt = require('bcrypt')
 
-router.route("/").get((req, res) => {
-    User.find()
+router.get("/", (req, res) => {
+  User.find()
     .then((user) => res.json(user))
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-router.route("/add").post((req, res) => {
-    const fullname = req.body.fullname;
-    const username = req.body.username;
-    const email = req.body.email;
-    const city = req.body.city;
-    const county = req.body.county;
-    const postcode = req.body.postcode;
-    const phoneNumber = req.body.phoneNumber;
-  
+router.post('/add', async (req, res) => {
+  try {
+    const hashedPassword = await bcrypt.hash(req.body.password, 10)
     const newUser = new User({
-      fullname,
-      username,
-      email,
-      city,
-      county,
-      postcode,
-      phoneNumber,
-    });
-  
-    newUser
-      .save()
-      .then(() => res.json("User added!"))
-      .catch((err) => res.status(400).json("Error: " + err));
-  });
-
-  router.route("/:username").get((req, res) => {
-    User.find({
-      username: req.params.username,
+      fullname: req.body.fullname,
+      email: req.body.email,
+      password: hashedPassword
     })
-      .then((user) => res.json(user))
-      .catch((err) => res.status(400).json("Error: " + err));
-  });
+    newUser.save()
+    .then((response)=> {
+      console.log(response)
+    })
+  } catch(error) {
+    console.log(error)
+  }
+})
 
-  module.exports = router;
+// router.route("/:username").get((req, res) => {
+//   User.find({
+//     username: req.params.username,
+//   })
+//     .then((user) => res.json(user))
+//     .catch((err) => res.status(400).json("Error: " + err));
+// });
+
+module.exports = router;
