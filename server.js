@@ -22,7 +22,6 @@ const usersRouter = require('./routes/users-route');
 const itemsRouter = require('./routes/items-route');
 
 app.use('/uploads', express.static('uploads'));
-app.use('/users', usersRouter);
 app.use('/items', itemsRouter);
 
 if (process.env.NODE_ENV === 'production') {

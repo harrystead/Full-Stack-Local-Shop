@@ -10,9 +10,6 @@ const Navbar = () => {
           <li className="navbar-item">
           <Link to="/home" className="nav-link">Home</Link>
           </li>
-          <li className="navbar-item navbar-float-right">
-          <Link to="/create" className="nav-link navbar-float-right">Add Item</Link>
-          </li>
           <li className="navbar-item">
           <Link to="/login" className="nav-link">Login</Link>
           </li>

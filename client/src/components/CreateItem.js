@@ -1,284 +1,126 @@
-import React, { Component } from "react";
+import React, { useRef, useState } from "react";
 import axios from "axios";
+import { useAuth } from '../contexts/AuthContext';
+import {
+  Form,
+  Button,
+  Card,
+  Alert,
+  DropdownButton,
+  Dropdown,
+} from "react-bootstrap";
 
-class CreateItem extends Component {
-  constructor(props) {
-    super(props);
+export default function CreateItem() {
+  const { currentUser } = useAuth();
+  const nameRef = useRef();
+  const categoryRef = useRef();
+  const yearRef = useRef();
+  const priceRef = useRef();
+  const descriptionRef = useRef();
 
-    this.onChangeName = this.onChangeName.bind(this);
-    this.onChangeCategory = this.onChangeCategory.bind(this);
-    this.onChangeQuality = this.onChangeQuality.bind(this);
-    this.onChangeDate = this.onChangeDate.bind(this);
-    this.onChangePrice = this.onChangePrice.bind(this);
-    this.onChangeDescription = this.onChangeDescription.bind(this);
-    this.onChangePicture = this.onChangePicture.bind(this);
-    this.onChangeAuthor = this.onChangeAuthor.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
+  const [quality, setQuality] = useState("");
+  const [selectedPic, setSelectedPic] = useState("");
 
-    this.state = {
-      name: "",
-      category: "",
-      quality: "",
-      date: "",
-      price: "",
-      description: "",
-      selectedPic: null,
-      users: [],
-      username: "",
-      author: "",
-    };
+  const radioOnChange = (e) => {
+    setQuality(e.target.value)
   }
 
-  // componentDidMount() {
-  //   axios
-  //     .get("/users/")
-  //     .then((response) => {
-  //       if (response.data.length > 0) {
-  //         this.setState({
-  //           users: response.data.map((user) => user.username),
-  //           username: response.data[0].username,
-  //         });
-  //         console.log(response.data);
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }
-
-  onChangeName(e) {
-    this.setState({
-      name: e.target.value,
-    });
+  const pictureOnChange = (e) => {
+    setSelectedPic(e.target.files[0])
   }
 
-  onChangeCategory(e) {
-    this.setState({
-      category: e.target.value,
-    });
-  }
-
-  onChangeQuality(e) {
-    this.setState({
-      quality: e.target.value,
-    });
-  }
-
-  onChangeDate(e) {
-    this.setState({
-      date: e.target.value,
-    });
-  }
-
-  onChangeDescription(e) {
-    this.setState({
-      description: e.target.value,
-    });
-  }
-
-  onChangePrice(e) {
-    this.setState({
-      price: e.target.value,
-    });
-  }
-
-  onChangePicture(e) {
-    this.setState({
-      selectedPic: e.target.files[0],
-    });
-  }
-
-  onChangeAuthor(e) {
-    this.setState({
-      author: e.target.value,
-    });
-  }
-
-  onSubmit(e) {
+  async function onSubmit(e) {
     e.preventDefault();
-
+    console.log(currentUser.uid);
     const formData = new FormData();
-    formData.append("selectedPic", this.state.selectedPic);
-    formData.append("name", this.state.name);
-    formData.append("category", this.state.category);
-    formData.append("quality", this.state.quality);
-    formData.append("date", this.state.date);
-    formData.append("price", this.state.price);
-    formData.append("description", this.state.description);
-    formData.append("author", this.state.author);
+    formData.append("selectedPic", selectedPic);
+    formData.append("name", nameRef.current.value);
+    formData.append("category", categoryRef.current.value);
+    formData.append("quality", quality);
+    formData.append("date", yearRef.current.value);
+    formData.append("price", priceRef.current.value);
+    formData.append("description", descriptionRef.current.value);
+    formData.append("author", currentUser.uid);
 
-    console.log(this.state.category);
     //post to monogdb;
-    axios
-      .post("/items/add", formData)
-      .then((res) => console.log(res.data));
+    axios.post("/items/add", formData).then((res) => console.log(res.data));
 
     window.location.reload();
   }
-  render() {
-    return (
-      <form onSubmit={this.onSubmit} encType="multipart/form-data">
-        <h2 className="heading-item">Create an Item</h2>
-        <div className="form-group">
-          <label htmlFor="exampleFormControlInput1">Item Name</label>
-          <input
-            type="input"
-            onChange={this.onChangeName}
-            className="form-control"
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="exampleFormControlSelect1">Category: </label>
-          <select
-            className="form-control"
-            onChange={this.onChangeCategory}
-            id="exampleFormControlSelect1"
-          >
-            <option>Select an Option...</option>
-            <option>Furniture</option>
-            <option>Antiques</option>
-            <option>Toys</option>
-            <option>Books | CDs | DVDs</option>
-            <option>Clothing</option>
-            <option>Ornaments</option>
-            <option>Jewellery</option>
-            <option>Other</option>
-          </select>
-        </div>
-        <fieldset className="form-group">
-          <div className="row">
-            <legend className="col-form-label col-sm-2 pt-0">Quality: </legend>
-            <div className="col-sm-10">
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="radio"
-                  name="gridRadios"
-                  id="gridRadios1"
-                  value="Excellent Condition"
-                  onChange={this.onChangeQuality}
-                />
-                <label className="form-check-label" htmlFor="gridRadios1">
-                  Excellent Condition
-                </label>
-              </div>
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="radio"
-                  name="gridRadios"
-                  value="Good Condition"
-                  onChange={this.onChangeQuality}
-                  id="gridRadios2"
-                />
-                <label className="form-check-label" htmlFor="gridRadios2">
-                  Good Condition
-                </label>
-              </div>
-              <div className="form-check input">
-                <input
-                  className="form-check-input"
-                  type="radio"
-                  name="gridRadios"
-                  value="Fair Condition"
-                  onChange={this.onChangeQuality}
-                  id="gridRadios3"
-                />
-                <label className="form-check-label" htmlFor="gridRadios3">
-                  Fair Condition
-                </label>
-              </div>
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="radio"
-                  name="gridRadios"
-                  value="Poor Condition"
-                  onChange={this.onChangeQuality}
-                  id="gridRadios1"
-                />
-                <label className="form-check-label" htmlFor="gridRadios1">
-                  Poor Condition
-                </label>
-              </div>
-            </div>
-          </div>
-        </fieldset>
-        <div className="form-group">
-          <label htmlFor="exampleFormControlInput1">Year of Origin</label>
-          <input
-            type="input"
-            onChange={this.onChangeDate}
-            className="form-control"
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="exampleFormControlInput1">Price (£)</label>
-          <input
-            type="input"
-            placeholder="£"
-            onChange={this.onChangePrice}
-            className="form-control"
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="exampleFormControlTextarea1">Description: </label>
-          <textarea
-            className="form-control"
-            onChange={this.onChangeDescription}
-            id="exampleFormControlTextarea1"
-            rows="3"
-          ></textarea>
-        </div>
-        <div className="form-group">
-          <label htmlFor="exampleFormControlInput1">Upload Image: </label>
-          <div className="input-group mb-3">
-            <div className="input-group-prepend">
-              <span className="input-group-text">Upload</span>
-            </div>
-            <div className="custom-file">
-              <input
-                type="file"
-                accept=".png, .jpg, .jpeg"
-                name="photo"
-                onChange={this.onChangePicture}
-                className="custom-file-input"
-                id="inputGroupFile01"
-              />
-              <label
-                className="custom-file-label"
-                htmlFor="inputGroupFile01"
-              ></label>
-            </div>
-          </div>
-        </div>
-        <div className="seller-div">
-          <h3 className="heading-item">Select a Seller</h3>
-          <select
-            className="form-select-profile"
-            aria-label="Default select example"
-            onChange={this.onChangeAuthor}
-          >
-            <option defaultValue>select from menu</option>
-            {this.state.users.map(function (user) {
-              return (
-                <option key={user} value={user}>
-                  {user}
-                </option>
-              );
-            })}
-          </select>
-        </div>
-        <div className="form-group row form-button">
-          <div className="col-sm-10">
-            <button type="submit" className="btn btn-primary">
-              Submit
-            </button>
-          </div>
-        </div>
-      </form>
-    );
-  }
+  return (
+    <Form onSubmit={onSubmit} encType="multipart/form-data">
+      <h2 className="heading-item">Create an Item</h2>
+      <Form.Group id="name">
+        <Form.Label>Name</Form.Label>
+        <Form.Control type="Input" ref={nameRef} required />
+      </Form.Group>
+      <Form.Group>
+        <Form.Label>Category</Form.Label>
+        <Form.Control ref={categoryRef} as="select" defaultValue="Choose...">
+          <option>Choose...</option>
+          <option>Furniture</option>
+          <option>Antiques</option>
+          <option>Toys</option>
+          <option>Books | CDs | DVDs</option>
+          <option>Clothing</option>
+          <option>Ornaments</option>
+          <option>Jewellery</option>
+          <option>Other</option>
+        </Form.Control>
+      </Form.Group>
+      <Form.Group>
+        <Form.Label>Quality</Form.Label>
+        <Form.Check
+          type="radio"
+          label="Excellent Condition"
+          name="group2"
+          value="Excellent Condition"
+          onChange={radioOnChange}
+          id="radio1"
+        />
+        <Form.Check
+          type="radio"
+          label="Good Condition"
+          name="group2"
+          value="Good Condition"
+          onChange={radioOnChange}
+          id="radio2"
+        />
+        <Form.Check
+          type="radio"
+          label="Fair Condition"
+          name="group2"
+          value="Fair Condition"
+          onChange={radioOnChange}
+          id="radio3"
+        />
+        <Form.Check
+          type="radio"
+          label="Poor Condition"
+          value="Poor Condition"
+          name="group2"
+          onChange={radioOnChange}
+          id="radio4"
+        />
+      </Form.Group>
+      <Form.Group id="price">
+        <Form.Label>Year of Origin</Form.Label>
+        <Form.Control type="Input" ref={yearRef} required />
+      </Form.Group>
+      <Form.Group id="price">
+        <Form.Label>Price(£)</Form.Label>
+        <Form.Control type="Input" ref={priceRef} required />
+      </Form.Group>
+      <Form.Group controlId="exampleForm.ControlTextarea1">
+        <Form.Label>Description</Form.Label>
+        <Form.Control as="textarea" ref={descriptionRef} rows={3} />
+      </Form.Group>
+      <Form.Group>
+        <Form.File id="custom-file" onChange={pictureOnChange} label="Custom file input" custom />
+      </Form.Group>
+      <Button className="w-100" type="submit">
+        Sign Up
+      </Button>
+    </Form>
+  );
 }
-
-export default CreateItem;

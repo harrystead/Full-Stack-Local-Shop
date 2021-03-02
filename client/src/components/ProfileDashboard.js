@@ -4,11 +4,13 @@ import { Card, Button, Alert } from "react-bootstrap"
 import { useAuth } from "../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
 
-export default function Dashboard() {
+export default function ProfileDashboard() {
   const [error, setError] = useState("")
   const { currentUser, logout } = useAuth()
   const history = useHistory()
+  console.log(currentUser.uid)
   async function handleLogout() {
+
     setError("")
 
     try {
@@ -19,11 +21,13 @@ export default function Dashboard() {
     }
   }
 
+
   return (
     <>
       <Card>
         <Card.Body>
           <h2 className="text-center mb-4">Profile</h2>
+          <Link to="/create" className="navbar-float-right">Add Item</Link>
           {error && <Alert variant="danger">{error}</Alert>}
           <strong>Email:</strong> {currentUser.email}
         </Card.Body>
