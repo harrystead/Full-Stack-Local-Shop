@@ -18,7 +18,6 @@ connection.once('open', () => {
     console.log(` 🚀 ==> MongoDB connection established successfully.`)
 });
 
-const usersRouter = require('./routes/users-route');
 const itemsRouter = require('./routes/items-route');
 
 app.use('/uploads', express.static('uploads'));

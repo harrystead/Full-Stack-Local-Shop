@@ -19,7 +19,7 @@ function App() {
       <Router>
         <Navbar />
         <Route path="/home" component={ShopItemList} />
-        <Route path="/edit/:id" component={EditItem} />
+        <Route path="/edit" component={EditItem} />
         <Route path="/create" component={CreateItem} />
         <Route path="/signup" component={Signup} />
         <Route path="/login" component={Login} />
