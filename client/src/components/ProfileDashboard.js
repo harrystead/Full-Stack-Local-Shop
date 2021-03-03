@@ -66,6 +66,11 @@ export default function ProfileDashboard() {
           </Link>
           {error && <Alert variant="danger">{error}</Alert>}
           <strong>Email:</strong> {currentUser.email}
+          <strong>Fullname: </strong> {dataDetails.fullname}
+          <strong>Address:</strong> {dataDetails.homeaddress}
+          <strong>Postcode:</strong> {dataDetails.postcode}
+          <strong>Phone Number:</strong> {dataDetails.phonenumber}
+          <strong>Description:</strong> {dataDetails.description}
         <Link to="/edit" className="details">
             Edit Details
           </Link>
