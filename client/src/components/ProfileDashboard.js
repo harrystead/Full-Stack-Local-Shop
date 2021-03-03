@@ -28,7 +28,23 @@ export default function ProfileDashboard() {
     setLoading(false)
   }, [fetchData])
 
+  let [dataDetails, setDataDetails] = useState('');
+  const fetchDataDetails = React.useCallback(() => {
+    axios.get(`/details/${currentUser.uid}`)
+    .then((response) => {
+      setDataDetails(response.data[0])
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+  }, [])
+
+  React.useEffect(() => {
+    fetchDataDetails()
+  }, [fetchDataDetails])
+
   console.log(responseData)
+  console.log(dataDetails)
 
   async function handleLogout() {
     setError("");

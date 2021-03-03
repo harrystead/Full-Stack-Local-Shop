@@ -30,4 +30,12 @@ router.route("/").get((req, res) => {
       .catch((err) => res.status(400).json("Error: " + err));
   });
 
+  router.route("/:author").get((req, res) => {
+    Details.find({
+      author: req.params.author,
+    })
+      .then((details) => res.json(details))
+      .catch((err) => res.status(400).json("Error: " + err));
+  });
+
   module.exports = router;
