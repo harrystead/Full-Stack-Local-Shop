@@ -46,6 +46,15 @@ export default function ProfileDashboard() {
   console.log(responseData)
   console.log(dataDetails)
 
+  const deleteItem = (e) => {
+    const id = e.target.value;
+    console.log(id)
+    window.location.reload();
+    axios.delete(`/items/${id}`).then((response) => {
+      console.log(response.data);
+    });
+  }
+
   async function handleLogout() {
     setError("");
     try {
@@ -105,6 +114,8 @@ export default function ProfileDashboard() {
                   </p>
                 </div>
               </div>
+              <button className="profile-edit">Edit Item</button>
+              <button onClick={deleteItem} value={item._id} className="profile-delete">Delete Item</button>
             </div>
           ))} 
         </div> 
