@@ -44,14 +44,15 @@ export default function ProfileDashboard() {
     <>
     {console.log(responseData)}
       <Card>
-        <Card.Body>
           <h2 className="text-center mb-4">Profile</h2>
           <Link to="/create" className="navbar-float-right">
             Add Item
           </Link>
           {error && <Alert variant="danger">{error}</Alert>}
           <strong>Email:</strong> {currentUser.email}
-        </Card.Body>
+        <Link to="/edit" className="details">
+            Edit Details
+          </Link>
       </Card>
       <div className="w-100 text-center mt-2">
         <Button variant="link" onClick={handleLogout}>

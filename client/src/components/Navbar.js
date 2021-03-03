@@ -8,16 +8,16 @@ const Navbar = () => {
         <div className="navbar-collapse">
         <ul className="navbar-nav">
           <li className="navbar-item">
-          <Link to="/home" className="nav-link">Home</Link>
+          <Link to="/" className="nav-link">Home</Link>
+          </li>
+          <li className="navbar-item">
+          <Link to="/profile" className="nav-link">Profile</Link>
           </li>
           <li className="navbar-item">
           <Link to="/login" className="nav-link">Login</Link>
           </li>
           <li className="navbar-item">
           <Link to="/signup" className="nav-link">Sign Up</Link>
-          </li>
-          <li className="navbar-item">
-          <Link to="/profile" className="nav-link">Profile</Link>
           </li>
         </ul>
         </div>

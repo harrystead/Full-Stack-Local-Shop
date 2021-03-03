@@ -3,11 +3,11 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 import ShopItemList from "./components/ShopItems";
-import EditItem from "./components/EditItem";
 import CreateItem from "./components/CreateItem";
 import Signup from "./components/Register";
 import Login from "./components/Login";
 import ProfileDashboard from "./components/ProfileDashboard";
+import EditDetails from "./components/EditDetails"
 import "./styles/app.css";
 import { AuthProvider } from "./contexts/AuthContext";
 import PrivateRoute from "./components/PrivateRoutes";
@@ -18,8 +18,8 @@ function App() {
     <AuthProvider>
       <Router>
         <Navbar />
-        <Route path="/home" component={ShopItemList} />
-        <Route path="/edit" component={EditItem} />
+        <Route exact path="/" component={ShopItemList} />
+        <Route path="/edit" component={EditDetails} />
         <Route path="/create" component={CreateItem} />
         <Route path="/signup" component={Signup} />
         <Route path="/login" component={Login} />

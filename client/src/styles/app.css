@@ -118,3 +118,7 @@ ul.navbar-nav  {
   position: relative;
   top: 60px;
 }
+
+.button-login {
+  text-align: center;
+}

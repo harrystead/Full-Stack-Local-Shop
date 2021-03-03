@@ -118,8 +118,8 @@ export default function CreateItem() {
       <Form.Group>
         <Form.File id="custom-file" onChange={pictureOnChange} label="Custom file input" custom />
       </Form.Group>
-      <Button className="w-100" type="submit">
-        Sign Up
+      <Button className="w-25" type="submit">
+        Create Item
       </Button>
     </Form>
   );
