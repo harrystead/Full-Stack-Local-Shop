@@ -19,9 +19,11 @@ connection.once('open', () => {
 });
 
 const itemsRouter = require('./routes/items-route');
+const detailsRouter = require('./routes/details-route');
 
 app.use('/uploads', express.static('uploads'));
 app.use('/items', itemsRouter);
+app.use('/details', detailsRouter);
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'));
