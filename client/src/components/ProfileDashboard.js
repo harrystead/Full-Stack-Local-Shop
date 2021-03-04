@@ -1,59 +1,61 @@
 import React, { useState, useEffect } from "react";
-import { Card, Button, Alert } from "react-bootstrap";
+import { Card, Button, Alert, ListGroup, Form } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
-import axios from 'axios';
+import axios from "axios";
 
 export default function ProfileDashboard() {
   const [error, setError] = useState("");
   const { currentUser, logout } = useAuth();
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
   const history = useHistory();
 
   //get items data for user.
-  let [responseData, setResponseData] = useState('');
+  let [responseData, setResponseData] = useState("");
   const fetchData = React.useCallback(() => {
-    axios.get(`/items/${currentUser.uid}`)
-    .then((response) => {
-      setResponseData(response.data)
-      setLoading(false)
-    })
-    .catch((error) => {
-      console.log(error)
-    })
-  }, [])
+    axios
+      .get(`/items/${currentUser.uid}`)
+      .then((response) => {
+        setResponseData(response.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   React.useEffect(() => {
-    fetchData()
-    setLoading(false)
-  }, [fetchData])
+    fetchData();
+    setLoading(false);
+  }, [fetchData]);
 
-  let [dataDetails, setDataDetails] = useState('');
+  let [dataDetails, setDataDetails] = useState("");
   const fetchDataDetails = React.useCallback(() => {
-    axios.get(`/details/${currentUser.uid}`)
-    .then((response) => {
-      setDataDetails(response.data[0])
-    })
-    .catch((error) => {
-      console.log(error)
-    })
-  }, [])
+    axios
+      .get(`/details/${currentUser.uid}`)
+      .then((response) => {
+        setDataDetails(response.data[0]);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   React.useEffect(() => {
-    fetchDataDetails()
-  }, [fetchDataDetails])
+    fetchDataDetails();
+  }, [fetchDataDetails]);
 
-  console.log(responseData)
-  console.log(dataDetails)
+  console.log(responseData);
+  console.log(dataDetails);
 
   const deleteItem = (e) => {
     const id = e.target.value;
-    console.log(id)
+    console.log(id);
     window.location.reload();
     axios.delete(`/items/${id}`).then((response) => {
       console.log(response.data);
     });
-  }
+  };
 
   async function handleLogout() {
     setError("");
@@ -67,57 +69,70 @@ export default function ProfileDashboard() {
 
   return (
     <>
-    {console.log(responseData)}
-      <Card>
-          <h2 className="text-center mb-4">Profile</h2>
-          <Link to="/create" className="navbar-float-right">
-            Add Item
-          </Link>
-          {error && <Alert variant="danger">{error}</Alert>}
-          <strong>Email:</strong> {currentUser.email}
-          <strong>Fullname: </strong> {dataDetails.fullname}
-          <strong>Address:</strong> {dataDetails.homeaddress}
-          <strong>Postcode:</strong> {dataDetails.postcode}
-          <strong>Phone Number:</strong> {dataDetails.phonenumber}
-          <strong>Description:</strong> {dataDetails.description}
-        <Link to="/edit" className="details">
-            Edit Details
-          </Link>
+      <h2 className="text-center mb-4">Profile</h2>
+      {error && <Alert variant="danger">{error}</Alert>}
+      <div className="w-100 text-center">
+      <Link to="/create" className="nav-link">Add Item</Link>
+      </div>
+      <Card className="card-centre" style={{ width: "40rem" }}>
+        <Card.Header>{dataDetails.fullname}</Card.Header>
+        <ListGroup variant="flush">
+          <ListGroup.Item>{dataDetails.description}</ListGroup.Item>
+          <ListGroup.Item>
+            <strong>Email:</strong> {currentUser.email}
+          </ListGroup.Item>
+          <ListGroup.Item>
+            <strong>Address:</strong> {dataDetails.homeaddress}
+          </ListGroup.Item>
+          <ListGroup.Item>
+            <strong>Phone Number:</strong> {dataDetails.phonenumber}
+          </ListGroup.Item>
+        </ListGroup>
       </Card>
+      <div className="w-100 text-center">
+      <Button className="button-profile text-center" variant="link" onClick={handleLogout}>
+        Log Out
+      </Button>
+      </div>
       <div className="w-100 text-center mt-2">
-        <Button variant="link" onClick={handleLogout}>
-          Log Out
-        </Button>
+        <h3>{dataDetails.fullname}'s Items</h3>
       </div>
       <div className="card-group">
-        {responseData && responseData.map((item, index) => (
+        {responseData &&
+          responseData.map((item, index) => (
             <div className="col-sm-3">
               <div className="card">
-                <img className="card-img-top"src={"/" + item.selectedPic} alt="error" />
+                <img
+                  className="card-img-top"
+                  src={"/" + item.selectedPic}
+                  alt="error"
+                />
                 <div className="card-body">
                   <h5 className="card-title">{item.name}</h5>
                   <p className="card-text">
-                    <small className="text-muted">
-                    Ad by {item.author}
-                    </small>
+                    <small className="text-muted">Ad by {item.author}</small>
                   </p>
                   <p className="card-text-three">
-                    {item.category  + " | " + item.date + " | " + item.quality}
+                    {item.category + " | " + item.date + " | " + item.quality}
                   </p>
-                  <p className="card-text-price">
-                    {"£" + item.price}
-                  </p>
+                  <p className="card-text-price">{"£" + item.price}</p>
                   <p className="card-text">
                     <small className="text-muted">
-                    Date Posted: {item.createdAt.slice(0, 10)}
+                      Date Posted: {item.createdAt.slice(0, 10)}
                     </small>
                   </p>
                 </div>
               </div>
-              <button onClick={deleteItem} value={item._id} className="profile-delete">Delete Item</button>
+              <button
+                onClick={deleteItem}
+                value={item._id}
+                className="profile-delete"
+              >
+                Delete Item
+              </button>
             </div>
-          ))} 
-        </div> 
+          ))}
+      </div>
     </>
   );
 }

@@ -86,6 +86,7 @@ ul.navbar-nav  {
 .heading-allitems {
   text-align: center;
   margin-bottom: 20px;
+  margin-top: 20px;
 }
 
 .card-group {
@@ -122,4 +123,18 @@ ul.navbar-nav  {
 .button-login {
   text-align: center;
   margin-top: 10px;
+}
+
+.second-details {
+  margin-top: 13px;
+}
+
+.details-margin {
+  margin-left: 15px;
+}
+
+.card-centre {
+  text-align: center;
+  margin: auto;
+  margin-bottom:10px;
 }
