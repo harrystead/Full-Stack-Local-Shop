@@ -52,7 +52,7 @@ export default function Signup() {
               <Form.Control type="password" ref={passwordConfirmRef} required />
             </Form.Group>
             <Form.Group>
-            <Button disabled={loading} className="w-20 text-center mt-2 button-login" type="submit">
+            <Button disabled={loading} className="w-20 text-center button-login" type="submit">
               Sign Up
             </Button>
             </Form.Group>
