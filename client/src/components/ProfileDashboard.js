@@ -69,10 +69,12 @@ export default function ProfileDashboard() {
 
   return (
     <>
-      <h2 className="text-center mb-4">Profile</h2>
+      <h2 className="text-center mb-4 profile-heading">Profile</h2>
       {error && <Alert variant="danger">{error}</Alert>}
-      <div className="w-100 text-center">
-      <Link to="/create" className="nav-link">Add Item</Link>
+      <div className="w-100 text-center add-item">
+        <Link to="/create" className="nav-link">
+          Add Item
+        </Link>
       </div>
       <Card className="card-centre" style={{ width: "40rem" }}>
         <Card.Header>{dataDetails.fullname}</Card.Header>
@@ -90,9 +92,13 @@ export default function ProfileDashboard() {
         </ListGroup>
       </Card>
       <div className="w-100 text-center">
-      <Button className="button-profile text-center" variant="link" onClick={handleLogout}>
-        Log Out
-      </Button>
+        <Button
+          className="button-profile text-center"
+          variant="link"
+          onClick={handleLogout}
+        >
+          Log Out
+        </Button>
       </div>
       <div className="w-100 text-center mt-2">
         <h3>{dataDetails.fullname}'s Items</h3>
@@ -123,13 +129,13 @@ export default function ProfileDashboard() {
                   </p>
                 </div>
               </div>
-              <button
+              <Button
+                className="w-10 text-center profile-delete"
                 onClick={deleteItem}
                 value={item._id}
-                className="profile-delete"
               >
                 Delete Item
-              </button>
+              </Button>
             </div>
           ))}
       </div>

@@ -138,3 +138,12 @@ ul.navbar-nav  {
   margin: auto;
   margin-bottom:10px;
 }
+
+.profile-heading {
+  margin-top: 20px;
+}
+
+.profile-delete {
+  text-align: center;
+  margin-top: 10px;
+}
