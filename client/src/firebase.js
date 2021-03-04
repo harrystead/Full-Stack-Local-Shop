@@ -3,11 +3,11 @@ import "firebase/auth";
 
 const app = firebase.initializeApp({
   apiKey: "AIzaSyCbNLiu9RwK3msDKV_J4ev416ktl8YjkD0",
-  authDomain: process.env.REACT_APP_FIREBASE_DOMAIN,
-  databaseURL: process.env.REACT_APP_FIREBASE_DATABASE,
-  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_FIREBASE_SENDER_ID
+  authDomain: "localshopauth.firebaseapp.com",
+  databaseURL: "https://localshopauth-default-rtdb.firebaseio.com/",
+  projectId: "localshopauth",
+  storageBucket: "localshopauth.appspot.com",
+  messagingSenderId: 553688794143
 });
 
 export const auth = app.auth();
