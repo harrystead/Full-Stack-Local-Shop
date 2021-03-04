@@ -77,17 +77,17 @@ export default function ProfileDashboard() {
         </Link>
       </div>
       <Card className="card-centre" style={{ width: "40rem" }}>
-        <Card.Header>{dataDetails.fullname}</Card.Header>
+        <Card.Header>{dataDetails ? dataDetails.fullname : ""}</Card.Header>
         <ListGroup variant="flush">
-          <ListGroup.Item>{dataDetails.description}</ListGroup.Item>
+          <ListGroup.Item>{dataDetails ? dataDetails.description : ""}</ListGroup.Item>
           <ListGroup.Item>
             <strong>Email:</strong> {currentUser.email}
           </ListGroup.Item>
           <ListGroup.Item>
-            <strong>Address:</strong> {dataDetails.homeaddress}
+            <strong>Address:</strong> {dataDetails ? dataDetails.homeaddress : ""}
           </ListGroup.Item>
           <ListGroup.Item>
-            <strong>Phone Number:</strong> {dataDetails.phonenumber}
+            <strong>Phone Number:</strong> {dataDetails ? dataDetails.phonenumber : ""}
           </ListGroup.Item>
         </ListGroup>
       </Card>
@@ -101,7 +101,7 @@ export default function ProfileDashboard() {
         </Button>
       </div>
       <div className="w-100 text-center mt-2">
-        <h3>{dataDetails.fullname}'s Items</h3>
+        <h3>{dataDetails ? dataDetails.fullname : ""}'s Items</h3>
       </div>
       <div className="card-group">
         {responseData &&
