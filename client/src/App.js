@@ -1,7 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
-import Navbar from "./components/Navbar";
+import NavbarToggle from "./components/Navbar";
 import ShopItemList from "./components/ShopItems";
 import CreateItem from "./components/CreateItem";
 import Signup from "./components/Register";
@@ -17,7 +17,7 @@ function App() {
   return (
     <AuthProvider>
       <Router>
-        <Navbar />
+        <NavbarToggle/>
         <Route exact path="/" component={ShopItemList} />
         <Route path="/edit" component={EditDetails} />
         <Route path="/create" component={CreateItem} />

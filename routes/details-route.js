@@ -29,7 +29,7 @@ router.route("/").get((req, res) => {
       .then(() => res.json("Details added!"))
       .catch((err) => res.status(400).json("Error: " + err));
   });
-
+  
   router.route("/:author").get((req, res) => {
     Details.find({
       author: req.params.author,

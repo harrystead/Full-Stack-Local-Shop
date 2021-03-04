@@ -114,7 +114,6 @@ export default function ProfileDashboard() {
                   </p>
                 </div>
               </div>
-              <button className="profile-edit">Edit Item</button>
               <button onClick={deleteItem} value={item._id} className="profile-delete">Delete Item</button>
             </div>
           ))} 
