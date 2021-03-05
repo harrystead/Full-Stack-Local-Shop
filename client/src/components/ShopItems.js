@@ -1,32 +1,31 @@
 /* eslint-disable no-octal-escape */
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useAuth } from "../contexts/AuthContext";
 
-class ShopItems extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      displayItems: [],
-    };
-  }
-  componentDidMount() {
+export default function ShopItems () {
+  let [responseData, setResponseData] = useState("");
+  const fetchData = React.useCallback(() => {
     axios
-      .get("/items/")
+      .get(`/items/`)
       .then((response) => {
-        this.setState({ displayItems: response.data });
-        console.log(response.data)
+        setResponseData(response.data);
+        console.log(responseData)
       })
       .catch((error) => {
         console.log(error);
       });
-  }
+  }, []);
 
-  render() {
+  React.useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
     return (
       <div>
         <h2 class="heading-allitems">All Items</h2>
         <div className="card-group">
-          {this.state.displayItems.map((item, index) => (
+          {responseData && responseData.map((item, index) => (
             <div className="col-sm-3">
               <div className="card">
                 <img className="card-img-top"src={"/" + item.selectedPic} alt="error" />
@@ -34,7 +33,7 @@ class ShopItems extends Component {
                   <h5 className="card-title">{item.name}</h5>
                   <p className="card-text">
                     <small className="text-muted">
-                    Ad by {item.author}
+                    Contact: {item.contact} for more info
                     </small>
                   </p>
                   <p className="card-text-three">
@@ -56,6 +55,4 @@ class ShopItems extends Component {
       </div>
     );
   }
-}
 
-export default ShopItems;

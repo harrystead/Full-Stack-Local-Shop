@@ -17,6 +17,7 @@ export default function CreateItem() {
   const yearRef = useRef();
   const priceRef = useRef();
   const descriptionRef = useRef();
+  const contactRef = useRef();
 
   const [quality, setQuality] = useState("");
   const [selectedPic, setSelectedPic] = useState("");
@@ -40,6 +41,7 @@ export default function CreateItem() {
     formData.append("date", yearRef.current.value);
     formData.append("price", priceRef.current.value);
     formData.append("description", descriptionRef.current.value);
+    formData.append("contact", contactRef.current.value);
     formData.append("author", currentUser.uid);
 
     //post to monogdb;
@@ -118,9 +120,15 @@ export default function CreateItem() {
       <Form.Group>
         <Form.File id="custom-file" onChange={pictureOnChange} label="Custom file input" custom />
       </Form.Group>
+      <Form.Group id="contact">
+        <Form.Label>Phone Number or Email(for customers to contact you)</Form.Label>
+        <Form.Control type="Input" ref={contactRef} required />
+      </Form.Group>
+      <Form.Group id="button">
       <Button className="w-25" type="submit">
         Create Item
       </Button>
+      </Form.Group>
     </Form>
   );
 }

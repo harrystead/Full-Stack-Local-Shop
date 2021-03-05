@@ -10,6 +10,7 @@ const itemSchema = new Schema({
   price: {type: String},
   description: { type: String },
   selectedPic: { type: String},
+  contact: {type: String},
   author: {type: String},
 }, {
   timestamps: true,

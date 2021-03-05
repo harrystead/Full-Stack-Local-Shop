@@ -45,6 +45,7 @@ router.post("/add", upload.single("selectedPic"), (req, res) => {
   const price = req.body.price;
   const description = req.body.description;
   const selectedPic = req.file.path;
+  const contact = req.body.contact;
   const author = req.body.author;
 
   const newItem = new Item({
@@ -55,6 +56,7 @@ router.post("/add", upload.single("selectedPic"), (req, res) => {
     price,
     description,
     selectedPic,
+    contact,
     author,
   });
 
