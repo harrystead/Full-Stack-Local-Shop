@@ -34,7 +34,7 @@ export default function ProfileDashboard() {
     axios
       .get(`/details/${currentUser.uid}`)
       .then((response) => {
-        setDataDetails(response.data[0]);
+        setDataDetails(response.data[response.data.length - 1]);
       })
       .catch((error) => {
         console.log(error);
