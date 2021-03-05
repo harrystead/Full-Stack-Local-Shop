@@ -71,13 +71,16 @@ export default function ProfileDashboard() {
     <>
       <h2 className="text-center mb-4 profile-heading">Profile</h2>
       {error && <Alert variant="danger">{error}</Alert>}
-      <div className="w-100 text-center add-item">
+      <div className="w-100 text-center add-item-div">
         <Link to="/create" className="nav-link">
           Add Item
         </Link>
+        <Link to="/edit" className="nav-link">
+          Edit Details
+        </Link>
       </div>
       <Card className="card-centre" style={{ width: "40rem" }}>
-        <Card.Header>{dataDetails ? dataDetails.fullname : ""}</Card.Header>
+        <Card.Header><strong>fullname:</strong> {dataDetails ? dataDetails.fullname : ""}</Card.Header>
         <ListGroup variant="flush">
           <ListGroup.Item>{dataDetails ? dataDetails.description : ""}</ListGroup.Item>
           <ListGroup.Item>
@@ -101,7 +104,7 @@ export default function ProfileDashboard() {
         </Button>
       </div>
       <div className="w-100 text-center mt-2">
-        <h3>{dataDetails ? dataDetails.fullname : ""}'s Items</h3>
+        <h3>{dataDetails ? dataDetails.fullname + "'s items" : ""}</h3>
       </div>
       <div className="card-group">
         {responseData &&

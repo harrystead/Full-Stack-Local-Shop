@@ -147,3 +147,10 @@ ul.navbar-nav  {
   text-align: center;
   margin-top: 10px;
 }
+
+.add-item-div {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  margin: auto;
+}
