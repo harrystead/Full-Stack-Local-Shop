@@ -33,7 +33,6 @@ export default function EditDetails() {
     console.log(detailsObj);
 
     axios.post("/details/add", detailsObj).then((res) => console.log(res.data));
-    window.location.reload();
   }
 
   return (

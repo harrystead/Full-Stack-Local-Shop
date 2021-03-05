@@ -33,7 +33,7 @@ export default function ShopItems () {
                   <h5 className="card-title">{item.name}</h5>
                   <p className="card-text">
                     <small className="text-muted">
-                    Contact: {item.contact} for more info
+                    Contact:{item.contact} for more info
                     </small>
                   </p>
                   <p className="card-text-three">

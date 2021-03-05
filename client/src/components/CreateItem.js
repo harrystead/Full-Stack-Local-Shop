@@ -47,7 +47,6 @@ export default function CreateItem() {
     //post to monogdb;
     axios.post("/items/add", formData).then((res) => console.log(res.data));
 
-    window.location.reload();
   }
   return (
     <Form onSubmit={onSubmit} encType="multipart/form-data">
