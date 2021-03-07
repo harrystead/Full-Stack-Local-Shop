@@ -3,6 +3,7 @@ import React, { useRef, useState } from "react";
 import { Form, Button, Card, Alert } from "react-bootstrap";
 import { useAuth } from '../contexts/AuthContext';
 import { Link, useHistory} from 'react-router-dom';
+import FlashMessage from "react-flash-message";
 
 
 export default function Signup() {
@@ -10,6 +11,7 @@ export default function Signup() {
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
   const { signup } = useAuth();
+  const [success, setSuccess] = useState("")
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
 //   const history = useHistory()
@@ -25,11 +27,13 @@ export default function Signup() {
         setError("")
         setLoading(true)
         await signup(emailRef.current.value, passwordRef.current.value)
+        setSuccess("Well done! Your account has been created. Now you can Login.")
       } catch {
         setError("Failed to create an account")
       }
   
       setLoading(false)
+
     }
 
   return (
@@ -38,6 +42,7 @@ export default function Signup() {
         <Card.Body>
           <h2 className="text-center mb-4">Sign Up</h2>
           {error && <Alert variant="danger">{error}</Alert>}
+          {success && <Alert variant="success">{success}</Alert>}
           <Form onSubmit={handleSubmit}>
             <Form.Group id="email">
               <Form.Label>Email</Form.Label>

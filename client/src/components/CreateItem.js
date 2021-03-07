@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import axios from "axios";
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from "../contexts/AuthContext";
+import { Link, useHistory, Redirect} from 'react-router-dom';
 import {
   Form,
   Button,
@@ -18,17 +19,19 @@ export default function CreateItem() {
   const priceRef = useRef();
   const descriptionRef = useRef();
   const contactRef = useRef();
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
 
   const [quality, setQuality] = useState("");
   const [selectedPic, setSelectedPic] = useState("");
 
   const radioOnChange = (e) => {
-    setQuality(e.target.value)
-  }
+    setQuality(e.target.value);
+  };
 
   const pictureOnChange = (e) => {
-    setSelectedPic(e.target.files[0])
-  }
+    setSelectedPic(e.target.files[0]);
+  };
 
   async function onSubmit(e) {
     e.preventDefault();
@@ -45,12 +48,22 @@ export default function CreateItem() {
     formData.append("author", currentUser.uid);
 
     //post to monogdb;
-    axios.post("/items/add", formData).then((res) => console.log(res.data));
-
+    axios
+      .post("/items/add", formData)
+      .then((res) => {
+        console.log(res.data)
+        setSuccess("Great! Item has been created!")
+      })
+      .catch((error) => {
+        console.log(error);
+        setError("Request has failed", error)
+      });
   }
   return (
     <Form onSubmit={onSubmit} encType="multipart/form-data">
       <h2 className="heading-item">Create an Item</h2>
+      {success && <Redirect to="/profile" />}
+      {error && <Alert variant="danger">{error}</Alert>}
       <Form.Group id="name">
         <Form.Label>Name</Form.Label>
         <Form.Control type="Input" ref={nameRef} required />
@@ -117,16 +130,23 @@ export default function CreateItem() {
         <Form.Control as="textarea" ref={descriptionRef} rows={3} />
       </Form.Group>
       <Form.Group>
-        <Form.File id="custom-file" onChange={pictureOnChange} label="Custom file input" custom />
+        <Form.File
+          id="custom-file"
+          onChange={pictureOnChange}
+          label="Custom file input"
+          custom
+        />
       </Form.Group>
       <Form.Group id="contact">
-        <Form.Label>Phone Number or Email(for customers to contact you)</Form.Label>
+        <Form.Label>
+          Phone Number or Email(for customers to contact you)
+        </Form.Label>
         <Form.Control type="Input" ref={contactRef} required />
       </Form.Group>
       <Form.Group id="button">
-      <Button className="w-25" type="submit">
-        Create Item
-      </Button>
+        <Button className="w-25" type="submit">
+          Create Item
+        </Button>
       </Form.Group>
     </Form>
   );
