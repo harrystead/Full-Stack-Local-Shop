@@ -1,60 +1,45 @@
-import React, { useState, useEffect } from "react";
-import { Card, Button, Alert, ListGroup, Form } from "react-bootstrap";
-import { useAuth } from "../contexts/AuthContext";
+import React, { useState } from "react";
+import { Card, Button, Alert, ListGroup } from "react-bootstrap";
+import { useAuth } from "../../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
-import axios from "axios";
+import API from "../../contexts/API";
 
 export default function ProfileDashboard() {
   const [error, setError] = useState("");
   const { currentUser, logout } = useAuth();
   const [loading, setLoading] = useState(true);
   const history = useHistory();
-
-  //get items data for user.
-  let [responseData, setResponseData] = useState("");
-  const fetchData = React.useCallback(() => {
-    axios
-      .get(`/items/${currentUser.uid}`)
-      .then((response) => {
-        setResponseData(response.data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
-
-  React.useEffect(() => {
-    fetchData();
-    setLoading(false);
-  }, [fetchData]);
-
   let [dataDetails, setDataDetails] = useState("");
-  const fetchDataDetails = React.useCallback(() => {
-    axios
-      .get(`/details/${currentUser.uid}`)
-      .then((response) => {
-        setDataDetails(response.data[response.data.length - 1]);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+  let [responseData, setResponseData] = useState("");
 
-  React.useEffect(() => {
-    fetchDataDetails();
-  }, [fetchDataDetails]);
+  API.itemsUser(currentUser)
+    .then((response) => {
+      setResponseData(response.data);
+      setLoading(false);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 
-  console.log(responseData);
-  console.log(dataDetails);
+  API.detailsUser(currentUser)
+    .then((response) => {
+      setDataDetails(response.data[response.data.length - 1]);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 
   const deleteItem = (e) => {
     const id = e.target.value;
-    console.log(id);
-    window.location.reload();
-    axios.delete(`/items/${id}`).then((response) => {
-      console.log(response.data);
-    });
+    API.deleteItem(id)
+      .then(() => {
+        API.itemsUser(currentUser).then((response) =>
+          setResponseData(response.data)
+        );
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   async function handleLogout() {
@@ -80,17 +65,23 @@ export default function ProfileDashboard() {
         </Link>
       </div>
       <Card className="card-centre" style={{ width: "40rem" }}>
-        <Card.Header><strong>fullname:</strong> {dataDetails ? dataDetails.fullname : ""}</Card.Header>
+        <Card.Header>
+          <strong>fullname:</strong> {dataDetails ? dataDetails.fullname : ""}
+        </Card.Header>
         <ListGroup variant="flush">
-          <ListGroup.Item>{dataDetails ? dataDetails.description : ""}</ListGroup.Item>
+          <ListGroup.Item>
+            {dataDetails ? dataDetails.description : ""}
+          </ListGroup.Item>
           <ListGroup.Item>
             <strong>Email:</strong> {currentUser.email}
           </ListGroup.Item>
           <ListGroup.Item>
-            <strong>Address:</strong> {dataDetails ? dataDetails.homeaddress : ""}
+            <strong>Address:</strong>{" "}
+            {dataDetails ? dataDetails.homeaddress : ""}
           </ListGroup.Item>
           <ListGroup.Item>
-            <strong>Phone Number:</strong> {dataDetails ? dataDetails.phonenumber : ""}
+            <strong>Phone Number:</strong>{" "}
+            {dataDetails ? dataDetails.phonenumber : ""}
           </ListGroup.Item>
         </ListGroup>
       </Card>

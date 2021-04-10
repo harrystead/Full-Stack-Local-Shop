@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import axios from "axios";
-import { useAuth } from "../contexts/AuthContext";
-import { Link, useHistory, Redirect } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
+import { Redirect } from "react-router-dom";
 import {
   Form,
   Button,
@@ -32,8 +32,6 @@ export default function EditDetails() {
       description: descriptionRef.current.value,
       author: currentUser.uid,
     };
-
-    console.log(detailsObj);
 
     axios
       .post("/details/add", detailsObj)

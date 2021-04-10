@@ -1,17 +1,17 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
-import NavbarToggle from "./components/Navbar";
-import ShopItemList from "./components/ShopItems";
-import CreateItem from "./components/CreateItem";
-import Signup from "./components/Register";
-import Login from "./components/Login";
-import ProfileDashboard from "./components/ProfileDashboard";
-import EditDetails from "./components/EditDetails"
+import NavbarToggle from "./components/Nav/Navbar";
+import ShopItemList from "./components/ShopItems/ShopItems";
+import CreateItem from "./components/CreateItem/CreateItem";
+import Signup from "./components/Register/Register";
+import Login from "./components/Login/Login";
+import ProfileDashboard from "./components/Profile/ProfileDashboard";
+import EditDetails from "./components/EditDetails/EditDetails"
 import "./styles/app.css";
 import { AuthProvider } from "./contexts/AuthContext";
-import PrivateRoute from "./components/PrivateRoutes";
-import ForgotPassword from "./components/ForgotPassword";
+import PrivateRoute from "./components/PrivateRoutes/PrivateRoutes";
+import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
 
 function App() {
   return (

@@ -1,14 +1,10 @@
 import React, { useRef, useState } from "react";
 import axios from "axios";
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '../../contexts/AuthContext';
 import { useParams } from 'react-router-dom'
 import {
   Form,
   Button,
-  Card,
-  Alert,
-  DropdownButton,
-  Dropdown,
 } from "react-bootstrap";
 
 export default function EditItem() {
@@ -22,24 +18,6 @@ export default function EditItem() {
   const [selectedPic, setSelectedPic] = useState("");
   let { id } = useParams();
   console.log(id)
-
-//   let [responseData, setResponseData] = useState('');
-//   const fetchData = React.useCallback(() => {
-//     axios.get(`/items/${id}`)
-//     .then((response) => {
-//       setResponseData(response.data)
-//     })
-//     .catch((error) => {
-//       console.log(error)
-//     })
-//   }, [])
-
-//   React.useEffect(() => {
-//     fetchData()
-
-//   }, [fetchData])
-
-//   console.log(responseData)
 
   const radioOnChange = (e) => {
     setQuality(e.target.value)

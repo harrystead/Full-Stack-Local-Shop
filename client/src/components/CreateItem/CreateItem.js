@@ -1,14 +1,11 @@
 import React, { useRef, useState } from "react";
 import axios from "axios";
-import { useAuth } from "../contexts/AuthContext";
-import { Link, useHistory, Redirect} from 'react-router-dom';
+import { useAuth } from "../../contexts/AuthContext";
+import { Redirect} from 'react-router-dom';
 import {
   Form,
   Button,
-  Card,
   Alert,
-  DropdownButton,
-  Dropdown,
 } from "react-bootstrap";
 
 export default function CreateItem() {

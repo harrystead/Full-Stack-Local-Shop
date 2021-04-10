@@ -1,13 +1,10 @@
-/* eslint-disable no-octal-escape */
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { useAuth } from "../contexts/AuthContext";
+
+import React, { useState } from "react";
+import API from "../../contexts/API"
 
 export default function ShopItems () {
   let [responseData, setResponseData] = useState("");
-  const fetchData = React.useCallback(() => {
-    axios
-      .get(`/items/`)
+    API.getItems()
       .then((response) => {
         setResponseData(response.data);
         console.log(responseData)
@@ -15,11 +12,6 @@ export default function ShopItems () {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
-
-  React.useEffect(() => {
-    fetchData();
-  }, [fetchData]);
 
     return (
       <div>
