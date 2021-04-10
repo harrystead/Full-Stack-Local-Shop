@@ -57,9 +57,6 @@ export default function ProfileDashboard() {
       <h2 className="text-center mb-4 profile-heading">Profile</h2>
       {error && <Alert variant="danger">{error}</Alert>}
       <div className="w-100 text-center add-item-div">
-        <Link to="/create" className="nav-link">
-          Add Item
-        </Link>
         <Link to="/edit" className="nav-link">
           Edit Details
         </Link>
