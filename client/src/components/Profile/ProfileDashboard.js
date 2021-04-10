@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Card, Button, Alert, ListGroup } from "react-bootstrap";
 import { useAuth } from "../../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
@@ -12,6 +12,7 @@ export default function ProfileDashboard() {
   let [dataDetails, setDataDetails] = useState("");
   let [responseData, setResponseData] = useState("");
 
+  useEffect(() => {
   API.itemsUser(currentUser)
     .then((response) => {
       setResponseData(response.data);
@@ -28,6 +29,7 @@ export default function ProfileDashboard() {
     .catch((error) => {
       console.log(error);
     });
+  }, []);
 
   const deleteItem = (e) => {
     const id = e.target.value;
