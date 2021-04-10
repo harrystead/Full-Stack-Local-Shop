@@ -74,6 +74,13 @@ router.route("/:author").get((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
+// router.route("/:id").get((req, res) => {
+//   Item.find({
+//     id: req.params.id})
+//     .then((items) => res.json(items))
+//     .catch((err) => res.status(400).json("Error: " + err));
+// });
+
 router.route("/:id").delete((req, res) => {
   Item.findByIdAndDelete(req.params.id)
     .then(() => res.json("Item deleted."))

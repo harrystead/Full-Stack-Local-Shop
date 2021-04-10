@@ -22,7 +22,7 @@ export default function ShopItems() {
         {responseData &&
           responseData.map((item) => (
             <div className="col-sm-3">
-              <Link to="/login">
+              <Link to={"/" + item._id}>
               <div className="card">
                 <img
                   className="card-img-top"

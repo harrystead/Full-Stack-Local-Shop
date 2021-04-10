@@ -13,5 +13,7 @@ export default {
     deleteItem: function(id){
         return axios.delete(`/items/${id}`)
     },
-    
+    // getById: function(id){
+    //     return axios.get(`/items/${id}/`)
+    // }
 }
