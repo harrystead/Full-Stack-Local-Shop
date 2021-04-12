@@ -1,19 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext } from "react";
 import API from "../../contexts/API";
 import { Link } from "react-router-dom";
+import { ItemsContext } from "../../contexts/ItemsContext";
 
 export default function ShopItems() {
-  let [responseData, setResponseData] = useState("");
 
-  useEffect(() => {
-    API.getItems()
-      .then((response) => {
-        setResponseData(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+  const responseData = useContext(ItemsContext);
 
   return (
     <div>

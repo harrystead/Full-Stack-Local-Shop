@@ -8,7 +8,7 @@ import Signup from "./components/Register/Register";
 import Login from "./components/Login/Login";
 import ProfileDashboard from "./components/Profile/ProfileDashboard";
 import EditDetails from "./components/EditDetails/EditDetails";
-import "./styles/app.css";
+import "./app.css";
 import { AuthProvider } from "./contexts/AuthContext";
 import PrivateRoute from "./components/PrivateRoutes/PrivateRoutes";
 import ForgotPassword from "./components/ForgotPassword/ForgotPassword";

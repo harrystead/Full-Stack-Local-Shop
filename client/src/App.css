@@ -154,3 +154,5 @@ ul.navbar-nav  {
   justify-content: center;
   margin: auto;
 }
+
+@import "./components/SingleItem/SingleItem.css"
