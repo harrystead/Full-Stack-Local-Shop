@@ -7,8 +7,7 @@ import CreateItem from "./components/CreateItem/CreateItem";
 import Signup from "./components/Register/Register";
 import Login from "./components/Login/Login";
 import ProfileDashboard from "./components/Profile/ProfileDashboard";
-import EditDetails from "./components/EditDetails/EditDetails";
-import "./app.css";
+import "./App.css";
 import { AuthProvider } from "./contexts/AuthContext";
 import PrivateRoute from "./components/PrivateRoutes/PrivateRoutes";
 import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
@@ -36,7 +35,6 @@ function App() {
           <NavbarToggle />
           <Switch>
             <Route exact path="/" component={ShopItemList} />
-            <Route path="/edit" component={EditDetails} />
             <Route path="/create" component={CreateItem} />
             <Route path="/signup" component={Signup} />
             <Route path="/login" component={Login} />

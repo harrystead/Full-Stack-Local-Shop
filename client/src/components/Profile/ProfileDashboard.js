@@ -3,33 +3,35 @@ import { Card, Button, Alert, ListGroup } from "react-bootstrap";
 import { useAuth } from "../../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 import API from "../../contexts/API";
+import DetailsModal from "../DetailsModal/DetailsModal";
 
 export default function ProfileDashboard() {
   const [error, setError] = useState("");
   const { currentUser, logout } = useAuth();
   const [loading, setLoading] = useState(true);
   const history = useHistory();
-  let [dataDetails, setDataDetails] = useState("");
+  let [dataDetails, setDataDetails] = useState([]);
   let [responseData, setResponseData] = useState("");
+  const [show, setShow] = useState(true);
 
   useEffect(() => {
-  API.itemsUser(currentUser)
-    .then((response) => {
-      setResponseData(response.data);
-      setLoading(false);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+    API.itemsUser(currentUser)
+      .then((response) => {
+        setResponseData(response.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
 
-  API.detailsUser(currentUser)
-    .then((response) => {
-      setDataDetails(response.data[response.data.length - 1]);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-  }, []);
+    API.detailsUser(currentUser)
+      .then((response) => {
+        setDataDetails(response.data[response.data.length - 1]);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [show]);
 
   const deleteItem = (e) => {
     const id = e.target.value;
@@ -55,7 +57,8 @@ export default function ProfileDashboard() {
   }
 
   return (
-    <>
+    <div>
+      {!dataDetails ? <DetailsModal show={show} setShow={setShow} /> : null}
       <h2 className="text-center mb-4 profile-heading">Profile</h2>
       {error && <Alert variant="danger">{error}</Alert>}
       <div className="w-100 text-center add-item-div">
@@ -132,6 +135,6 @@ export default function ProfileDashboard() {
             </div>
           ))}
       </div>
-    </>
+    </div>
   );
 }
