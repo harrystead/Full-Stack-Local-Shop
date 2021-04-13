@@ -15,16 +15,15 @@ import SingleItem from "./components/SingleItem/SingleItem";
 import NoMatch from "./components/NoMatch/NoMatch";
 import API from "./contexts/API";
 import Basket from "./components/Basket/Basket";
+import { ItemsContext } from "./contexts/ItemsContext";
 
 function App() {
-  const [data, setData] = useState([]);
-  const [indItem, setIndItem] = useState([]);
-  const [basket, setBasket] = useState([]);
+  const [listData, setListData] = useState([]);
 
   useEffect(() => {
     API.getItems()
       .then((response) => {
-        setData(response.data);
+        setListData(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -33,11 +32,12 @@ function App() {
 
   return (
     <AuthProvider>
+      <ItemsContext.Provider value={listData}>
       <Router>
         <NavbarToggle />
         <Switch>
           <Route exact path="/">
-            <ShopItems data={data} />
+            <ShopItems />
           </Route>
           <Route path="/create" component={CreateItem} />
           <Route path="/signup" component={Signup} />
@@ -46,21 +46,16 @@ function App() {
           </Route>
           <PrivateRoute path="/profile" component={ProfileDashboard} />
           <PrivateRoute path="/basket">
-            <Basket indItem={indItem} setIndItem={setIndItem} />
+            <Basket />
           </PrivateRoute>
           <Route path="/forgot-password" component={ForgotPassword} />
           <Route path="/:id">
-            <SingleItem
-              item={data}
-              indItem={indItem}
-              setIndItem={setIndItem}
-              basket={basket}
-              setBasket={setBasket}
-            />
+            <SingleItem  />
           </Route>
           <Route path="*" component={NoMatch} />
         </Switch>
       </Router>
+      </ItemsContext.Provider>
     </AuthProvider>
   );
 }

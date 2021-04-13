@@ -2,14 +2,14 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { ItemsContext } from "../../contexts/ItemsContext";
 
-export default function ShopItems({data}) {
-
+export default function ShopItems({}) {
+  const cardInfo = useContext(ItemsContext);
   return (
     <div>
       <h2 className="heading-allitems">All Items</h2>
       <div className="card-group">
-        {data &&
-          data.map((item) => (
+        {cardInfo &&
+          cardInfo.map((item) => (
             <div className="col-sm-3">
               <Link to={"/" + item._id}>
               <div className="card">

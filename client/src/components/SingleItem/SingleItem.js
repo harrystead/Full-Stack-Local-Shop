@@ -1,20 +1,27 @@
-import React from "react";
+import React, {useContext} from "react";
 import { useParams } from "react-router";
+import { ItemsContext } from "../../contexts/ItemsContext";
+import axios from "axios";
 
-export default function SingleItem({item, setBasket, basket }) {
+export default function SingleItem({ }) {
   const { id } = useParams();
-  const singleItem = item.filter((item) => item._id === id);
+  const cardInfo = useContext(ItemsContext);
+  const singleItem = cardInfo.filter((item) => item._id === id);
 
   const addBasket = () => {
-    setBasket([
-      ...basket,
-      singleItem
-    ]);
+
+    axios
+    .post("/basket/add", singleItem[0])
+    .then((res) => {
+      console.log(res)
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   }
 
   return (
     <div className="container">
-      {console.log(basket)}
       {singleItem &&
         singleItem.map((item) => (
           <div className="card">

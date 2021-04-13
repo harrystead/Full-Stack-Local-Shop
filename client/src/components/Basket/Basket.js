@@ -1,10 +1,12 @@
 import React from 'react'
 
-export default function Basket({indItem ,setIndItem }) {
+export default function Basket({basket, setBasket }) {
     return (
         <div>
-            {console.log(indItem)}
-            <h2>hello</h2>
+            {console.log(basket)}
+            <div>
+            <h2>Shopping Basket</h2>
+            </div>
         </div>
     )
 }
