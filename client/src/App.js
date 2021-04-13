@@ -15,6 +15,7 @@ import SingleItem from "./components/SingleItem/SingleItem";
 import NoMatch from "./components/NoMatch/NoMatch";
 import API from "./contexts/API";
 import { ItemsContext } from "./contexts/ItemsContext";
+import Basket from "./components/Basket/Basket";
 
 function App() {
   let [data, setData] = useState([]);
@@ -39,6 +40,7 @@ function App() {
             <Route path="/signup" component={Signup} />
             <Route path="/login" component={Login} />
             <PrivateRoute path="/profile" component={ProfileDashboard} />
+            <PrivateRoute path="/basket" component={Basket} />
             <Route path="/forgot-password" component={ForgotPassword} />
             <Route path="/:id" component={SingleItem} />
             <Route path="*" component={NoMatch} />

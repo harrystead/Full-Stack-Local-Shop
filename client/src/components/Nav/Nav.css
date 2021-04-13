@@ -1,0 +1,30 @@
+
+
+
+.post-btn {
+    border-radius: 3px;
+    display: inline-block;
+    padding: 4px 10px;
+    color: white;
+    background-color: #30a74b;
+    border-color: #30a74b;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: 500;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.cart-btn {
+    font-size: 30px;
+    color: white;
+}
+
+.cart-btn:hover {
+    opacity: 0.7;
+}

@@ -155,4 +155,5 @@ ul.navbar-nav  {
   margin: auto;
 }
 
-@import "./components/SingleItem/SingleItem.css"
+@import "./components/SingleItem/SingleItem.css";
+@import "./components//Nav/Nav.css";
