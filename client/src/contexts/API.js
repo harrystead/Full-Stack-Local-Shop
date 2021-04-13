@@ -16,4 +16,10 @@ export default {
     // getById: function(id){
     //     return axios.get(`/items/${id}/`)
     // }
+    getBasket: function(){
+        return axios.get("/basket/")
+    },
+    postBasket: function(basketData){
+        return axios.post("/basket/add/", basketData)
+    },
 }

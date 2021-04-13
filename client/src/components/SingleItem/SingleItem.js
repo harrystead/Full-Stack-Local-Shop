@@ -1,6 +1,7 @@
 import React, {useContext} from "react";
 import { useParams } from "react-router";
 import { ItemsContext } from "../../contexts/ItemsContext";
+import API from "../../contexts/API"
 import axios from "axios";
 
 export default function SingleItem({ }) {
@@ -10,8 +11,7 @@ export default function SingleItem({ }) {
 
   const addBasket = () => {
 
-    axios
-    .post("/basket/add", singleItem[0])
+    API.postBasket(singleItem)
     .then((res) => {
       console.log(res)
     })
