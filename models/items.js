@@ -12,8 +12,6 @@ const itemSchema = new Schema({
   selectedPic: { type: String},
   contact: {type: String},
   author: {type: String},
-}, {
-  timestamps: true,
 });
 
 const Item = mongoose.model('Item', itemSchema);

@@ -1,18 +1,15 @@
 import React, { useContext } from "react";
-import API from "../../contexts/API";
 import { Link } from "react-router-dom";
 import { ItemsContext } from "../../contexts/ItemsContext";
 
-export default function ShopItems() {
-
-  const responseData = useContext(ItemsContext);
+export default function ShopItems({data}) {
 
   return (
     <div>
       <h2 className="heading-allitems">All Items</h2>
       <div className="card-group">
-        {responseData &&
-          responseData.map((item) => (
+        {data &&
+          data.map((item) => (
             <div className="col-sm-3">
               <Link to={"/" + item._id}>
               <div className="card">

@@ -9,8 +9,6 @@ const detailsSchema = new Schema({
   phonenumber: { type: String },
   description: { type: String },
   author: {type: String},
-}, {
-  timestamps: true,
 });
 
 const Details = mongoose.model('Details', detailsSchema);
