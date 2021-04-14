@@ -22,4 +22,7 @@ export default {
     postBasket: function(basketData){
         return axios.post("/basket/add/", basketData)
     },
+    basketDetele: function(id){
+        return axios.delete(`/basket/${id}`)
+    }
 }
