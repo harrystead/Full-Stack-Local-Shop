@@ -3,10 +3,10 @@ import API from "../../contexts/API";
 
 export default function Basket() {
   const [shoppingItems, setShoppingItems] = useState("");
+  const [total, setTotal] = useState("");
   useEffect(() => {
     API.getBasket()
       .then((response) => {
-        console.log(response.data);
         setShoppingItems(response.data);
       })
       .catch((error) => {
@@ -16,23 +16,26 @@ export default function Basket() {
 
   const removeBasket = (event) => {
     const id = event.target.value;
-    API.basketDetele(id).
-    then(() => API.getBasket().then((response) => {
-      setShoppingItems(response.data);
-    })
-    .catch((error) => {
-      console.log(error);
-    }))
-  }
+    API.basketDetele(id).then(() =>
+      API.getBasket()
+        .then((response) => {
+          setShoppingItems(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+    );
+  };
 
   return (
     <div className="container">
+      <h2>Shopping Basket</h2>
       {shoppingItems &&
-        shoppingItems.map((item) => (
+        shoppingItems.map((item, index) => (
           <table id="cart" className="table table-hover table-condensed">
             <thead>
               <tr>
-                <th style={{ width: "50%" }}>Product</th>
+                <th style={{ width: "50%" }}>Product {index + 1}</th>
                 <th style={{ width: "10%" }}>Price</th>
                 <th style={{ width: "10%" }}></th>
               </tr>
@@ -50,15 +53,17 @@ export default function Basket() {
                     </div>
                     <div className="col-sm-10">
                       <h4 className="nomargin">{item.name}</h4>
-                      <p>
-                        {item.description}
-                      </p>
+                      <p>{item.description}</p>
                     </div>
                   </div>
                 </td>
                 <td data-th="Price">${item.price}</td>
                 <td className="actions" data-th="">
-                  <button onClick={removeBasket} value={item._id} className="btn btn-danger btn-sm">
+                  <button
+                    onClick={removeBasket}
+                    value={item._id}
+                    className="btn btn-danger btn-sm"
+                  >
                     remove
                   </button>
                 </td>
@@ -75,7 +80,15 @@ export default function Basket() {
           </td>
           <td colSpan="2" className="hidden-xs"></td>
           <td className="hidden-xs text-center">
-            <strong>Total $1.99</strong>
+            <strong>
+              Total: $
+              {shoppingItems &&
+                shoppingItems
+                  .map((p) => parseInt(p.price))
+                  .reduce((acc, num) => {
+                    return acc + num;
+                  })}
+            </strong>
           </td>
           <td>
             <a href="#" className="btn btn-success btn-block">
