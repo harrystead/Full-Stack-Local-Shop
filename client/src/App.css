@@ -97,7 +97,7 @@ ul.navbar-nav  {
   height: 200px;
 }
 
-.card {
+.card-home {
   border-radius: 10px;
 }
 
@@ -158,3 +158,4 @@ ul.navbar-nav  {
 @import "./components/SingleItem/SingleItem.css";
 @import "./components//Nav/Nav.css";
 @import "./components/Basket/Basket.css";
+@import "./components//ShopItems/ShopItems.css";
