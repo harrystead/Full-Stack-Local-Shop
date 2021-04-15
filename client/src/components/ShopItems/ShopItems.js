@@ -1,11 +1,16 @@
-import React, { useContext, useState, useEffect, useCallback } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { ItemsContext } from "../../contexts/ItemsContext";
-import { DropdownButton, Dropdown, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
+import Slider from "rc-slider";
+import "rc-slider/assets/index.css";
+const { createSliderWithTooltip } = Slider;
+const Range = createSliderWithTooltip(Slider.Range);
 
-export default function ShopItems({ listData }) {
+export default function ShopItems() {
   const [category, setCategory] = useState("");
   const [quality, setQuality] = useState("");
+  const [priceSlider, setPriceSlider] = useState([0, 500]);
   const propertyInfo = useContext(ItemsContext);
 
   const filterCategory = (event) => {
@@ -14,21 +19,38 @@ export default function ShopItems({ listData }) {
 
   const filterQuality = (event) => [setQuality(event.target.value)];
 
+  const onChangeRange = (value) => {
+    setPriceSlider(value);
+  };
+
   const catCondition = category && category !== "View All";
   const qualCondition = quality && quality !== "View All";
-  let filteredData = propertyInfo.map((item) => item)
-  .filter((item) => {
-    if(category && quality){ 
-      return item.category === category && item.quality === quality
-  }
-  else if(catCondition){
-    return item.category === category;
-  }
-  else if(qualCondition){
-    return item.quality === quality;
-  }
-  return item;
-})
+  const allConditions =
+    category &&
+    quality &&
+    priceSlider &&
+    quality !== "View All" &&
+    category !== "View All";
+  let filteredData = propertyInfo
+    .map((info) => info)
+    .filter((item) => {
+      if (allConditions) {
+        return (
+          item.category === category &&
+          item.quality === quality &&
+          item.price > priceSlider[0] &&
+          item.price < priceSlider[1]
+        );
+      } else if (catCondition) {
+        return item.category === category;
+      } else if (qualCondition) {
+        return item.quality === quality;
+      } else if (priceSlider) {
+        return item.price > priceSlider[0] && item.price < priceSlider[1];
+      }
+      return item;
+    });
+
   return (
     <div className="row">
       <div className="col-sm-2">
@@ -64,7 +86,25 @@ export default function ShopItems({ listData }) {
           </Form.Control>
         </div>
         <div className="price-filter">
-          <input min={0} max={200} value={0} type="range" />
+          <h4>Price</h4>
+          <div>
+            <p>Price Range</p>
+          </div>
+          <Range
+            marks={{
+              100: `$100`,
+              500: `$500`,
+            }}
+            min={0}
+            max={500}
+            defaultValue={[0, 500]}
+            tipFormatter={(value) => `$ ${value}`}
+            tipProps={{
+              placement: "top",
+              visible: true,
+            }}
+            onChange={onChangeRange}
+          />
         </div>
         <div>
           <h4>Latest Item</h4>
