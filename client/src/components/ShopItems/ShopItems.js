@@ -14,15 +14,21 @@ export default function ShopItems({ listData }) {
 
   const filterQuality = (event) => [setQuality(event.target.value)];
 
-  let hello = listData.filter((item) => {
-    if (category && category !== "View All") {
-      return item.category === category;
-    } else if (quality && quality !== "View All") {
-      return item.quality === quality;
-    }
-    return item;
-  });
-
+  const catCondition = category && category !== "View All";
+  const qualCondition = quality && quality !== "View All";
+  let filteredData = propertyInfo.map((item) => item)
+  .filter((item) => {
+    if(category && quality){ 
+      return item.category === category && item.quality === quality
+  }
+  else if(catCondition){
+    return item.category === category;
+  }
+  else if(qualCondition){
+    return item.quality === quality;
+  }
+  return item;
+})
   return (
     <div className="row">
       <div className="col-sm-2">
@@ -66,8 +72,8 @@ export default function ShopItems({ listData }) {
       </div>
       <div className="col-sm-10">
         <div className="card-group">
-          {hello &&
-            hello.map((item) => (
+          {filteredData.length > 0 ? (
+            filteredData.map((item) => (
               <div className="col-sm-3">
                 <Link to={"/" + item._id}>
                   <div className="card-home">
@@ -100,7 +106,10 @@ export default function ShopItems({ listData }) {
                   </div>
                 </Link>
               </div>
-            ))}
+            ))
+          ) : (
+            <h3>No products available</h3>
+          )}
         </div>
       </div>
     </div>
