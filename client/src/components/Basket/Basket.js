@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import API from "../../contexts/API";
+import { useAuth } from "../../contexts/AuthContext";
 
 export default function Basket() {
   const [shoppingItems, setShoppingItems] = useState("");
-  const [total, setTotal] = useState("");
+  const { currentUser } = useAuth();
   useEffect(() => {
-    API.getBasket()
+    API.getBasket(currentUser)
       .then((response) => {
-        setShoppingItems(response.data);
+        setShoppingItems(response.data)
       })
       .catch((error) => {
         console.log(error);
@@ -30,47 +31,48 @@ export default function Basket() {
   return (
     <div className="container">
       <h2>Shopping Basket</h2>
-      {shoppingItems &&
-        shoppingItems.map((item, index) => (
-          <table id="cart" className="table table-hover table-condensed">
-            <thead>
-              <tr>
-                <th style={{ width: "50%" }}>Product {index + 1}</th>
-                <th style={{ width: "10%" }}>Price</th>
-                <th style={{ width: "10%" }}></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td data-th="Product">
-                  <div className="row">
-                    <div className="col-sm-2 hidden-xs">
-                      <img
-                        src={item.selectedPic}
-                        alt="..."
-                        className="img-responsive"
-                      />
+      {shoppingItems.length > 0
+        ? shoppingItems.map((item, index) => (
+            <table id="cart" className="table table-hover table-condensed">
+              <thead>
+                <tr>
+                  <th style={{ width: "50%" }}>Product {index + 1}</th>
+                  <th style={{ width: "10%" }}>Price</th>
+                  <th style={{ width: "10%" }}></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-th="Product">
+                    <div className="row">
+                      <div className="col-sm-2 hidden-xs">
+                        <img
+                          src={item.selectedPic}
+                          alt="..."
+                          className="img-responsive"
+                        />
+                      </div>
+                      <div className="col-sm-10">
+                        <h4 className="nomargin">{item.name}</h4>
+                        <p>{item.description}</p>
+                      </div>
                     </div>
-                    <div className="col-sm-10">
-                      <h4 className="nomargin">{item.name}</h4>
-                      <p>{item.description}</p>
-                    </div>
-                  </div>
-                </td>
-                <td data-th="Price">${item.price}</td>
-                <td className="actions" data-th="">
-                  <button
-                    onClick={removeBasket}
-                    value={item._id}
-                    className="btn btn-danger btn-sm"
-                  >
-                    remove
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        ))}
+                  </td>
+                  <td data-th="Price">${item.price}</td>
+                  <td className="actions" data-th="">
+                    <button
+                      onClick={removeBasket}
+                      value={item._id}
+                      className="btn btn-danger btn-sm"
+                    >
+                      remove
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          ))
+        : ""}
       <tfoot>
         <tr>
           <td>
@@ -82,12 +84,13 @@ export default function Basket() {
           <td className="hidden-xs text-center">
             <strong>
               Total: $
-              {shoppingItems &&
+              {shoppingItems.length > 0?
                 shoppingItems
                   .map((p) => parseInt(p.price))
                   .reduce((acc, num) => {
                     return acc + num;
-                  })}
+                  })
+                : ""}
             </strong>
           </td>
           <td>

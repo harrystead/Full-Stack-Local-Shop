@@ -19,4 +19,12 @@ router.post("/add", (req, res) => {
       .catch((err) => res.status(400).json("Error: " + err));
   });
 
+  router.route("/:basketId").get((req, res) => {
+    Basket.find({
+      basketId: req.params.basketId,
+    })
+      .then((items) => res.json(items))
+      .catch((err) => res.status(400).json("Error: " + err));
+  });
+
 module.exports = router;

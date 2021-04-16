@@ -16,8 +16,8 @@ export default {
     // getById: function(id){
     //     return axios.get(`/items/${id}/`)
     // }
-    getBasket: function(){
-        return axios.get("/basket/")
+    getBasket: function(currentUser){
+        return axios.get(`/basket/${currentUser.uid}`)
     },
     postBasket: function(basketData){
         return axios.post("/basket/add/", basketData)

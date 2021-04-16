@@ -4336,13 +4336,6 @@
     "es5-ext" "^0.10.50"
     "type" "^1.0.1"
 
-"d3-array@^2.8.0":
-  "integrity" "sha512-B0ErZK/66mHtEsR1TkPEEkwdy+WDesimkM5gpZr5Dsg54BiTA5RXtYW5qTLIAcekaS9xfZrzBLF/OAkB3Qn1YQ=="
-  "resolved" "https://registry.npmjs.org/d3-array/-/d3-array-2.12.1.tgz"
-  "version" "2.12.1"
-  dependencies:
-    "internmap" "^1.0.0"
-
 "damerau-levenshtein@^1.0.6":
   "integrity" "sha512-JVrozIeElnj3QzfUIt8tB8YMluBJom4Vw9qTPpjGYQ9fYlB3D/rb6OordUxf3xeFB35LKWs0xqcO5U6ySvBtug=="
   "resolved" "https://registry.npmjs.org/damerau-levenshtein/-/damerau-levenshtein-1.0.6.tgz"
@@ -5583,7 +5576,7 @@
     "locate-path" "^5.0.0"
     "path-exists" "^4.0.0"
 
-"firebase@^8.2.9":
+"firebase@^8.2.9", "firebase@>= 8.0.0":
   "integrity" "sha512-0QNPgKre9OHuBHwXKIs1wW1aPrO0wx1si3JMA46vPOmx/vkpQQD2OCxdZdVUc+y5u9d/yNMvVBR6j85H0O15rA=="
   "resolved" "https://registry.npmjs.org/firebase/-/firebase-8.2.9.tgz"
   "version" "8.2.9"
@@ -6463,11 +6456,6 @@
     "get-intrinsic" "^1.1.0"
     "has" "^1.0.3"
     "side-channel" "^1.0.4"
-
-"internmap@^1.0.0":
-  "integrity" "sha512-lDB5YccMydFBtasVtxnZ3MRBHuaoE8GKsppq+EchKL2U4nK/DmEpPHNH8MZe5HkMtpSiTSOZwfN0tzYjO/lJEw=="
-  "resolved" "https://registry.npmjs.org/internmap/-/internmap-1.0.1.tgz"
-  "version" "1.0.1"
 
 "invariant@^2.2.4":
   "integrity" "sha512-phJfQVBuaJM5raOpJjSfkiD6BpbCE4Ns//LaXl6wGYtUBY83nWS6Rf9tXm2e8VaK60JEjYldbPif/A2B1C2gNA=="
@@ -8323,7 +8311,7 @@
   "resolved" "https://registry.npmjs.org/oauth-sign/-/oauth-sign-0.9.0.tgz"
   "version" "0.9.0"
 
-"object-assign@^4.0.1", "object-assign@^4.1.0", "object-assign@^4.1.1", "object-assign@>=2.0.0":
+"object-assign@^4.0.1", "object-assign@^4.1.0", "object-assign@^4.1.1":
   "integrity" "sha1-IQmtx5ZYh8/AXLvUQsrIv7s2CGM="
   "resolved" "https://registry.npmjs.org/object-assign/-/object-assign-4.1.1.tgz"
   "version" "4.1.1"
@@ -9918,15 +9906,6 @@
     "uncontrollable" "^7.0.0"
     "warning" "^4.0.3"
 
-"react-compound-slider@^3.3.1":
-  "integrity" "sha512-1t0nCA0FXfe2hbuJG8VODTrN29FVTp1e2AuR8fRtF/J08/1q1F6OzDhHQqXqYl7O58i8Hei6oCAh4NQ6Kg90Rw=="
-  "resolved" "https://registry.npmjs.org/react-compound-slider/-/react-compound-slider-3.3.1.tgz"
-  "version" "3.3.1"
-  dependencies:
-    "@babel/runtime" "^7.12.5"
-    "d3-array" "^2.8.0"
-    "warning" "^4.0.3"
-
 "react-datepicker@^3.4.1":
   "integrity" "sha512-ASyVb7UmVx1vzeITidD7Cr/EXRXhKyjjbSkBndPc1MipYq4rqQ3eMFgvRQzpsXc3JmIMFgICm7nmN6Otc1GE/Q=="
   "resolved" "https://registry.npmjs.org/react-datepicker/-/react-datepicker-3.4.1.tgz"
@@ -9986,6 +9965,11 @@
   "integrity" "sha512-rtGImPZ0YyLrscKI9xTpV8psd6I8VAtjKCzQDlzyDvqJA8XOW78TXYQwNRNd8g8JZnDu8q9Fu/1v4HPAVwVdHA=="
   "resolved" "https://registry.npmjs.org/react-fast-compare/-/react-fast-compare-3.2.0.tgz"
   "version" "3.2.0"
+
+"react-firebase-hooks@^3.0.3":
+  "integrity" "sha512-g66N21BTzuYWmQhWiTkBPwkrHcK5wNVpq/xkaAyWWDOl3zo9Yx/Q3nG+yVlj966Xi3E5ABC7a/Efk2LNAzzGPA=="
+  "resolved" "https://registry.npmjs.org/react-firebase-hooks/-/react-firebase-hooks-3.0.3.tgz"
+  "version" "3.0.3"
 
 "react-flash-message@^1.0.5":
   "integrity" "sha512-Xaza4Tub+ByjaPkBlMYFCh34rZsyxSK1A63lpot10a8I+D8hUt9GfW2Sy1GVfUaClRBc2sBT7kYYXg7KGZTW4w=="
@@ -10061,13 +10045,6 @@
   dependencies:
     "react-fast-compare" "^3.0.1"
     "warning" "^4.0.2"
-
-"react-range-slider@^0.2.1":
-  "integrity" "sha1-yYohSViZnwLKMfyKT1/xhc0WDz0="
-  "resolved" "https://registry.npmjs.org/react-range-slider/-/react-range-slider-0.2.1.tgz"
-  "version" "0.2.1"
-  dependencies:
-    "object-assign" ">=2.0.0"
 
 "react-refresh@^0.8.3":
   "integrity" "sha512-X8jZHc7nCMjaCqoU+V2I0cOhNW+QMBwSUkeXnTi8IPe6zaRWfn60ZzvFDZqWPfmSJfjub7dDW1SP0jaHWLu/hg=="
@@ -10188,7 +10165,7 @@
     "object-assign" "^4.1.1"
     "prop-types" "^15.6.2"
 
-"react@^17.0.1", "react@>=0.14.x", "react@>=16.9", "react@>=16.9.0", "react@>=16.x":
+"react@^17.0.1", "react@>= 16.8.0", "react@>=16.9.0", "react@>=16.x":
   "integrity" "sha512-lG9c9UuMHdcAexXtigOZLX8exLWkW0Ku29qPRU8uhF2R9BN96dLCt0psvzPLlHc5OWkgymP3qwTRgbnw5BKx3w=="
   "resolved" "https://registry.npmjs.org/react/-/react-17.0.1.tgz"
   "version" "17.0.1"

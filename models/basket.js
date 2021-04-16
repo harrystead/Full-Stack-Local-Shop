@@ -11,6 +11,7 @@ const basketSchema = new Schema({
   selectedPic: { type: String},
   contact: {type: String},
   author: {type: String},
+  basketId: {type: String},
 });
 
 const Basket = mongoose.model('Basket', basketSchema);

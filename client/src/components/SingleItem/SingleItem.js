@@ -1,24 +1,26 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import { useParams } from "react-router";
 import { ItemsContext } from "../../contexts/ItemsContext";
-import API from "../../contexts/API"
-import axios from "axios";
+import API from "../../contexts/API";
+import { useAuth } from "../../contexts/AuthContext";
 
-export default function SingleItem({ }) {
+export default function SingleItem({}) {
   const { id } = useParams();
+  const { currentUser } = useAuth();
   const cardInfo = useContext(ItemsContext);
   const singleItem = cardInfo.filter((item) => item._id === id);
-
+  const { _id, ...finalItem } = singleItem[0];
+  finalItem.basketId = currentUser.uid;
+  console.log(finalItem)
   const addBasket = () => {
-
-    API.postBasket(singleItem)
-    .then((res) => {
-      console.log(res)
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-  }
+    API.postBasket(finalItem)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <div className="container">
@@ -32,69 +34,30 @@ export default function SingleItem({ }) {
                     <div className="tab-pane active" id="pic-1">
                       <img src={item.selectedPic} />
                     </div>
-                    <div className="tab-pane" id="pic-2">
-                      <img src="https://d.ibtimes.co.uk/en/full/1519347/lionel-messi.jpg?w=400" />
-                    </div>
-                    <div className="tab-pane" id="pic-3">
-                      <img src="https://d.ibtimes.co.uk/en/full/1519347/lionel-messi.jpg?w=400" />
-                    </div>
-                    <div className="tab-pane" id="pic-4">
-                      <img src="https://d.ibtimes.co.uk/en/full/1519347/lionel-messi.jpg?w=400" />
-                    </div>
-                    <div className="tab-pane" id="pic-5">
-                      <img src="https://d.ibtimes.co.uk/en/full/1519347/lionel-messi.jpg?w=400" />
-                    </div>
                   </div>
-                  <ul className="preview-thumbnail nav nav-tabs">
-                    <li className="active">
-                      <a data-target="#pic-1" data-toggle="tab">
-                        <img src="https://d.ibtimes.co.uk/en/full/1519347/lionel-messi.jpg?w=400" />
-                      </a>
-                    </li>
-                    <li>
-                      <a data-target="#pic-2" data-toggle="tab">
-                        <img src="https://d.ibtimes.co.uk/en/full/1519347/lionel-messi.jpg?w=400" />
-                      </a>
-                    </li>
-                    <li>
-                      <a data-target="#pic-3" data-toggle="tab">
-                        <img src="https://d.ibtimes.co.uk/en/full/1519347/lionel-messi.jpg?w=400" />
-                      </a>
-                    </li>
-                    <li>
-                      <a data-target="#pic-4" data-toggle="tab">
-                        <img src="https://d.ibtimes.co.uk/en/full/1519347/lionel-messi.jpg?w=400" />
-                      </a>
-                    </li>
-                    <li>
-                      <a data-target="#pic-5" data-toggle="tab">
-                        <img src="https://d.ibtimes.co.uk/en/full/1519347/lionel-messi.jpg?w=400" />
-                      </a>
-                    </li>
-                  </ul>
                 </div>
                 <div className="details col-md-6">
                   <h3 className="product-title">{item.name}</h3>
-                  <div className="rating">
-                    <div className="stars">
-                      <span className="fa fa-star checked"></span>
-                      <span className="fa fa-star checked"></span>
-                      <span className="fa fa-star checked"></span>
-                      <span className="fa fa-star"></span>
-                      <span className="fa fa-star"></span>
-                    </div>
-                    <span className="review-no">41 reviews</span>
-                  </div>
                   <p className="product-description">{item.description}</p>
+                  <div className="bidding-inputß">
+                    <h4>Bid on This Item</h4>
+                    <div>
+                      <input></input>
+                      <button>Submit Bid</button>
+                    </div>
+                  </div>
                   <h4 className="price">
-                    current price: <span>$ 299</span>
+                    starting price: <span>$ 299</span>
                   </h4>
-                  <p className="vote">
-                    <strong>91%</strong> of buyers enjoyed this product!{" "}
-                    <strong>(87 votes)</strong>
-                  </p>
+                  <h4 className="price">
+                    current bid: <span>$</span>
+                  </h4>
                   <div className="action">
-                    <button onClick={addBasket} className="add-to-cart btn-default" type="button">
+                    <button
+                      onClick={addBasket}
+                      className="add-to-cart btn-default"
+                      type="button"
+                    >
                       add to cart
                     </button>
                   </div>
