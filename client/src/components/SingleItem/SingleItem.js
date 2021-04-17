@@ -2,11 +2,14 @@ import React, { useContext, useRef } from "react";
 import { useParams } from "react-router";
 import { ItemsContext } from "../../contexts/ItemsContext";
 import { Form, Button, Alert } from "react-bootstrap";
+import API from "../../contexts/API";
+import { useAuth } from "../../contexts/AuthContext";
 
 export default function SingleItem({}) {
   const { id } = useParams();
   const cardInfo = useContext(ItemsContext);
   const singleItem = cardInfo.filter((item) => item._id === id);
+  const { currentUser } = useAuth();
   const bidRef = useRef();
 
   const addBasket = () => {
@@ -15,7 +18,19 @@ export default function SingleItem({}) {
 
   const bidClick = (e) => {
     e.preventDefault();
-    console.log(bidRef.current.value);
+
+    const bidData = {
+      bid: parseInt(bidRef.current.value),
+      userId: currentUser.uid,
+      itemId: singleItem[0]._id,
+    }
+    API.postBid(bidData)
+    .then((res) => {
+      console.log(res.data)
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   };
 
   return (

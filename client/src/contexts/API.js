@@ -13,16 +13,7 @@ export default {
     deleteItem: function(id){
         return axios.delete(`/items/${id}`)
     },
-    // getById: function(id){
-    //     return axios.get(`/items/${id}/`)
-    // }
-    getBasket: function(currentUser){
-        return axios.get(`/basket/${currentUser.uid}`)
+    postBid: function(bidData){
+        return axios.post("/bids/add", bidData)
     },
-    postBasket: function(basketData){
-        return axios.post("/basket/add/", basketData)
-    },
-    basketDetele: function(id){
-        return axios.delete(`/basket/${id}`)
-    }
 }

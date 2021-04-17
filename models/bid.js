@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 const bidSchema = new Schema({
   bid: { type: Number, required: true },
   userId: { type: String, required: true },
+  itemId: { type: String, required: true }
 });
 
 const Bid = mongoose.model('Bid', bidSchema);
