@@ -16,4 +16,7 @@ export default {
     postBid: function(bidData){
         return axios.post("/bids/add", bidData)
     },
+    getBid: function(itemId){
+        return axios.get(`/bids/${itemId}`)
+    }
 }

@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useRef, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { ItemsContext } from "../../contexts/ItemsContext";
 import { Form, Button, Alert } from "react-bootstrap";
@@ -7,14 +7,26 @@ import { useAuth } from "../../contexts/AuthContext";
 
 export default function SingleItem({}) {
   const { id } = useParams();
-  const cardInfo = useContext(ItemsContext);
-  const singleItem = cardInfo.filter((item) => item._id === id);
   const { currentUser } = useAuth();
   const bidRef = useRef();
+  const [ bid, setBid ] = useState([])
 
+  const cardInfo = useContext(ItemsContext);
+  const singleItem = cardInfo.filter((item) => item._id === id);
   const addBasket = () => {
     localStorage.setItem(singleItem[0]._id, JSON.stringify(singleItem));
   };
+
+  useEffect(() => {
+    API.getBid(id)
+      .then((res) => {
+        console.log(res.data);
+        setBid(res.data)
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   const bidClick = (e) => {
     e.preventDefault();
@@ -23,14 +35,14 @@ export default function SingleItem({}) {
       bid: parseInt(bidRef.current.value),
       userId: currentUser.uid,
       itemId: singleItem[0]._id,
-    }
+    };
     API.postBid(bidData)
-    .then((res) => {
-      console.log(res.data)
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -63,7 +75,7 @@ export default function SingleItem({}) {
                     starting price: <span>$ 299</span>
                   </h4>
                   <h4 className="price">
-                    current bid: <span>$</span>
+                    current bid: <span>${bid.length > 0 ? bid[bid.length - 1].bid : ""}</span>
                   </h4>
                   <div className="action">
                     <button

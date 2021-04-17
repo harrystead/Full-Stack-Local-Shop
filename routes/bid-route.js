@@ -13,4 +13,12 @@ router.route("/add").post((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
+router.route("/:itemId").get((req, res) => {
+  Bid.find({
+    itemId: req.params.itemId,
+  })
+    .then((itemId) => res.json(itemId))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
 module.exports = router;
