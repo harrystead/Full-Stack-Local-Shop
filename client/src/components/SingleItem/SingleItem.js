@@ -9,7 +9,8 @@ export default function SingleItem({}) {
   const { id } = useParams();
   const { currentUser } = useAuth();
   const bidRef = useRef();
-  const [ bid, setBid ] = useState([])
+  const [ bid, setBid ] = useState([]);
+  const [ post, setPost ] = useState([]);
 
   const cardInfo = useContext(ItemsContext);
   const singleItem = cardInfo.filter((item) => item._id === id);
@@ -26,7 +27,7 @@ export default function SingleItem({}) {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [post]);
 
   const bidClick = (e) => {
     e.preventDefault();
@@ -39,6 +40,7 @@ export default function SingleItem({}) {
     API.postBid(bidData)
       .then((res) => {
         console.log(res.data);
+        setPost(res.data)
       })
       .catch((error) => {
         console.log(error);

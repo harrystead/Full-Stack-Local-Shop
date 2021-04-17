@@ -20,15 +20,9 @@ export default function Basket() {
 
   const removeBasket = (event) => {
     const id = event.target.value;
-    API.basketDetele(id).then(() =>
-      API.getBasket()
-        .then((response) => {
-          setShoppingItems(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        })
-    );
+    localStorage.removeItem(id);
+    shoppingItems.filter((basket) => basket._id !== id);
+    window.location.reload()
   };
 
   return (
