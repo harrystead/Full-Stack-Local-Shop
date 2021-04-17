@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from "react";
 import API from "../../contexts/API";
-import { useAuth } from "../../contexts/AuthContext";
 
 export default function Basket() {
   const [shoppingItems, setShoppingItems] = useState("");
-  const { currentUser } = useAuth();
+  let arrayItems = [];
   useEffect(() => {
-    API.getBasket(currentUser)
-      .then((response) => {
-        setShoppingItems(response.data)
-      })
-      .catch((error) => {
+    let keys = Object.keys(localStorage);
+    keys.forEach((item) => {
+      var json_str = localStorage.getItem(item);
+      try {
+        const objectItems = JSON.parse(json_str);
+        arrayItems.push(objectItems[0]);
+        setShoppingItems(arrayItems)
+      } catch (error) {
         console.log(error);
-      });
+      }
+    });
   }, []);
 
   const removeBasket = (event) => {
@@ -84,12 +87,12 @@ export default function Basket() {
           <td className="hidden-xs text-center">
             <strong>
               Total: $
-              {shoppingItems.length > 0?
-                shoppingItems
-                  .map((p) => parseInt(p.price))
-                  .reduce((acc, num) => {
-                    return acc + num;
-                  })
+              {shoppingItems.length > 0
+                ? shoppingItems
+                    .map((p) => parseInt(p.price))
+                    .reduce((acc, num) => {
+                      return acc + num;
+                    })
                 : ""}
             </strong>
           </td>

@@ -50,7 +50,7 @@ function App() {
           </PrivateRoute>
           <Route path="/forgot-password" component={ForgotPassword} />
           <Route path="/:id">
-            <SingleItem  />
+            <SingleItem />
           </Route>
           <Route path="*" component={NoMatch} />
         </Switch>

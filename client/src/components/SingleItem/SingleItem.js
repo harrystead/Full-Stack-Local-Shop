@@ -1,25 +1,21 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 import { useParams } from "react-router";
 import { ItemsContext } from "../../contexts/ItemsContext";
-import API from "../../contexts/API";
-import { useAuth } from "../../contexts/AuthContext";
+import { Form, Button, Alert } from "react-bootstrap";
 
 export default function SingleItem({}) {
   const { id } = useParams();
-  const { currentUser } = useAuth();
   const cardInfo = useContext(ItemsContext);
   const singleItem = cardInfo.filter((item) => item._id === id);
-  const { _id, ...finalItem } = singleItem[0];
-  finalItem.basketId = currentUser.uid;
-  console.log(finalItem)
+  const bidRef = useRef();
+
   const addBasket = () => {
-    API.postBasket(finalItem)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    localStorage.setItem(singleItem[0]._id, JSON.stringify(singleItem));
+  };
+
+  const bidClick = (e) => {
+    e.preventDefault();
+    console.log(bidRef.current.value);
   };
 
   return (
@@ -42,8 +38,10 @@ export default function SingleItem({}) {
                   <div className="bidding-inputß">
                     <h4>Bid on This Item</h4>
                     <div>
-                      <input></input>
-                      <button>Submit Bid</button>
+                      <Form onSubmit={bidClick} encType="multipart/form-data">
+                        <Form.Control type="Input" ref={bidRef} required />
+                        <Button type="submit">Submit Bid</Button>
+                      </Form>
                     </div>
                   </div>
                   <h4 className="price">
