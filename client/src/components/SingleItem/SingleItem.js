@@ -3,6 +3,7 @@ import { useParams } from "react-router";
 import { ItemsContext } from "../../contexts/ItemsContext";
 import { Form, Button, Alert } from "react-bootstrap";
 import API from "../../contexts/API";
+import Timer from "../Timer/Timer"
 
 export default function SingleItem({setRequest}) {
   const { id } = useParams();
@@ -38,6 +39,7 @@ export default function SingleItem({setRequest}) {
 
   return (
     <div className="container">
+      <Timer />
       {success && <Alert variant="success">{success}</Alert>}
       {singleItem &&
         singleItem.map((item) => (
