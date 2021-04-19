@@ -20,12 +20,10 @@ connection.once('open', () => {
 
 const itemsRouter = require('./routes/items-route');
 const detailsRouter = require('./routes/details-route');
-const bidRouter = require('./routes/bid-route');
 
 app.use('/uploads', express.static('uploads'));
 app.use('/items', itemsRouter);
 app.use('/details', detailsRouter);
-app.use('/bids', bidRouter)
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'));

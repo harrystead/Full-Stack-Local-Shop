@@ -3,55 +3,47 @@ import { useParams } from "react-router";
 import { ItemsContext } from "../../contexts/ItemsContext";
 import { Form, Button, Alert } from "react-bootstrap";
 import API from "../../contexts/API";
-import { useAuth } from "../../contexts/AuthContext";
 
 export default function SingleItem({}) {
   const { id } = useParams();
-  const { currentUser } = useAuth();
   const bidRef = useRef();
-  const [ bid, setBid ] = useState([]);
-  const [ post, setPost ] = useState([]);
+  const [bidData, setBidData] = useState("");
+  const [success, setSuccess] = useState("");
+  const [ error, setError ] = useState("");
 
   const cardInfo = useContext(ItemsContext);
   const singleItem = cardInfo.filter((item) => item._id === id);
   const addBasket = () => {
     localStorage.setItem(singleItem[0]._id, JSON.stringify(singleItem));
+    setSuccess(`Successfully added ${singleItem[0].name} to basket.`);
   };
 
-  useEffect(() => {
-    API.getBid(id)
-      .then((res) => {
-        console.log(res.data);
-        setBid(res.data)
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [post]);
+  const bidChange = (e) => {
+    setBidData(e.target.value)
+  }
 
   const bidClick = (e) => {
     e.preventDefault();
-
-    const bidData = {
-      bid: parseInt(bidRef.current.value),
-      userId: currentUser.uid,
-      itemId: singleItem[0]._id,
-    };
-    API.postBid(bidData)
-      .then((res) => {
-        console.log(res.data);
-        setPost(res.data)
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    console.log(bidData)
+    API.updateItem(singleItem[0]._id, {bid: bidData})
+    .then((response) => console.log(response.data))
+    .catch((error) => console.log(error))
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setSuccess("");
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, [success]);
 
   return (
     <div className="container">
+      {console.log(singleItem)}
+      {success && <Alert variant="success">{success}</Alert>}
       {singleItem &&
         singleItem.map((item) => (
-          <div className="card">
+          <div key={item._id} className="card">
             <div className="container-fliud">
               <div className="wrapper row">
                 <div className="preview col-md-6">
@@ -68,16 +60,19 @@ export default function SingleItem({}) {
                     <h4>Bid on This Item</h4>
                     <div>
                       <Form onSubmit={bidClick} encType="multipart/form-data">
-                        <Form.Control type="Input" ref={bidRef} required />
+                        <Form.Control type="Input" onChange={bidChange} value={bidData} required />
                         <Button type="submit">Submit Bid</Button>
                       </Form>
                     </div>
                   </div>
                   <h4 className="price">
-                    starting price: <span>$ 299</span>
+                    starting price: <span>${item.price}</span>
                   </h4>
                   <h4 className="price">
-                    current bid: <span>${bid.length > 0 ? bid[bid.length - 1].bid : ""}</span>
+                    current bid:{" "}
+                    <span>
+                      ${Object.values(item.bid[item.bid.length - 1])}
+                    </span>
                   </h4>
                   <div className="action">
                     <button

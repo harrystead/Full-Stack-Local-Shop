@@ -13,10 +13,7 @@ export default {
     deleteItem: function(id){
         return axios.delete(`/items/${id}`)
     },
-    postBid: function(bidData){
-        return axios.post("/bids/add", bidData)
-    },
-    getBid: function(itemId){
-        return axios.get(`/bids/${itemId}`)
-    }
+    updateItem: function (id, bidData) {
+        return axios.put(`/items/${id}`, bidData);
+      },
 }

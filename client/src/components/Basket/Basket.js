@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import API from "../../contexts/API";
 
 export default function Basket() {
   const [shoppingItems, setShoppingItems] = useState("");
@@ -30,7 +29,7 @@ export default function Basket() {
       <h2>Shopping Basket</h2>
       {shoppingItems.length > 0
         ? shoppingItems.map((item, index) => (
-            <table id="cart" className="table table-hover table-condensed">
+            <table key={item._id} id="cart" className="table table-hover table-condensed">
               <thead>
                 <tr>
                   <th style={{ width: "50%" }}>Product {index + 1}</th>

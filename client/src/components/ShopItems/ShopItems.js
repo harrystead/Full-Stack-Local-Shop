@@ -114,7 +114,7 @@ export default function ShopItems() {
         <div className="card-group">
           {filteredData.length > 0 ? (
             filteredData.map((item) => (
-              <div className="col-sm-3">
+              <div key={item._id} className="col-sm-3">
                 <Link to={"/" + item._id}>
                   <div className="card-home">
                     <img
