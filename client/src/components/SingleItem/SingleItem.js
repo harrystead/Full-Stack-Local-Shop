@@ -39,7 +39,6 @@ export default function SingleItem({setRequest}) {
 
   return (
     <div className="container">
-      <Timer />
       {success && <Alert variant="success">{success}</Alert>}
       {singleItem &&
         singleItem.map((item) => (
@@ -56,6 +55,7 @@ export default function SingleItem({setRequest}) {
                 <div className="details col-md-6">
                   <h3 className="product-title">{item.name}</h3>
                   <p className="product-description">{item.description}</p>
+                  <Timer />
                   <div className="bidding-inputß">
                     <h4>Bid on This Item</h4>
                     <div>

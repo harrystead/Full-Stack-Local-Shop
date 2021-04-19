@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef} from "react";
+import React, { useEffect, useState, useRef } from "react";
 
 export default function Timer() {
   const [timerDays, setTimerDays] = useState("00");
@@ -17,11 +17,13 @@ export default function Timer() {
       const distance = countDownDate - now;
 
       const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24) / (1000 * 60 * 60)));
+      const hours = Math.floor(
+        (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
       const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-      if(distance < 0){
+      if (distance < 0) {
         clearInterval(interval.current);
       } else {
         setTimerDays(days);
@@ -29,22 +31,50 @@ export default function Timer() {
         setTimerMinutes(minutes);
         setTimerSeconds(seconds);
       }
-    }, 1000)
-  }
+    }, 1000);
+  };
 
   useEffect(() => {
-    startTimer()
-    return() => {
+    startTimer();
+    return () => {
       clearInterval(interval.current);
     };
   }, []);
 
   return (
     <div>
-      <p>{timerDays}</p>
-      <p>{timerHours}</p>
-      <p>{timerMinutes}</p>
-      <p>{timerSeconds}</p>
+      <h5>Time Remaining</h5>
+      <div className="timer">
+        <div>
+          <section>
+            <p>{timerDays}</p>
+            <p>
+              <small>Days</small>
+            </p>
+          </section>
+          <span>:</span>
+          <section>
+            <p>{timerHours}</p>
+            <p>
+              <small>Hours</small>
+            </p>
+          </section>
+          <span>:</span>
+          <section>
+            <p>{timerMinutes}</p>
+            <p>
+              <small>Minutes</small>
+            </p>
+          </section>
+          <span>:</span>
+          <section>
+            <p>{timerSeconds}</p>
+            <p>
+              <small>Seconds</small>
+            </p>
+          </section>
+        </div>
+      </div>
     </div>
-  )
+  );
 }
