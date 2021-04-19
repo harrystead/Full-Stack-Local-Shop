@@ -4,14 +4,13 @@ import { ItemsContext } from "../../contexts/ItemsContext";
 import { Form, Button, Alert } from "react-bootstrap";
 import API from "../../contexts/API";
 
-export default function SingleItem({}) {
+export default function SingleItem({setRequest}) {
   const { id } = useParams();
-  const bidRef = useRef();
   const [bidData, setBidData] = useState("");
   const [success, setSuccess] = useState("");
   const [ error, setError ] = useState("");
 
-  const cardInfo = useContext(ItemsContext);
+  const cardInfo = useContext(ItemsContext)
   const singleItem = cardInfo.filter((item) => item._id === id);
   const addBasket = () => {
     localStorage.setItem(singleItem[0]._id, JSON.stringify(singleItem));
@@ -24,9 +23,9 @@ export default function SingleItem({}) {
 
   const bidClick = (e) => {
     e.preventDefault();
-    console.log(bidData)
     API.updateItem(singleItem[0]._id, {bid: bidData})
-    .then((response) => console.log(response.data))
+    .then((response) => console.log(response.data),
+    setRequest("success"))
     .catch((error) => console.log(error))
   };
 
@@ -39,7 +38,6 @@ export default function SingleItem({}) {
 
   return (
     <div className="container">
-      {console.log(singleItem)}
       {success && <Alert variant="success">{success}</Alert>}
       {singleItem &&
         singleItem.map((item) => (
@@ -71,7 +69,7 @@ export default function SingleItem({}) {
                   <h4 className="price">
                     current bid:{" "}
                     <span>
-                      ${Object.values(item.bid[item.bid.length - 1])}
+                      ${item.bid.length > 0 ? Object.values(item.bid[item.bid.length - 1]) : 0}
                     </span>
                   </h4>
                   <div className="action">

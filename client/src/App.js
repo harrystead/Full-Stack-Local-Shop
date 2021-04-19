@@ -19,6 +19,7 @@ import { ItemsContext } from "./contexts/ItemsContext";
 
 function App() {
   const [listData, setListData] = useState([]);
+  const [request, setRequest] = useState("");
 
   useEffect(() => {
     API.getItems()
@@ -28,7 +29,7 @@ function App() {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [request]);
 
   return (
     <AuthProvider>
@@ -50,7 +51,7 @@ function App() {
           </PrivateRoute>
           <Route path="/forgot-password" component={ForgotPassword} />
           <Route path="/:id">
-            <SingleItem />
+            <SingleItem setRequest={setRequest}/>
           </Route>
           <Route path="*" component={NoMatch} />
         </Switch>
