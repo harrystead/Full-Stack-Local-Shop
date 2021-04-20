@@ -12,7 +12,7 @@ const itemSchema = new Schema({
   selectedPic: { type: String},
   contact: {type: String},
   author: {type: String},
-  endDate: {type: String},
+  endDate: {type: Date, required: true},
   bid: {type: Array},
 });
 

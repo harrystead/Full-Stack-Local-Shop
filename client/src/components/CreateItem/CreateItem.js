@@ -1,12 +1,10 @@
 import React, { useRef, useState } from "react";
 import axios from "axios";
 import { useAuth } from "../../contexts/AuthContext";
-import { Redirect} from 'react-router-dom';
-import {
-  Form,
-  Button,
-  Alert,
-} from "react-bootstrap";
+import { Redirect } from "react-router-dom";
+import { Form, Button, Alert } from "react-bootstrap";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export default function CreateItem() {
   const { currentUser } = useAuth();
@@ -18,6 +16,7 @@ export default function CreateItem() {
   const contactRef = useRef();
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
+  const [endDate, setEndDate] = useState(new Date());
 
   const [quality, setQuality] = useState("");
   const [selectedPic, setSelectedPic] = useState("");
@@ -43,17 +42,18 @@ export default function CreateItem() {
     formData.append("description", descriptionRef.current.value);
     formData.append("contact", contactRef.current.value);
     formData.append("author", currentUser.uid);
+    formData.append("endDate", endDate)
 
     //post to monogdb;
     axios
       .post("/items/add", formData)
       .then((res) => {
-        console.log(res.data)
-        setSuccess("Great! Item has been created!")
+        console.log(res.data);
+        setSuccess("Great! Item has been created!");
       })
       .catch((error) => {
         console.log(error);
-        setError("Request has failed", error)
+        setError("Request has failed", error);
       });
   }
   return (
@@ -133,12 +133,21 @@ export default function CreateItem() {
           label="Custom file input"
           custom
         />
+        ``
       </Form.Group>
       <Form.Group id="contact">
         <Form.Label>
           Phone Number or Email(for customers to contact you)
         </Form.Label>
         <Form.Control type="Input" ref={contactRef} required />
+      </Form.Group>
+      <Form.Group id="date-picker">
+        <Form.Label>Select the Bidding End Date</Form.Label>
+        <DatePicker
+          dateFormat="yyyy/MM/dd"
+          selected={endDate}
+          onChange={(date) => setEndDate(date)}
+        />
       </Form.Group>
       <Form.Group id="button">
         <Button className="w-25" type="submit">

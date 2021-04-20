@@ -11,7 +11,7 @@ export default function Timer() {
 
   const startTimer = () => {
     //set to whatever the user decides
-    const countDownDate = new Date("April 20, 2021, 11:48:00").getTime();
+    const countDownDate = new Date("22 Apr, 2021, 11:55:00").getTime();
 
     interval = setInterval(() => {
       const now = new Date().getTime();
@@ -23,7 +23,6 @@ export default function Timer() {
       );
       const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-      console.log(distance)
       if (distance < 0) {
         clearInterval(interval);
         console.log("delete request here")

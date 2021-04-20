@@ -120,7 +120,7 @@ export default function ProfileDashboard() {
                   <p className="card-text-price">{"£" + item.price}</p>
                   <p className="card-text">
                     <small className="text-muted">
-                      Date Posted: {item.createdAt.slice(0, 10)}
+                      Date Posted: {item.createdAt}
                     </small>
                   </p>
                 </div>

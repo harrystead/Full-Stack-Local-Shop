@@ -47,6 +47,7 @@ router.post("/add", upload.single("selectedPic"), (req, res) => {
   const selectedPic = req.file.path;
   const contact = req.body.contact;
   const author = req.body.author;
+  const endDate = req.body.endDate;
 
   const newItem = new Item({
     name,
@@ -58,6 +59,7 @@ router.post("/add", upload.single("selectedPic"), (req, res) => {
     selectedPic,
     contact,
     author,
+    endDate
   });
 
   newItem
