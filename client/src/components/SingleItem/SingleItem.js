@@ -6,14 +6,14 @@ import API from "../../contexts/API";
 import Timer from "../Timer/Timer";
 import { useAuth } from "../../contexts/AuthContext";
 
-export default function SingleItem({setRequest}) {
+export default function SingleItem({ setRequest }) {
   const { id } = useParams();
-  const { currentUser} = useAuth();
+  const { currentUser } = useAuth();
   const [bidData, setBidData] = useState("");
   const [success, setSuccess] = useState("");
-  const [ error, setError ] = useState("");
-  
-  const cardInfo = useContext(ItemsContext)
+  const [error, setError] = useState("");
+
+  const cardInfo = useContext(ItemsContext);
   const singleItem = cardInfo.filter((item) => item._id === id);
   const addBasket = () => {
     localStorage.setItem(singleItem[0]._id, JSON.stringify(singleItem));
@@ -21,20 +21,32 @@ export default function SingleItem({setRequest}) {
   };
 
   const bidChange = (e) => {
-    setBidData(e.target.value)
-  }
+    setBidData(e.target.value);
+  };
+
+  let arrayBids = [];
+  singleItem[0].bid.forEach((item) => arrayBids.push(parseInt(item.bid)));
+  const maximumBid = Math.max(...arrayBids);
+
   const bidClick = (e) => {
     e.preventDefault();
-    if(bidData < singleItem[0].price){
-      setError("Bid must be higher than or equal to starting price")
+    if (bidData < singleItem[0].price) {
+      setError("Bid must be higher than or equal to starting price.");
+    } 
+    else if(bidData <= maximumBid){
+      setError("Bid must be higher than the current bid.")
     }
-    else{
-    API.updateItem(id, {bid: bidData, currentUser: currentUser.uid})
-    .then((response) => console.log(response.data),
-    setRequest(`request successfully made for total of $${bidData}`),
-    setSuccess(`Successfully made a bid of $${bidData} for ${singleItem[0].name}.`),
-    setError(""))
-    .catch((error) => console.log(error))
+    else {
+      API.updateItem(id, { bid: bidData, currentUser: currentUser.uid })
+        .then(
+          (response) => console.log(response.data),
+          setRequest(`request successfully made for total of $${bidData}`),
+          setSuccess(
+            `Successfully made a bid of $${bidData} for ${singleItem[0].name}.`
+          ),
+          setError("")
+        )
+        .catch((error) => console.log(error));
     }
   };
 
@@ -64,12 +76,17 @@ export default function SingleItem({setRequest}) {
                 <div className="details col-md-6">
                   <h3 className="product-title">{item.name}</h3>
                   <p className="product-description">{item.description}</p>
-                    <Timer dateBid={singleItem[0].endDate}/>
+                  <Timer dateBid={singleItem[0].endDate} />
                   <div className="bidding-inputß">
                     <h4>Bid on This Item</h4>
                     <div>
                       <Form onSubmit={bidClick} encType="multipart/form-data">
-                        <Form.Control type="Input" onChange={bidChange} value={bidData} required />
+                        <Form.Control
+                          type="Input"
+                          onChange={bidChange}
+                          value={bidData}
+                          required
+                        />
                         <Button type="submit">Submit Bid</Button>
                       </Form>
                     </div>
@@ -80,7 +97,10 @@ export default function SingleItem({setRequest}) {
                   <h4 className="price">
                     current bid:{" "}
                     <span>
-                      ${item.bid.length > 0 ? item.bid[item.bid.length - 1].bid : 0}
+                      $
+                      {item.bid.length > 0
+                        ? maximumBid
+                        : 0}
                     </span>
                   </h4>
                   <div className="action">
