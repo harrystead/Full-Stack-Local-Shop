@@ -10,7 +10,7 @@ export default function SingleItem({setRequest}) {
   const [bidData, setBidData] = useState("");
   const [success, setSuccess] = useState("");
   const [ error, setError ] = useState("");
-
+  
   const cardInfo = useContext(ItemsContext)
   const singleItem = cardInfo.filter((item) => item._id === id);
   const addBasket = () => {
@@ -55,7 +55,7 @@ export default function SingleItem({setRequest}) {
                 <div className="details col-md-6">
                   <h3 className="product-title">{item.name}</h3>
                   <p className="product-description">{item.description}</p>
-                  <Timer />
+                    <Timer dateBid={singleItem[0].endDate}/>
                   <div className="bidding-inputß">
                     <h4>Bid on This Item</h4>
                     <div>

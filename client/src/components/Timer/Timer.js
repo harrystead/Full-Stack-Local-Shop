@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 
-export default function Timer() {
+export default function Timer({dateBid}) {
   const [timerDays, setTimerDays] = useState("00");
   const [timerHours, setTimerHours] = useState("00");
   const [timerMinutes, setTimerMinutes] = useState("00");
@@ -11,7 +11,7 @@ export default function Timer() {
 
   const startTimer = () => {
     //set to whatever the user decides
-    const countDownDate = new Date("22 Apr, 2021, 11:55:00").getTime();
+    const countDownDate = new Date(dateBid).getTime();
 
     interval = setInterval(() => {
       const now = new Date().getTime();

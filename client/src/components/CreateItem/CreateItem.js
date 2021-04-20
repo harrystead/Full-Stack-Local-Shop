@@ -144,7 +144,7 @@ export default function CreateItem() {
       <Form.Group id="date-picker">
         <Form.Label>Select the Bidding End Date</Form.Label>
         <DatePicker
-          dateFormat="yyyy/MM/dd"
+          dateFormat="d MMMM, yyyy h:mm"
           selected={endDate}
           onChange={(date) => setEndDate(date)}
         />
