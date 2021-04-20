@@ -51,6 +51,10 @@ img {
     padding: 3em;
     line-height: 1.5em; }
   
+    .five-bids {
+      text-align: center;
+    }
+  
   @media screen and (min-width: 997px) {
     .wrapper {
       display: -webkit-box;
@@ -68,6 +72,7 @@ img {
     -webkit-flex-direction: column;
         -ms-flex-direction: column;
             flex-direction: column; }
+
   
   .colors {
     -webkit-box-flex: 1;
@@ -155,3 +160,4 @@ img {
       opacity: 1;
       -webkit-transform: scale(1);
               transform: scale(1); } }
+

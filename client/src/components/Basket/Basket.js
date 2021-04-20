@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function Basket() {
   const [shoppingItems, setShoppingItems] = useState("");
@@ -29,6 +30,7 @@ export default function Basket() {
       <h2>Shopping Basket</h2>
       {shoppingItems.length > 0
         ? shoppingItems.map((item, index) => (
+          <Link to={`/${item._id}`} >
             <table key={item._id} id="cart" className="table table-hover table-condensed">
               <thead>
                 <tr>
@@ -56,6 +58,13 @@ export default function Basket() {
                   </td>
                   <td data-th="Price">${item.price}</td>
                   <td className="actions" data-th="">
+                    <Link to={`/${item._id}`}>
+                  <button
+                      className="btn btn-success btn-sm"
+                    >
+                      bid
+                    </button>
+                    </Link>
                     <button
                       onClick={removeBasket}
                       value={item._id}
@@ -67,12 +76,13 @@ export default function Basket() {
                 </tr>
               </tbody>
             </table>
+            </Link>
           ))
         : ""}
       <tfoot>
         <tr>
           <td>
-            <a href="#" className="btn btn-warning">
+            <a href="/" className="btn btn-warning">
               <i className="fa fa-angle-left"></i> Continue Shopping
             </a>
           </td>
@@ -88,11 +98,6 @@ export default function Basket() {
                     })
                 : ""}
             </strong>
-          </td>
-          <td>
-            <a href="#" className="btn btn-success btn-block">
-              Checkout <i className="fa fa-angle-right"></i>
-            </a>
           </td>
         </tr>
       </tfoot>

@@ -37,7 +37,7 @@ export default function SingleItem({ setRequest }) {
     currentdate.getMinutes() +
     ":" +
     currentdate.getSeconds() +
-    " " +
+    ", " +
     currentdate.getDate() +
     "/" +
     (currentdate.getMonth() + 1) +
