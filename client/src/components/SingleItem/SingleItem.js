@@ -27,16 +27,18 @@ export default function SingleItem({ setRequest }) {
   let arrayBids = [];
   singleItem[0].bid.forEach((item) => arrayBids.push(parseInt(item.bid)));
   const maximumBid = Math.max(...arrayBids);
+  const previousFiveBids = arrayBids.slice(
+    arrayBids.length - 5,
+    arrayBids.length
+  );
 
   const bidClick = (e) => {
     e.preventDefault();
     if (bidData < singleItem[0].price) {
       setError("Bid must be higher than or equal to starting price.");
-    } 
-    else if(bidData <= maximumBid){
-      setError("Bid must be higher than the current bid.")
-    }
-    else {
+    } else if (bidData <= maximumBid) {
+      setError("Bid must be higher than the current bid.");
+    } else {
       API.updateItem(id, { bid: bidData, currentUser: currentUser.uid })
         .then(
           (response) => console.log(response.data),
@@ -70,6 +72,12 @@ export default function SingleItem({ setRequest }) {
                   <div className="preview-pic tab-content">
                     <div className="tab-pane active" id="pic-1">
                       <img src={item.selectedPic} />
+                      <div className="five-bids">
+                        <h5>Latest Five Bids</h5>
+                        {previousFiveBids.map((latestBids) => (
+                          <p>${latestBids}</p>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -96,12 +104,7 @@ export default function SingleItem({ setRequest }) {
                   </h4>
                   <h4 className="price">
                     current bid:{" "}
-                    <span>
-                      $
-                      {item.bid.length > 0
-                        ? maximumBid
-                        : 0}
-                    </span>
+                    <span>${item.bid.length > 0 ? maximumBid : 0}</span>
                   </h4>
                   <div className="action">
                     <button
