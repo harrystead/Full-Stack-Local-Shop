@@ -3,10 +3,12 @@ import { useParams } from "react-router";
 import { ItemsContext } from "../../contexts/ItemsContext";
 import { Form, Button, Alert } from "react-bootstrap";
 import API from "../../contexts/API";
-import Timer from "../Timer/Timer"
+import Timer from "../Timer/Timer";
+import { useAuth } from "../../contexts/AuthContext";
 
 export default function SingleItem({setRequest}) {
   const { id } = useParams();
+  const { currentUser} = useAuth();
   const [bidData, setBidData] = useState("");
   const [success, setSuccess] = useState("");
   const [ error, setError ] = useState("");
@@ -21,13 +23,19 @@ export default function SingleItem({setRequest}) {
   const bidChange = (e) => {
     setBidData(e.target.value)
   }
-
   const bidClick = (e) => {
     e.preventDefault();
-    API.updateItem(singleItem[0]._id, {bid: bidData})
+    if(bidData < singleItem[0].price){
+      setError("Bid must be higher than or equal to starting price")
+    }
+    else{
+    API.updateItem(id, {bid: bidData, currentUser: currentUser.uid})
     .then((response) => console.log(response.data),
-    setRequest("success"))
+    setRequest(`request successfully made for total of $${bidData}`),
+    setSuccess(`Successfully made a bid of $${bidData} for ${singleItem[0].name}.`),
+    setError(""))
     .catch((error) => console.log(error))
+    }
   };
 
   useEffect(() => {
@@ -40,6 +48,7 @@ export default function SingleItem({setRequest}) {
   return (
     <div className="container">
       {success && <Alert variant="success">{success}</Alert>}
+      {error && <Alert variant="danger">{error}</Alert>}
       {singleItem &&
         singleItem.map((item) => (
           <div key={item._id} className="card">
@@ -71,7 +80,7 @@ export default function SingleItem({setRequest}) {
                   <h4 className="price">
                     current bid:{" "}
                     <span>
-                      ${item.bid.length > 0 ? Object.values(item.bid[item.bid.length - 1]) : 0}
+                      ${item.bid.length > 0 ? item.bid[item.bid.length - 1].bid : 0}
                     </span>
                   </h4>
                   <div className="action">

@@ -91,7 +91,7 @@ router.route("/:id").delete((req, res) => {
 
 router.route("/:id").put((req, res) => {
   console.log(req.body)
-  Item.findOneAndUpdate(req.params.id, { $push: { bid: req.body } }, {upsert: true}, function(err, doc) {
+  Item.findByIdAndUpdate({ _id: req.params.id }, { $push: { bid: req.body } }, function(err, doc) {
     if (err) return res.send(500, {error: err});
     return res.send('Succesfully saved.');
 });

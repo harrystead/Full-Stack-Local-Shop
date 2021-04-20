@@ -5,7 +5,6 @@ export default function Timer({dateBid}) {
   const [timerHours, setTimerHours] = useState("00");
   const [timerMinutes, setTimerMinutes] = useState("00");
   const [timerSeconds, setTimerSeconds] = useState("00");
-  const [onFinish, setOnFinish] = useState("");
 
   let interval = useRef();
 
