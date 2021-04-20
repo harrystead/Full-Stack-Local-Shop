@@ -5,16 +5,17 @@ export default function Timer() {
   const [timerHours, setTimerHours] = useState("00");
   const [timerMinutes, setTimerMinutes] = useState("00");
   const [timerSeconds, setTimerSeconds] = useState("00");
+  const [onFinish, setOnFinish] = useState("");
 
   let interval = useRef();
 
   const startTimer = () => {
     //set to whatever the user decides
-    const countDownDate = new Date("April 27, 2021, 00:00:00").getTime();
+    const countDownDate = new Date("April 20, 2021, 11:48:00").getTime();
 
     interval = setInterval(() => {
       const now = new Date().getTime();
-      const distance = countDownDate - now;
+      let distance = countDownDate - now;
 
       const days = Math.floor(distance / (1000 * 60 * 60 * 24));
       const hours = Math.floor(
@@ -22,10 +23,12 @@ export default function Timer() {
       );
       const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
+      console.log(distance)
       if (distance < 0) {
-        clearInterval(interval.current);
-      } else {
+        clearInterval(interval);
+        console.log("delete request here")
+      }
+      else{
         setTimerDays(days);
         setTimerHours(hours);
         setTimerMinutes(minutes);
@@ -37,7 +40,7 @@ export default function Timer() {
   useEffect(() => {
     startTimer();
     return () => {
-      clearInterval(interval.current);
+      clearInterval(interval);
     };
   }, []);
 

@@ -12,7 +12,6 @@ export default function ShopItems() {
   const [quality, setQuality] = useState("");
   const [priceSlider, setPriceSlider] = useState([0, 500]);
   const propertyInfo = useContext(ItemsContext);
-
   const filterCategory = (event) => {
     setCategory(event.target.value);
   };
