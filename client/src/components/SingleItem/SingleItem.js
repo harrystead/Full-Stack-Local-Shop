@@ -25,12 +25,25 @@ export default function SingleItem({ setRequest }) {
   };
 
   let arrayBids = [];
-  singleItem[0].bid.forEach((item) => arrayBids.push(parseInt(item.bid)));
+  const pushBids = singleItem[0].bid;
+  const sliceFiveBids = pushBids.slice(Math.max(pushBids.length - 5, 0))
+  sliceFiveBids.forEach((item) => arrayBids.push(parseInt(item.bid)))
   const maximumBid = Math.max(...arrayBids);
-  const previousFiveBids = arrayBids.slice(
-    arrayBids.length - 5,
-    arrayBids.length
-  );
+
+  let currentdate = new Date();
+  let datetime =
+    currentdate.getHours() +
+    ":" +
+    currentdate.getMinutes() +
+    ":" +
+    currentdate.getSeconds() +
+    " " +
+    currentdate.getDate() +
+    "/" +
+    (currentdate.getMonth() + 1) +
+    "/" +
+    currentdate.getFullYear() +
+    " ";
 
   const bidClick = (e) => {
     e.preventDefault();
@@ -39,7 +52,11 @@ export default function SingleItem({ setRequest }) {
     } else if (bidData <= maximumBid) {
       setError("Bid must be higher than the current bid.");
     } else {
-      API.updateItem(id, { bid: bidData, currentUser: currentUser.uid })
+      API.updateItem(id, {
+        bid: bidData,
+        currentUser: currentUser.uid,
+        date: datetime,
+      })
         .then(
           (response) => console.log(response.data),
           setRequest(`request successfully made for total of $${bidData}`),
@@ -74,9 +91,12 @@ export default function SingleItem({ setRequest }) {
                       <img src={item.selectedPic} />
                       <div className="five-bids">
                         <h5>Latest Five Bids</h5>
-                        {previousFiveBids.map((latestBids) => (
-                          <p>${latestBids}</p>
-                        ))}
+                        {sliceFiveBids && sliceFiveBids.length > 0 ? sliceFiveBids.map((latestBids, index) => (
+                          <p key={latestBids.bid}>{index + 1}: ${latestBids.bid} -- {latestBids.date}</p>
+                        ))
+                        :
+                       <p>No bids made yet.</p>
+                      }
                       </div>
                     </div>
                   </div>
