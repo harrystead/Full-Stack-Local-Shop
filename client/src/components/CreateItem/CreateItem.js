@@ -6,7 +6,7 @@ import { Form, Button, Alert } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-export default function CreateItem() {
+export default function CreateItem({setRequest}) {
   const { currentUser } = useAuth();
   const nameRef = useRef();
   const categoryRef = useRef();
@@ -20,7 +20,6 @@ export default function CreateItem() {
 
   const [quality, setQuality] = useState("");
   const [selectedPic, setSelectedPic] = useState("");
-
   const radioOnChange = (e) => {
     setQuality(e.target.value);
   };
@@ -50,6 +49,7 @@ export default function CreateItem() {
       .then((res) => {
         console.log(res.data);
         setSuccess("Great! Item has been created!");
+        setRequest(`Item ${res.data.name} has been added`)
       })
       .catch((error) => {
         console.log(error);
@@ -123,17 +123,17 @@ export default function CreateItem() {
         <Form.Control type="Input" ref={priceRef} required />
       </Form.Group>
       <Form.Group controlId="exampleForm.ControlTextarea1">
-        <Form.Label>Description</Form.Label>
+      <Form.Label>Description</Form.Label>
         <Form.Control as="textarea" ref={descriptionRef} rows={3} />
       </Form.Group>
       <Form.Group>
+      <Form.Label>Selected Picture</Form.Label>
         <Form.File
           id="custom-file"
           onChange={pictureOnChange}
-          label="Custom file input"
+          label={selectedPic ? `${selectedPic.name}` : "Select a photo"}
           custom
         />
-        ``
       </Form.Group>
       <Form.Group id="contact">
         <Form.Label>

@@ -63,7 +63,8 @@ export default function SingleItem({ setRequest }) {
           setSuccess(
             `Successfully made a bid of $${bidData} for ${singleItem[0].name}.`
           ),
-          setError("")
+          setError(""),
+          setBidData("")
         )
         .catch((error) => console.log(error));
     }

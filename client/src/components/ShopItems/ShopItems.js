@@ -7,7 +7,7 @@ import "rc-slider/assets/index.css";
 const { createSliderWithTooltip } = Slider;
 const Range = createSliderWithTooltip(Slider.Range);
 
-export default function ShopItems() {
+export default function ShopItems({setRequest}) {
   const [category, setCategory] = useState("");
   const [quality, setQuality] = useState("");
   const [priceSlider, setPriceSlider] = useState([0, 500]);

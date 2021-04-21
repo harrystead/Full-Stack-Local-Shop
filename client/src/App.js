@@ -38,9 +38,11 @@ function App() {
         <NavbarToggle />
         <Switch>
           <Route exact path="/">
-            <ShopItems listData={listData}/>
+            <ShopItems listData={listData} setRequest={setRequest}/>
           </Route>
-          <Route path="/create" component={CreateItem} />
+          <Route path="/create">
+            <CreateItem setRequest={setRequest}/>
+          </Route>
           <Route path="/signup" component={Signup} />
           <Route path="/login">
             <Login />

@@ -12,6 +12,7 @@ const itemSchema = new Schema({
   selectedPic: { type: String, required: true},
   contact: {type: String, required: true},
   author: {type: String, required: true},
+  timesUp: {type: Boolean, default: false},
   endDate: {type: String, required: true},
   bid: {type: Array},
 });
