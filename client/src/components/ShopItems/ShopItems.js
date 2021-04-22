@@ -10,9 +10,14 @@ const Range = createSliderWithTooltip(Slider.Range);
 export default function ShopItems({setRequest}) {
   const [category, setCategory] = useState("");
   const [quality, setQuality] = useState("");
+  const [searchVal, setSearchVal] = useState("");
   const [priceSlider, setPriceSlider] = useState([0, 500]);
   const propertyInfo = useContext(ItemsContext);
-  
+
+  const onChangeSearch = (event) => {
+    setSearchVal(event.target.value);
+  };
+
   const filterCategory = (event) => {
     setCategory(event.target.value);
   };
@@ -30,7 +35,8 @@ export default function ShopItems({setRequest}) {
     quality &&
     priceSlider &&
     quality !== "View All" &&
-    category !== "View All";
+    category !== "View All" && 
+    searchVal;
   let filteredData = propertyInfo
     .map((info) => info)
     .filter((item) => {
@@ -39,11 +45,16 @@ export default function ShopItems({setRequest}) {
           item.category === category &&
           item.quality === quality &&
           item.price > priceSlider[0] &&
-          item.price < priceSlider[1]
+          item.price < priceSlider[1] &&
+          item.name.toLowerCase().includes(searchVal.toLowerCase())
         );
       } else if (catCondition) {
         return item.category === category;
-      } else if (qualCondition) {
+      } 
+      else if (searchVal){
+        return item.name.toLowerCase().includes(searchVal.toLowerCase());
+      }
+      else if (qualCondition) {
         return item.quality === quality;
       } else if (priceSlider) {
         return item.price > priceSlider[0] && item.price < priceSlider[1];
@@ -55,7 +66,12 @@ export default function ShopItems({setRequest}) {
     <div className="row">
       <div className="col-sm-2">
         <h4>Filters</h4>
+        <div>
+          <h6>Search</h6>
+          <Form.Control type="Input" value={searchVal} onChange={onChangeSearch}/>
+        </div>
         <div className="category-filter">
+          <h6>Filter by Category</h6>
           <Form.Control
             className="form-options"
             onChange={filterCategory}
@@ -73,6 +89,7 @@ export default function ShopItems({setRequest}) {
           </Form.Control>
         </div>
         <div className="quality-filter">
+        <h6>Filter by Quality</h6>
           <Form.Control
             className="form-options"
             onChange={filterQuality}
@@ -126,7 +143,7 @@ export default function ShopItems({setRequest}) {
                       <h5 className="card-title">{item.name}</h5>
                       <p className="card-text">
                         <small className="text-muted">
-                          Contact:{item.contact} for more info
+                          Contact: {item.contact} for more info
                         </small>
                       </p>
                       <p className="card-text-three">
