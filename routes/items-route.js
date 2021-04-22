@@ -59,7 +59,7 @@ router.post("/add", upload.single("selectedPic"), (req, res) => {
     selectedPic,
     contact,
     author,
-    endDate
+    endDate,
   });
 
   newItem
@@ -76,13 +76,6 @@ router.route("/:author").get((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-// router.route("/:id").get((req, res) => {
-//   Item.find({
-//     id: req.params.id})
-//     .then((items) => res.json(items))
-//     .catch((err) => res.status(400).json("Error: " + err));
-// });
-
 router.route("/:id").delete((req, res) => {
   Item.findByIdAndDelete(req.params.id)
     .then(() => res.json("Item deleted."))
@@ -90,11 +83,33 @@ router.route("/:id").delete((req, res) => {
 });
 
 router.route("/:id").put((req, res) => {
-  console.log(req.body)
-  Item.findByIdAndUpdate({ _id: req.params.id }, { $push: { bid: req.body } }, function(err, doc) {
-    if (err) return res.send(500, {error: err});
-    return res.send('Succesfully saved.');
+  Item.updateMany(
+    { _id: req.params.id },
+    { $push: { bid: req.body },
+  }, 
+    function (err, doc) {
+      if (err) return res.send(500, { error: err });
+      return res.send("Succesfully saved.");
+    }
+  );
 });
+
+router.route("/updateTime/:id").put((req, res) => {
+  Item.findByIdAndUpdate(
+    { _id: req.params.id },
+    { timesUp: true },
+    function (err, doc) {
+      if (err) return res.send(500, { error: err });
+      return res.send("Succesfully update.");
+    }
+  );
+});
+
+router.route("/listEnded/timesUp/:id").get((req, res) => {
+
+  Item.find({'bid.bidder': req.params.id }, {'timesUp': false})
+  .then((items) => res.json(items))
+  .catch((err) => res.status(400).json("Error: " + err));
 });
 
 module.exports = router;

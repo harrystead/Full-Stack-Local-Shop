@@ -14,7 +14,13 @@ const itemSchema = new Schema({
   author: {type: String, required: true},
   timesUp: {type: Boolean, default: false},
   endDate: {type: String, required: true},
-  bid: {type: Array},
+  bid: [
+    {
+      date: {type: String, default: ""},
+      bidding: {type: String, default: ""},
+      bidder: {type: String, default: ""}
+    }
+  ]
 });
 
 const Item = mongoose.model('Item', itemSchema);

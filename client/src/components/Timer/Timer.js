@@ -1,6 +1,8 @@
-import React, { useEffect, useState, useRef } from "react";
 
-export default function Timer({dateBid}) {
+import React, { useEffect, useState, useRef } from "react";
+import API from "../../contexts/API";
+
+export default function Timer({dateBid, id}) {
   const [timerDays, setTimerDays] = useState("00");
   const [timerHours, setTimerHours] = useState("00");
   const [timerMinutes, setTimerMinutes] = useState("00");
@@ -25,6 +27,11 @@ export default function Timer({dateBid}) {
       if (distance < 0) {
         clearInterval(interval);
         console.log("delete request here")
+        API.updateTime(id)
+        .then((response) => {
+          console.log("updated item", response)
+        })
+        .catch((error) => console.log(error));
       }
       else{
         setTimerDays(days);

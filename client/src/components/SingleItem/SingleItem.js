@@ -27,7 +27,7 @@ export default function SingleItem({ setRequest }) {
   let arrayBids = [];
   const pushBids = singleItem[0].bid;
   const sliceFiveBids = pushBids.slice(Math.max(pushBids.length - 5, 0))
-  sliceFiveBids.forEach((item) => arrayBids.push(parseInt(item.bid)))
+  sliceFiveBids.forEach((item) => arrayBids.push(parseInt(item.bidding)))
   const maximumBid = Math.max(...arrayBids);
 
   let currentdate = new Date();
@@ -52,11 +52,11 @@ export default function SingleItem({ setRequest }) {
     } else if (bidData <= maximumBid) {
       setError("Bid must be higher than the current bid.");
     } else {
-      API.updateItem(id, {
-        bid: bidData,
-        currentUser: currentUser.uid,
+      API.updateItem(id, [{
+        bidding: bidData,
         date: datetime,
-      })
+        bidder: currentUser.uid
+      }],)
         .then(
           (response) => console.log(response.data),
           setRequest(`request successfully made for total of $${bidData}`),
@@ -105,7 +105,7 @@ export default function SingleItem({ setRequest }) {
                 <div className="details col-md-6">
                   <h3 className="product-title">{item.name}</h3>
                   <p className="product-description">{item.description}</p>
-                  <Timer dateBid={singleItem[0].endDate} />
+                  <Timer dateBid={singleItem[0].endDate} id={id}/>
                   <div className="bidding-inputß">
                     <h4>Bid on This Item</h4>
                     <div>

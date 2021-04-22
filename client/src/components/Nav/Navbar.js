@@ -2,9 +2,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import { Navbar, Nav, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCartPlus
-} from "@fortawesome/free-solid-svg-icons";
+import { faCartPlus, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
 const NavbarToggle = () => {
   const { currentUser } = useAuth();
@@ -13,12 +11,17 @@ const NavbarToggle = () => {
     if (currentUser) {
       return (
         <>
-        <Link to="/basket">
-        <FontAwesomeIcon className="cart-btn" icon={faCartPlus} />
-        </Link>
-        <Link to="/create">
-          <Button className="post-btn" variant="success">Post Item</Button>
-        </Link>
+          <Link to="/messages">
+            <FontAwesomeIcon className="cart-btn" icon={faEnvelope} />
+          </Link>
+          <Link to="/basket">
+            <FontAwesomeIcon className="cart-btn" icon={faCartPlus} />
+          </Link>
+          <Link to="/create">
+            <Button className="post-btn" variant="success">
+              Post Item
+            </Button>
+          </Link>
         </>
       );
     }

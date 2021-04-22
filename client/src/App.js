@@ -15,6 +15,7 @@ import SingleItem from "./components/SingleItem/SingleItem";
 import NoMatch from "./components/NoMatch/NoMatch";
 import API from "./contexts/API";
 import Basket from "./components/Basket/Basket";
+import Messages from "./components/Messages/Messages";
 import { ItemsContext } from "./contexts/ItemsContext";
 
 function App() {
@@ -46,6 +47,9 @@ function App() {
           <Route path="/signup" component={Signup} />
           <Route path="/login">
             <Login />
+          </Route>
+          <Route path="/messages">
+            <Messages />
           </Route>
           <PrivateRoute path="/profile" component={ProfileDashboard} />
           <PrivateRoute path="/basket">

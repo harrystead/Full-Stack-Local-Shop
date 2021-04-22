@@ -112,7 +112,7 @@ export default function ShopItems({setRequest}) {
       <div className="col-sm-10">
         <div className="card-group">
           {filteredData.length > 0 ? (
-            filteredData.map((item) => (
+            filteredData.filter((items) => items.timesUp !== true).map((item) => (
               <div key={item._id} className="col-sm-3">
                 <Link to={"/" + item._id}>
                   <div className="card-home">
