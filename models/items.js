@@ -20,7 +20,13 @@ const itemSchema = new Schema({
       bidding: {type: String, default: ""},
       bidder: {type: String, default: ""}
     }
-  ]
+  ],
+  finalBid: [
+    {
+      bidding: {type: String, default: ""},
+      bidder: {type: String, default: ""}
+    }
+  ],
 });
 
 const Item = mongoose.model('Item', itemSchema);

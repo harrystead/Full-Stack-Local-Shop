@@ -2,7 +2,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import API from "../../contexts/API";
 
-export default function Timer({dateBid, id}) {
+export default function Timer({dateBid, finalBid, id }) {
   const [timerDays, setTimerDays] = useState("00");
   const [timerHours, setTimerHours] = useState("00");
   const [timerMinutes, setTimerMinutes] = useState("00");
@@ -12,7 +12,7 @@ export default function Timer({dateBid, id}) {
 
   const startTimer = () => {
     //set to whatever the user decides
-    const countDownDate = new Date(dateBid).getTime();
+    const countDownDate = new Date("Fri Apr 22 2021 18:32:31 GMT+0100 (British Summer Time)").getTime();
 
     interval = setInterval(() => {
       const now = new Date().getTime();
@@ -26,10 +26,10 @@ export default function Timer({dateBid, id}) {
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
       if (distance < 0) {
         clearInterval(interval);
-        console.log("delete request here")
-        API.updateTime(id)
+        console.log(finalBid)
+        API.updateTime(id, finalBid)
         .then((response) => {
-          console.log("updated item", response)
+          console.log("updated item", response);
         })
         .catch((error) => console.log(error));
       }

@@ -10,6 +10,7 @@ export default function SingleItem({ setRequest }) {
   const { id } = useParams();
   const { currentUser } = useAuth();
   const [bidData, setBidData] = useState("");
+  const [finalBid, setFinalBid] = useState("");
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
 
@@ -23,11 +24,10 @@ export default function SingleItem({ setRequest }) {
   const bidChange = (e) => {
     setBidData(e.target.value);
   };
-
   let arrayBids = [];
   const pushBids = singleItem[0].bid;
-  const sliceFiveBids = pushBids.slice(Math.max(pushBids.length - 5, 0))
-  sliceFiveBids.forEach((item) => arrayBids.push(parseInt(item.bidding)))
+  const sliceFiveBids = pushBids.slice(Math.max(pushBids.length - 5, 0));
+  sliceFiveBids.forEach((item) => arrayBids.push(parseInt(item.bidding)));
   const maximumBid = Math.max(...arrayBids);
 
   let currentdate = new Date();
@@ -52,11 +52,13 @@ export default function SingleItem({ setRequest }) {
     } else if (bidData <= maximumBid) {
       setError("Bid must be higher than the current bid.");
     } else {
-      API.updateItem(id, [{
-        bidding: bidData,
-        date: datetime,
-        bidder: currentUser.uid
-      }],)
+      API.updateItem(id, [
+        {
+          bidding: bidData,
+          date: datetime,
+          bidder: currentUser.uid,
+        },
+      ])
         .then(
           (response) => console.log(response.data),
           setRequest(`request successfully made for total of $${bidData}`),
@@ -92,12 +94,16 @@ export default function SingleItem({ setRequest }) {
                       <img src={item.selectedPic} />
                       <div className="five-bids">
                         <h5>Latest Five Bids</h5>
-                        {sliceFiveBids && sliceFiveBids.length > 0 ? sliceFiveBids.map((latestBids, index) => (
-                          <p key={latestBids.bid}>{index + 1}: ${latestBids.bid} -- {latestBids.date}</p>
-                        ))
-                        :
-                       <p>No bids made yet.</p>
-                      }
+                        {sliceFiveBids && sliceFiveBids.length > 0 ? (
+                          sliceFiveBids.map((latestBids, index) => (
+                            <p key={latestBids.bidding}>
+                              {index + 1}: ${latestBids.bidding} --{" "}
+                              {latestBids.date}
+                            </p>
+                          ))
+                        ) : (
+                          <p>No bids made yet.</p>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -105,7 +111,11 @@ export default function SingleItem({ setRequest }) {
                 <div className="details col-md-6">
                   <h3 className="product-title">{item.name}</h3>
                   <p className="product-description">{item.description}</p>
-                  <Timer dateBid={singleItem[0].endDate} id={id}/>
+                  <Timer
+                    dateBid={singleItem[0].endDate}
+                    finalBid={singleItem[0].bid[singleItem[0].bid.length - 1]}
+                    id={id}
+                  />
                   <div className="bidding-inputß">
                     <h4>Bid on This Item</h4>
                     <div>

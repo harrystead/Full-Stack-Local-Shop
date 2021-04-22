@@ -57,7 +57,7 @@ function App() {
           </PrivateRoute>
           <Route path="/forgot-password" component={ForgotPassword} />
           <Route path="/:id">
-            <SingleItem setRequest={setRequest}/>
+            <SingleItem setRequest={setRequest} />
           </Route>
           <Route path="*" component={NoMatch} />
         </Switch>

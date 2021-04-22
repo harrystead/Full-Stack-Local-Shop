@@ -16,8 +16,8 @@ export default {
   updateItem: function (id, bidData, bidder) {
     return axios.put(`/items/${id}`, bidData, bidder);
   },
-  updateTime: function (id) {
-    return axios.put(`/items/updateTime/${id}`);
+  updateTime: function (id, finalBid) {
+    return axios.put(`/items/updateTime/${id}`, finalBid);
   },
   getFinishedItem: function(id){
     return axios.get(`/items/listEnded/timesUp/${id}`);
