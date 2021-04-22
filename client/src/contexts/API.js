@@ -20,6 +20,6 @@ export default {
     return axios.put(`/items/updateTime/${id}`, finalBid);
   },
   getFinishedItem: function(id){
-    return axios.get(`/items/listEnded/timesUp/${id}`);
+    return axios.get(`/items/listEnded/time/${id}`);
   }
 };

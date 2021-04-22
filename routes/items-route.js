@@ -31,7 +31,7 @@ const upload = multer({
 // const upload = multer({dest: 'C:/Users/44794/Documents/full-stack-local-shop/client/src/uploads/',})
 
 router.route("/").get((req, res) => {
-  Item.find()
+  Item.find({timesUp: false})
     .then((items) => res.json(items))
     .catch((err) => res.status(400).json("Error: " + err));
 });
@@ -107,6 +107,12 @@ router.route("/updateTime/:id").put((req, res) => {
 
 router.route("/listEnded/time/:id").get((req, res) => {
   Item.find({'finalBid.bidder': req.params.id, timesUp: true})
+  .then((items) => res.json(items))
+  .catch((err) => res.status(400).json("Error: " + err));
+});
+
+router.route("/listEnded/sold/:id").get((req, res) => {
+  Item.find({'author': req.params.id, timesUp: true})
   .then((items) => res.json(items))
   .catch((err) => res.status(400).json("Error: " + err));
 });

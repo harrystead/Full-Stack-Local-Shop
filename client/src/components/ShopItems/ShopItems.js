@@ -12,6 +12,7 @@ export default function ShopItems({setRequest}) {
   const [quality, setQuality] = useState("");
   const [priceSlider, setPriceSlider] = useState([0, 500]);
   const propertyInfo = useContext(ItemsContext);
+  
   const filterCategory = (event) => {
     setCategory(event.target.value);
   };
@@ -112,7 +113,7 @@ export default function ShopItems({setRequest}) {
       <div className="col-sm-10">
         <div className="card-group">
           {filteredData.length > 0 ? (
-            filteredData.filter((items) => items.timesUp !== true).map((item) => (
+            filteredData.map((item) => (
               <div key={item._id} className="col-sm-3">
                 <Link to={"/" + item._id}>
                   <div className="card-home">

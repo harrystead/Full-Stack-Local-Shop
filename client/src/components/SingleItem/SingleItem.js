@@ -6,30 +6,31 @@ import API from "../../contexts/API";
 import Timer from "../Timer/Timer";
 import { useAuth } from "../../contexts/AuthContext";
 
-export default function SingleItem({ setRequest }) {
+export default function SingleItem({ setRequest, listData, setListData }) {
   const { id } = useParams();
   const { currentUser } = useAuth();
   const [bidData, setBidData] = useState("");
-  const [finalBid, setFinalBid] = useState("");
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
+  // const cardInfo = useContext(ItemsContext);
+  const singleItem = listData.filter((item) => item._id === id);
 
-  const cardInfo = useContext(ItemsContext);
-  const singleItem = cardInfo.filter((item) => item._id === id);
   const addBasket = () => {
     localStorage.setItem(singleItem[0]._id, JSON.stringify(singleItem));
     setSuccess(`Successfully added ${singleItem[0].name} to basket.`);
   };
 
+  console.log(singleItem[0].bid);
   const bidChange = (e) => {
     setBidData(e.target.value);
   };
+
   let arrayBids = [];
   const pushBids = singleItem[0].bid;
   const sliceFiveBids = pushBids.slice(Math.max(pushBids.length - 5, 0));
   sliceFiveBids.forEach((item) => arrayBids.push(parseInt(item.bidding)));
-  const maximumBid = Math.max(...arrayBids);
 
+  const maximumBid = Math.max(...arrayBids);
   let currentdate = new Date();
   let datetime =
     currentdate.getHours() +
@@ -66,7 +67,11 @@ export default function SingleItem({ setRequest }) {
             `Successfully made a bid of $${bidData} for ${singleItem[0].name}.`
           ),
           setError(""),
-          setBidData("")
+          setBidData(""),
+
+          API.getItems().then((response) => {
+            setListData(response.data);
+          })
         )
         .catch((error) => console.log(error));
     }

@@ -119,7 +119,7 @@ export default function CreateItem({setRequest}) {
         <Form.Control type="Input" ref={yearRef} required />
       </Form.Group>
       <Form.Group id="price">
-        <Form.Label>Price(£)</Form.Label>
+        <Form.Label>Starting Price(£)</Form.Label>
         <Form.Control type="Input" ref={priceRef} required />
       </Form.Group>
       <Form.Group controlId="exampleForm.ControlTextarea1">

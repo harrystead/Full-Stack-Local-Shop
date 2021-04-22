@@ -102,7 +102,7 @@ export default function ProfileDashboard() {
       <div className="card-group">
         {responseData &&
           responseData.map((item, index) => (
-            <div className="col-sm-3">
+            <div className="col-sm-3" key={item._id}>
               <div className="card">
                 <img
                   className="card-img-top"

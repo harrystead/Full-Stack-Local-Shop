@@ -12,7 +12,7 @@ export default function Signup() {
   const [success, setSuccess] = useState("")
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
-//   const history = useHistory()
+  // const history = useHistory();
 
   async function handleSubmit(e){
       e.preventDefault();
@@ -25,7 +25,7 @@ export default function Signup() {
         setError("")
         setLoading(true)
         await signup(emailRef.current.value, passwordRef.current.value)
-        setSuccess("Well done! Your account has been created. Now you can Login.")
+        setSuccess("Well done! Your account has been created.")
       } catch {
         setError("Failed to create an account")
       }
