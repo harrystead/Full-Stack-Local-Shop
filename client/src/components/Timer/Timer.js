@@ -12,7 +12,8 @@ export default function Timer({dateBid, finalBid, id }) {
 
   const startTimer = () => {
     //set to whatever the user decides
-    const countDownDate = new Date(dateBid).getTime();
+    //"Mon Apr 26 2021 19:31:04 GMT+0100 (British Summer Time)"
+    const countDownDate = new Date("Mon Apr 23 2021 09:34:04 GMT+0100 (British Summer Time)").getTime();
 
     interval = setInterval(() => {
       const now = new Date().getTime();

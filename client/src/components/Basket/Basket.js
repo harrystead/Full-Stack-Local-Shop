@@ -11,6 +11,7 @@ export default function Basket() {
       try {
         const objectItems = JSON.parse(json_str);
         arrayItems.push(objectItems[0]);
+        console.log(arrayItems)
         setShoppingItems(arrayItems)
       } catch (error) {
         console.log(error);

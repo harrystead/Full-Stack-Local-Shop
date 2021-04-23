@@ -20,6 +20,14 @@ export default function Messages({}) {
       });
 
     //items that have been sold by the current user.
+    API.getSoldItem(id)
+    .then((response) => {
+      console.log(response.data);
+      setSoldItems(response.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   }, []);
 
   return (

@@ -31,7 +31,7 @@ const upload = multer({
 // const upload = multer({dest: 'C:/Users/44794/Documents/full-stack-local-shop/client/src/uploads/',})
 
 router.route("/").get((req, res) => {
-  Item.find({timesUp: false})
+  Item.find({timesUp: true})
     .then((items) => res.json(items))
     .catch((err) => res.status(400).json("Error: " + err));
 });

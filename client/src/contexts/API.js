@@ -21,5 +21,8 @@ export default {
   },
   getFinishedItem: function(id){
     return axios.get(`/items/listEnded/time/${id}`);
+  },
+  getSoldItem: function(id){
+    return axios.get(`/items/listEnded/sold/${id}`);
   }
 };

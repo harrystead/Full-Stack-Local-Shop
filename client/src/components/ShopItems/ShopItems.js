@@ -7,7 +7,7 @@ import "rc-slider/assets/index.css";
 const { createSliderWithTooltip } = Slider;
 const Range = createSliderWithTooltip(Slider.Range);
 
-export default function ShopItems({setRequest}) {
+export default function ShopItems({ setRequest }) {
   const [category, setCategory] = useState("");
   const [quality, setQuality] = useState("");
   const [searchVal, setSearchVal] = useState("");
@@ -35,7 +35,7 @@ export default function ShopItems({setRequest}) {
     quality &&
     priceSlider &&
     quality !== "View All" &&
-    category !== "View All" && 
+    category !== "View All" &&
     searchVal;
   let filteredData = propertyInfo
     .map((info) => info)
@@ -50,11 +50,9 @@ export default function ShopItems({setRequest}) {
         );
       } else if (catCondition) {
         return item.category === category;
-      } 
-      else if (searchVal){
+      } else if (searchVal) {
         return item.name.toLowerCase().includes(searchVal.toLowerCase());
-      }
-      else if (qualCondition) {
+      } else if (qualCondition) {
         return item.quality === quality;
       } else if (priceSlider) {
         return item.price > priceSlider[0] && item.price < priceSlider[1];
@@ -64,11 +62,16 @@ export default function ShopItems({setRequest}) {
 
   return (
     <div className="row">
-      <div className="col-sm-2">
-        <h4>Filters</h4>
+      <div className="col-sm-3 sidebar-filters">
+        <h5>{filteredData.length} Products</h5>
+        <hr></hr>
         <div>
           <h6>Search</h6>
-          <Form.Control type="Input" value={searchVal} onChange={onChangeSearch}/>
+          <Form.Control
+            type="Input"
+            value={searchVal}
+            onChange={onChangeSearch}
+          />
         </div>
         <div className="category-filter">
           <h6>Filter by Category</h6>
@@ -89,7 +92,7 @@ export default function ShopItems({setRequest}) {
           </Form.Control>
         </div>
         <div className="quality-filter">
-        <h6>Filter by Quality</h6>
+          <h6>Filter by Quality</h6>
           <Form.Control
             className="form-options"
             onChange={filterQuality}
@@ -127,12 +130,13 @@ export default function ShopItems({setRequest}) {
           <h4>Latest Item</h4>
         </div>
       </div>
-      <div className="col-sm-10">
+      <div className="col-sm-8">
+        <h2>Shop Items</h2>
         <div className="card-group">
           {filteredData.length > 0 ? (
             filteredData.map((item) => (
-              <div key={item._id} className="col-sm-3">
-                <Link to={"/" + item._id}>
+              <div key={item._id} className="col-sm-4 content">
+                <Link to={"/" + item._id} className="link-single" style={{ textDecoration: 'none' }}>
                   <div className="card-home">
                     <img
                       className="card-img-top"
@@ -141,24 +145,15 @@ export default function ShopItems({setRequest}) {
                     />
                     <div className="card-body">
                       <h5 className="card-title">{item.name}</h5>
-                      <p className="card-text">
-                        <small className="text-muted">
-                          Contact: {item.contact} for more info
-                        </small>
-                      </p>
-                      <p className="card-text-three">
+                      <p className="card-text-three"><small>
                         {item.category +
                           " | " +
                           item.date +
                           " | " +
                           item.quality}
+                          </small>
                       </p>
                       <p className="card-text-price">{"£" + item.price}</p>
-                      <p className="card-text">
-                        <small className="text-muted">
-                          {/* Date Posted: {item.createdAt.slice(0, 10)} */}
-                        </small>
-                      </p>
                     </div>
                   </div>
                 </Link>
@@ -169,6 +164,7 @@ export default function ShopItems({setRequest}) {
           )}
         </div>
       </div>
+
     </div>
   );
 }
