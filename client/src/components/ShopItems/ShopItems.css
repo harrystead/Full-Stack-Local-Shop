@@ -5,6 +5,20 @@
     margin-top: 2%;
 }
 
+.category-filter,
+.quality-filter {
+    margin-top: 3%;
+}
+
+.price-filter {
+    margin-top: 10%;
+}
+
+.price-heading {
+    text-align: center;
+    margin-bottom: 6%;
+}
+
 .content {
   width: 40%;
   margin: 15px;
@@ -28,6 +42,11 @@
   margin: 0 auto;
   display: block;
   border-radius: 5px;
+}
+
+.shop-items-heading {
+    text-align: center;
+    margin: 1%;
 }
 
 @media (max-width: 1000px) {

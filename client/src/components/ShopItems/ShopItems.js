@@ -37,7 +37,7 @@ export default function ShopItems({ setRequest }) {
     quality !== "View All" &&
     category !== "View All" &&
     searchVal;
-  let filteredData = propertyInfo
+  let filteredData = propertyInfo.reverse()
     .map((info) => info)
     .filter((item) => {
       if (allConditions) {
@@ -62,7 +62,7 @@ export default function ShopItems({ setRequest }) {
 
   return (
     <div className="row">
-      <div className="col-sm-3 sidebar-filters">
+      <div className="col-sm-2 sidebar-filters">
         <h5>{filteredData.length} Products</h5>
         <hr></hr>
         <div>
@@ -74,7 +74,7 @@ export default function ShopItems({ setRequest }) {
           />
         </div>
         <div className="category-filter">
-          <h6>Filter by Category</h6>
+          <h6>Category</h6>
           <Form.Control
             className="form-options"
             onChange={filterCategory}
@@ -92,7 +92,7 @@ export default function ShopItems({ setRequest }) {
           </Form.Control>
         </div>
         <div className="quality-filter">
-          <h6>Filter by Quality</h6>
+          <h6>Quality</h6>
           <Form.Control
             className="form-options"
             onChange={filterQuality}
@@ -106,19 +106,17 @@ export default function ShopItems({ setRequest }) {
           </Form.Control>
         </div>
         <div className="price-filter">
-          <h4>Price</h4>
-          <div>
-            <p>Price Range</p>
-          </div>
+            <h6 className="price-heading">Price Range</h6>
           <Range
             marks={{
-              100: `$100`,
+              0: '0',
               500: `$500`,
+              1000: '$1000'
             }}
             min={0}
-            max={500}
-            defaultValue={[0, 500]}
-            tipFormatter={(value) => `$ ${value}`}
+            max={1000}
+            defaultValue={[0, 1000]}
+            tipFormatter={(value) => `$${value}`}
             tipProps={{
               placement: "top",
               visible: true,
@@ -127,11 +125,11 @@ export default function ShopItems({ setRequest }) {
           />
         </div>
         <div>
-          <h4>Latest Item</h4>
+          {/* <h4>Latest Item</h4> */}
         </div>
       </div>
-      <div className="col-sm-8">
-        <h2>Shop Items</h2>
+      <div className="col-sm-9">
+        <h2 className="shop-items-heading">Shop Items</h2>
         <div className="card-group">
           {filteredData.length > 0 ? (
             filteredData.map((item) => (
