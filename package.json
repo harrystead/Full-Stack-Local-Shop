@@ -43,6 +43,7 @@
     "react-date-countdown-timer": "^1.0.9",
     "react-datepicker": "^3.8.0",
     "react-timer-hook": "^3.0.2",
+    "reactstrap": "^8.9.0",
     "session": "^0.1.0",
     "validator": "^13.5.2"
   }

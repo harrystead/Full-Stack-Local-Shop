@@ -61,8 +61,8 @@ export default function ShopItems({ setRequest }) {
     });
 
   return (
-    <div className="row">
-      <div className="col-sm-2 sidebar-filters">
+    <div className="grid-container">
+      <div className="sidebar-filters">
         <h5>{filteredData.length} Products</h5>
         <hr></hr>
         <div>
@@ -124,16 +124,13 @@ export default function ShopItems({ setRequest }) {
             onChange={onChangeRange}
           />
         </div>
-        <div>
-          {/* <h4>Latest Item</h4> */}
-        </div>
       </div>
-      <div className="col-sm-9">
-        <h2 className="shop-items-heading">Shop Items</h2>
+      <div className="shop-items">
+        <h2 className="shop-items-heading">Latest Items</h2>
         <div className="card-group">
           {filteredData.length > 0 ? (
             filteredData.map((item) => (
-              <div key={item._id} className="col-sm-4 content">
+              <div key={item._id} className="col-sm-3 content">
                 <Link to={"/" + item._id} className="link-single" style={{ textDecoration: 'none' }}>
                   <div className="card-home">
                     <img
@@ -158,11 +155,10 @@ export default function ShopItems({ setRequest }) {
               </div>
             ))
           ) : (
-            <h3>No products available</h3>
+            <h3 className="no-products-handler">No products available</h3>
           )}
         </div>
       </div>
-
     </div>
   );
 }

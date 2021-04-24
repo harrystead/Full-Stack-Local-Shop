@@ -48,6 +48,10 @@ export default function SingleItem({ setRequest, listData, setListData }) {
 
   const bidClick = (e) => {
     e.preventDefault();
+    if(!currentUser){
+      setError("You must be logged in to bid on items.")
+    }
+    else{
     if (bidData < singleItem[0].price) {
       setError("Bid must be higher than or equal to starting price.");
     } else if (bidData <= maximumBid) {
@@ -75,6 +79,7 @@ export default function SingleItem({ setRequest, listData, setListData }) {
         )
         .catch((error) => console.log(error));
     }
+  }
   };
 
   useEffect(() => {

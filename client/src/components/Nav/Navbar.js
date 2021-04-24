@@ -1,8 +1,20 @@
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
-import { Navbar, Nav, Button } from "react-bootstrap";
+import {
+  Navbar,
+  Nav,
+  Button,
+  NavDropdown,
+  Form,
+  FormControl,
+} from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCartPlus, faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCartPlus,
+  faEnvelope,
+  faPlusSquare,
+} from "@fortawesome/free-solid-svg-icons";
 
 const NavbarToggle = () => {
   const { currentUser } = useAuth();
@@ -18,9 +30,7 @@ const NavbarToggle = () => {
             <FontAwesomeIcon className="cart-btn" icon={faCartPlus} />
           </Link>
           <Link to="/create">
-            <Button className="post-btn" variant="success">
-              Post Item
-            </Button>
+            <FontAwesomeIcon className="cart-btn" icon={faPlusSquare} />
           </Link>
         </>
       );
@@ -38,18 +48,16 @@ const NavbarToggle = () => {
   };
 
   return (
-    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-      <Navbar.Brand href="/">LocalThrift</Navbar.Brand>
-      <Navbar />
-      <Nav className="mr-auto">
-        <Link to="/" className="nav-link">
-          Home
-        </Link>
-        <Link to="/profile" className="nav-link">
-          Profile
-        </Link>
-      </Nav>
-      <Nav>{navCondition()}</Nav>
+    <Navbar bg="dark" variant="dark" expand="lg">
+      <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Navbar.Collapse id="basic-navbar-nav">
+        <Nav className="mr-auto">
+          <Nav.Link href="/">Home</Nav.Link>
+          <Nav.Link href="/profile">Profile</Nav.Link>
+        </Nav>
+        <Nav className="mr-auto condition-nav">{navCondition()}</Nav>
+      </Navbar.Collapse>
     </Navbar>
   );
 };

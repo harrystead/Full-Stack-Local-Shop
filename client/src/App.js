@@ -25,6 +25,7 @@ function App() {
   useEffect(() => {
     API.getItems()
       .then((response) => {
+        console.log(response.data)
         setListData(response.data);
       })
       .catch((error) => {

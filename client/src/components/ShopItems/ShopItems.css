@@ -1,4 +1,16 @@
+.grid-container {
+  display: grid;
+  grid-template-columns: 0.75fr 1fr 1fr 1fr;
+  grid-template-rows: 0.75fr 1fr 1fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    "sidebar-filters shop-items shop-items shop-items"
+    "sidebar-filters shop-items shop-items shop-items"
+    ". . . .";
+}
 
+.siderbar-filters { grid-area: sidebar-filter; }
+.shop-items { grid-area: shop-items; }
 
 .sidebar-filters {
     margin-left: 2%;
@@ -47,6 +59,10 @@
 .shop-items-heading {
     text-align: center;
     margin: 1%;
+}
+
+.no-products-handler {
+    text-align: center;
 }
 
 @media (max-width: 1000px) {
