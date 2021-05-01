@@ -1,6 +1,6 @@
 A full-stack MERN application (Mongodb, Express, React, Node), which allows user to post items they want to sell and browse other users items.
 
-### Live Site: https://safe-harbor-69169.herokuapp.com/
+### Live Site: https://floating-hollows-10972.herokuapp.com/
 
 ### Homepage showcases all items made by all users
 ![image](https://user-images.githubusercontent.com/69797257/110102198-62bf3380-7d9c-11eb-8518-812cba3fe06f.png)
